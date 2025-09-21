@@ -1,9 +1,10 @@
 <% layout('layout/boilerplate.ejs') %>
+
 <body class="bg-light d-flex align-items-center justify-content-center vh-100">
   <div class="container text-center">
     <div class="alert alert-danger" role="alert">
       <h1 class="alert-heading">Something went wrong 😕</h1>
-      <p><%= error.message || "An unexpected error occurred while analyzing environmental impact." %></p>
+      <p><%= err.message || "An unexpected error occurred while analyzing environmental impact." %></p>
       <hr>
       <p class="mb-0">
         <a href="/" class="btn btn-primary">Go back to homepage</a>
