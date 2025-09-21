@@ -8,6 +8,9 @@ const path = require('path')
 
 const ejsMate = require('ejs-mate');
 
+const session = require('express-session');
+const flash = require('connect-flash');
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended : true}));
@@ -16,11 +19,36 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
+const sessionConfig = {
+    secret : process.env.SECRET,
+    resave : false,
+    saveUninitialized : true,
+    Cookie : {
+        httpOnly: true,
+        expires : Date.now() + 1000 * 60 * 60 * 24 * 7, 
+        maxAge: 1000 * 60 * 60 * 24 * 7 
+    }
+}
+
+app.use(session(sessionConfig));
+app.use(flash());
+
 
 const ExpressError = require('./utils/expressError');
 
 
+app.use((req, res, next)=>{
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    res.locals.info = req.flash('info');
+    res.locals.warning = req.flash('warning')
+    next();
+});
+
+
 app.get('/', (req, res)=>{
+    req.flash('success', 'The Homepage')
     res.render('home')
 })
 
