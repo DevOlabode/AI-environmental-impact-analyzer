@@ -9,4 +9,6 @@ router.get('/register', authController.registerForm);
 
 router.post('/register', catchAsync(authController.register));
 
+router.get('/login', authController.loginForm)
+
 module.exports = router;

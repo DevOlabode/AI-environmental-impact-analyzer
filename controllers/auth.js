@@ -17,3 +17,7 @@ module.exports.register = async(req, res)=>{
     req.flash('success', 'Welcome The AI Environmental Impact AnaLyser');
     res.redirect('/')
 };
+
+module.exports.loginForm = (req, res)=>{
+    res.render('auth/login')
+}
