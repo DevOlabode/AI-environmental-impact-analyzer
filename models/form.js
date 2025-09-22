@@ -45,7 +45,7 @@ const productSchema =Schema({
 },
   weight: { 
     type: Number 
-}, // grams or kg
+},
   originCountry: { 
     type: String 
 },
