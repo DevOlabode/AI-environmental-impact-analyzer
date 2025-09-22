@@ -4,8 +4,9 @@ const router = express.Router();
 const { loginAuthenticate } = require('../middleware')
 
 const User = require('../models/user');
+
 const catchAsync = require('../utils/catchAsync');
-const authController = require('../controllers/auth')
+const authController = require('../controllers/auth');
 
 router.get('/register', authController.registerForm);
 
