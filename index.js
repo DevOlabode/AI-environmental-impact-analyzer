@@ -4,6 +4,8 @@ dotenv.config();
 const express = require('express');
 const app = express();
 
+const mongoose = require('mongoose');
+
 const path = require('path')
 
 const ejsMate = require('ejs-mate');
@@ -19,6 +21,13 @@ const authRoutes = require('./routes/auth');
 const ExpressError = require('./utils/expressError');
 
 const User = require('./models/user');
+
+mongoose.connect('mongodb://127.0.0.1:27017/environmental-analyser')
+    .then(() => {
+        console.log("Mongo Connection Open")   
+    }).catch((err) => {
+        console.log("Error", err)
+    });
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

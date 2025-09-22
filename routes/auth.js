@@ -5,6 +5,8 @@ const User = require('../models/user');
 const catchAsync = require('../utils/catchAsync');
 const authController = require('../controllers/auth')
 
-router.get('/register', authController.registerForm)
+router.get('/register', authController.registerForm);
+
+router.post('/register', catchAsync(authController.register));
 
 module.exports = router;
