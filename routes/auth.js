@@ -13,5 +13,8 @@ router.post('/register', catchAsync(authController.register));
 
 router.get('/login', authController.loginForm);
 
-router.post('/login', loginAuthenticate, authController.login)
+router.post('/login', loginAuthenticate, authController.login);
+
+router.get('/logout', catchAsync(authController.logout));
+
 module.exports = router;
