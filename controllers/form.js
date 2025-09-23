@@ -30,10 +30,28 @@ module.exports.allProducts = async(req, res)=>{
 
 module.exports.showProducts = async (req, res) => {
     const product = await Form.findById(req.params.id);
-    res.render('form/show', {product})
+    res.render('form/show', { product })
 }
 
 module.exports.editInputForm = async(req, res)=>{
     const product = await Form.findById(req.params.id);
     res.render('form/edit', { product })
+};
+
+module.exports.editInput = async(req, res)=>{
+    const product = await Form.findById(req.params.id);
+    
+    if(product) return req.flash('error', 'Product Not Found!');
+
+    const impactAnalysis = analyseImpact(req.body);
+
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.id,
+        req.body, 
+        impactAnalysis,
+    {
+      runValidators: true,
+      new: true,
+    });
+
+    res.redirect(`/form/show-products/${updatedProduct._id}`)
 };
