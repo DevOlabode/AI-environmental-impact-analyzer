@@ -24,7 +24,8 @@ module.exports.loginForm = (req, res)=>{
 
 module.exports.login = (req, res)=>{
     req.flash('success', 'Welcome Back To The Environmental Impact Analyzer');
-    res.redirect('/')
+    const redirectUrl = res.locals.returnTo || '/'
+    res.redirect(redirectUrl);
 };
 
 module.exports.logout = async(req, res)=>{

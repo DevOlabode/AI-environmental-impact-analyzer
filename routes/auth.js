@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { loginAuthenticate } = require('../middleware')
+const { loginAuthenticate, storeReturnTo } = require('../middleware')
 
 const User = require('../models/user');
 
@@ -14,7 +14,7 @@ router.post('/register', catchAsync(authController.register));
 
 router.get('/login', authController.loginForm);
 
-router.post('/login', loginAuthenticate, authController.login);
+router.post('/login', storeReturnTo, loginAuthenticate, authController.login);
 
 router.get('/logout', catchAsync(authController.logout));
 

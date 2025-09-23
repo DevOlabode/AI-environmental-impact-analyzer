@@ -1,0 +1,24 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<h3 class="text-primary m-3">Form</h3>
+<div class="container">
+    <form action="/form/get-analysis" method="post" class=" row g-3 needs-validation" novalidate>
+
+        <label for="product-name" class="form label text-primary">Name</label>
+        <input type="text" name="name" id="product-name" class="form-control" placeholder="Product Name">
+
+        <label for="product-category" class="form label text-primary">Category</label>
+        <input type="text" name="category" id="product-category" class="form-control" placeholder="Category like Food, Soap, fruit etc">
+
+        <label for="product-brand" class="form label text-primary">Category</label>
+        <input type="text" name="brand" id="product-brand" class="form-control" placeholder="Product Brand">
+
+        <label for="product-material" class="form label text-primary">Material</label>
+        <input type="text" name="material" id="product-material" class="form-control" placeholder="Material like plastic, glass, cardboard etc">
+
+        <label for="product-weight" class="form label text-primary">Weight</label>
+        <input type="number" name="weight" id="product-weight" class="form-control" placeholder="Product Weight">
+
+        <button class="btn btn-primary">Get Environmental Analysis</button>
+    </form>
+</div>

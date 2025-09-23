@@ -22,3 +22,13 @@ module.exports.input = async(req, res)=>{
 
     res.render('form/show', { product })
 }
+
+module.exports.allProducts = async(req, res)=>{
+    const products = await Form.find();
+    res.render('form/index')
+}
+
+module.exports.editInputForm = async(req, res)=>{
+    const product = await Form.findById(req.params.id);
+    res.render('form/edit', { product })
+};
