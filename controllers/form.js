@@ -9,10 +9,10 @@ module.exports.userInput = (req, res)=>{
 module.exports.input = async(req, res)=>{
     const formData = req.body;
     const impactAnalysis = await analyseImpact(formData);
-    console.log(impactAnalysis)
+
     const product = new Form({
         ...req.body,
-        owner : req.user._id ? req.user : null,
+        owner : req.user ? req.user._id : null,
         impactAnalysis
     });
 
