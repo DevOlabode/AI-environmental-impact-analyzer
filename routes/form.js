@@ -7,6 +7,6 @@ const formController = require('../controllers/form');
 
 router.get('/', formController.userInput);
 
-router.post('/get-analysis', formController.input);
+router.post('/get-analysis', catchAsync(formController.input));
 
 module.exports = router;

@@ -5,5 +5,6 @@ module.exports.userInput = (req, res)=>{
 };
 
 module.exports.input = async(req, res)=>{
-    res.send(req.body)
+    const userInfo = req.body;
+    const product = new Form(req.body);
 }
