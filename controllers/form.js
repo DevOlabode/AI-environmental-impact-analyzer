@@ -41,17 +41,35 @@ module.exports.editInputForm = async(req, res)=>{
 module.exports.editInput = async(req, res)=>{
     const product = await Form.findById(req.params.id);
 
-    if(product) return req.flash('error', 'Product Not Found!');
+    if(!product) {
+        req.flash('error', 'Product Not Found!');
+        return res.redirect('/form/all-products');
+    }
 
-    const impactAnalysis = analyseImpact(req.body);
+    // Check if user owns the product
+    if(product.owner && product.owner.toString() !== req.user._id.toString()) {
+        req.flash('error', 'You do not have permission to edit this product');
+        return res.redirect('/form/all-products');
+    }
 
-    const updatedProduct = await Form.findByIdAndUpdate(req.params.id,
-        req.body, 
-        impactAnalysis,
-    {
-      runValidators: true,
-      new: true,
-    });
+    try {
+        const impactAnalysis = await analyseImpact(req.body);
 
-    res.redirect(`/form/show-products/${updatedProduct._id}`)
+        const updatedProduct = await Form.findByIdAndUpdate(req.params.id,
+            {
+                ...req.body,
+                impactAnalysis
+            },
+            {
+                runValidators: true,
+                new: true,
+            }
+        );
+
+        req.flash('success', 'Product updated successfully');
+        res.redirect(`/form/show-products/${updatedProduct._id}`);
+    } catch (error) {
+        req.flash('error', 'Error updating product: ' + error.message);
+        res.redirect(`/form/edit/${req.params.id}`);
+    }
 };
