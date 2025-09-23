@@ -9,16 +9,16 @@ module.exports.userInput = (req, res)=>{
 module.exports.input = async(req, res)=>{
     const formData = req.body;
     const impactAnalysis = await analyseImpact(formData);
-
+    console.log(impactAnalysis)
     const product = new Form({
-        ...formData,
-        owner : req.user._id ? req.user._id : null,
+        ...req.body,
+        owner : req.user._id ? req.user : null,
         impactAnalysis
-    })
+    });
 
     if(req.user){
         await product.save()
     }
 
-    res.render('show', { product })
+    res.render('form/show', { product })
 }
