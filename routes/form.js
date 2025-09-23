@@ -13,7 +13,7 @@ router.post('/get-analysis', catchAsync(formController.input));
 
 router.get('/all-products', isLoggedIn, catchAsync(formController.allProducts));
 
-router.get('/show-products', isLoggedIn, catchAsync(formController.showProducts))
+router.get('/show-products/:id', isLoggedIn, catchAsync(formController.showProducts))
 
 router.get('/edit-input/:id', isLoggedIn, catchAsync(formController.editInputForm));
 

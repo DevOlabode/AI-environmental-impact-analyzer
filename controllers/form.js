@@ -30,7 +30,7 @@ module.exports.allProducts = async(req, res)=>{
 
 module.exports.showProducts = async (req, res) => {
     const product = await Form.findById(req.params.id);
-    res.render('form/show', product)
+    res.render('form/show', {product})
 }
 
 module.exports.editInputForm = async(req, res)=>{

@@ -2,6 +2,6 @@
 
 <div class="container">
     <% for(let product of products){ %>
-        <li class="text-primary"><a href="/form/show-products"> <%= product.name %> </a></li>
+        <li class="text-primary"><a href="/form/show-products/<%= product._id %>"> <%= product.name %> </a></li>
     <% } %>
 </div>
