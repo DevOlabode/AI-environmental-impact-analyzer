@@ -2,7 +2,7 @@
 
 <h3 class="text-primary m-3">Form</h3>
 <div class="container">
-    <form action="/form/edit-input/<%= product._id %>" method="post" class=" row g-3 needs-validation" novalidate>
+    <form action="/form/edit-products/<%= product._id %>" method="post" class=" row g-3 needs-validation" novalidate>
 
         <label for="product-name" class="form label text-primary">Name</label>
         <input type="text" value="<%= product.name %>" name="name" id="product-name" class="form-control" placeholder="Product Name">

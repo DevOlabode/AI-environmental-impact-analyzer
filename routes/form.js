@@ -15,8 +15,8 @@ router.get('/all-products', isLoggedIn, catchAsync(formController.allProducts));
 
 router.get('/show-products/:id', isLoggedIn, catchAsync(formController.showProducts));
 
-router.get('/edit-input/:id', isLoggedIn, catchAsync(formController.editInputForm));
+router.get('/edit/:id', isLoggedIn, catchAsync(formController.editInputForm));
 
-router.post('/edit-input/:id', isLoggedIn, catchAsync(formController.editInput));
+router.post('/edit-products/:id', isLoggedIn, catchAsync(formController.editInput));
 
 module.exports = router;

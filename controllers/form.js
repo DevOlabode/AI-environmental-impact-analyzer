@@ -40,12 +40,12 @@ module.exports.editInputForm = async(req, res)=>{
 
 module.exports.editInput = async(req, res)=>{
     const product = await Form.findById(req.params.id);
-    
+
     if(product) return req.flash('error', 'Product Not Found!');
 
     const impactAnalysis = analyseImpact(req.body);
 
-    const updatedProduct = await Product.findByIdAndUpdate(req.params.id,
+    const updatedProduct = await Form.findByIdAndUpdate(req.params.id,
         req.body, 
         impactAnalysis,
     {
