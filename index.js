@@ -76,7 +76,7 @@ app.use((req, res, next)=>{
 
 app.use('/', authRoutes);
 app.use('/form', formRoutes);
-app.use('/form', receiptRoutes);
+app.use('/', receiptRoutes);
 
 
 app.get('/', (req, res)=>{

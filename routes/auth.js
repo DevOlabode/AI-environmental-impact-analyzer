@@ -3,8 +3,6 @@ const router = express.Router();
 
 const { loginAuthenticate, storeReturnTo } = require('../middleware')
 
-const User = require('../models/user');
-
 const catchAsync = require('../utils/catchAsync');
 const authController = require('../controllers/auth');
 
