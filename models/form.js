@@ -55,7 +55,6 @@ const productSchema =Schema({
      required: false 
     },
 
-  // AI-generated environmental analysis
   impactAnalysis: impactSchema,
 
   // Metadata

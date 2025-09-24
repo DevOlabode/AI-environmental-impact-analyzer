@@ -78,7 +78,6 @@ app.use('/form', formRoutes);
 
 
 app.get('/', (req, res)=>{
-    req.flash('success', 'The Homepage')
     res.render('home')
 })
 

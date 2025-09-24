@@ -42,10 +42,12 @@
 </section>
 
 <!-- Call to Action Section -->
-<section style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); color: white; padding: 60px 0; text-align: center;">
-    <div class="container">
-        <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to Make a Difference?</h2>
-        <p style="font-size: 1.2rem; margin-bottom: 30px;">Start analyzing your products today and contribute to a greener planet.</p>
-        <a href="/register" class="btn btn-light" style="padding: 15px 30px; border-radius: 50px; font-weight: 600; text-decoration: none;">Sign Up Now</a>
-    </div>
-</section>
+<% if(!currentUser){ %>
+    <section style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); color: white; padding: 60px 0; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to Make a Difference?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Start analyzing your products today and contribute to a greener planet.</p>
+            <a href="/register" class="btn btn-light" style="padding: 15px 30px; border-radius: 50px; font-weight: 600; text-decoration: none;">Sign Up Now</a>
+        </div>
+    </section>
+    <% } %>
