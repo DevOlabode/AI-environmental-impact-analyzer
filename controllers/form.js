@@ -10,7 +10,7 @@ module.exports.input = async(req, res)=>{
     const formData = req.body;
     const impactAnalysis = await analyseImpact(
     formData.name,
-    formData.brand,      // make sure your form has a brand field
+    formData.brand, 
     formData.category,
     formData.material,
     formData.weight,
