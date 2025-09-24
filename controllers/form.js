@@ -73,3 +73,12 @@ module.exports.editInput = async(req, res)=>{
         res.redirect(`/form/edit/${req.params.id}`);
     }
 };
+
+module.exports.deleteProduct = async(req, res)=>{
+    const {id} = req.params;
+
+    const product = await Form.findByIdAndDelete(id);
+    if(!product) return res.flash('error', 'Product Not Found');
+
+    res.redirect('/form/all-products')
+}
