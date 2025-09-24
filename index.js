@@ -26,6 +26,9 @@ const ExpressError = require('./utils/expressError');
 
 const User = require('./models/user');
 
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
 mongoose.connect('mongodb://127.0.0.1:27017/environmental-analyser')
     .then(() => {
         console.log("Mongo Connection Open")   

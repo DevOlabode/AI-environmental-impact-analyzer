@@ -1,7 +1,7 @@
-const product = require('../models/product');
+const Product = require('../models/product');
 
 module.exports.getReciept = (req, res)=>{
-    Router.get('reciept/getReciept')
+    res.render('reciept/getReciept')
 };
 
 module.exports.uploadReciept = async(req, res)=>{
@@ -17,7 +17,7 @@ module.exports.uploadReciept = async(req, res)=>{
     require('fs').writeFileSync(filename, buffer);
 
     // Save path to MongoDB
-    const product = new Form({
+    const product = new Product({
       ...req.body,        // your other form data
       owner: req.user ? req.user._id : null,
       receipt: filename
