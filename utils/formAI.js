@@ -43,7 +43,7 @@ Here are the product details:
 - Brand: ${brand}
 - Category: ${category}
 - Material: ${material}
-- Weight: ${weight} grams
+- Weight: ${weight} kg
 - Origin Country: ${originCountry}
 
 Return your analysis strictly in **valid JSON format** with the following structure:
@@ -70,7 +70,7 @@ Guidelines:
     const response = await groq.chat.completions.create({
       model: "openai/gpt-oss-20b", 
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.3,
+      temperature: 0.7,
     });
 
       const rawText = response.choices[0].message.content.trim();
