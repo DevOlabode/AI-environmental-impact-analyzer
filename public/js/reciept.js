@@ -21,10 +21,25 @@ snap.addEventListener('click', () => {
   const dataUrl = canvas.toDataURL('image/png');
   preview.src = dataUrl;
 
-  // Optional: send to server
-  fetch('/form/upload-receipt', {
+  // Send to server
+  fetch('/upload-reciept', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ image: dataUrl })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert('Receipt processed! ' + (data.message || 'Products analyzed and saved.'));
+      if (data.products && data.products.length > 0) {
+        alert(`Created ${data.products.length} product(s). Check your products list.`);
+      }
+    } else {
+      alert('Upload failed: ' + data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('An error occurred during upload.');
   });
 });

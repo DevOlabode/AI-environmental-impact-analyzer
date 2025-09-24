@@ -1,46 +1,6 @@
 // analyseImpact.js
 const Groq = require("groq-sdk");
 
-// Simple baseline estimator for CO₂ & water usage per material
-// function estimateImpact(materials, weightGrams) {
-//   const weightKg = weightGrams / 1000; // normalize to kg
-
-//   let carbonPerKg = 0;
-//   let waterPerKg = 0;
-
-//   const mat = materials;
-
-//   if (mat.includes("plastic") || mat.includes("synthetic")) {
-//     carbonPerKg += 2.5;
-//     waterPerKg += 40;
-//   }
-//   if (mat.includes("metal")) {
-//     carbonPerKg += 8;
-//     waterPerKg += 100;
-//   }
-//   if (mat.includes("glass")) {
-//     carbonPerKg += 1.5;
-//     waterPerKg += 20;
-//   }
-//   if (mat.includes("rubber")) {
-//     carbonPerKg += 3;
-//     waterPerKg += 60;
-//   }
-//   if (mat.includes("cotton") || mat.includes("fabric")) {
-//     carbonPerKg += 2;
-//     waterPerKg += 150;
-//   }
-
-//   // Defaults if no material matched
-//   if (carbonPerKg === 0) carbonPerKg = 2;
-//   if (waterPerKg === 0) waterPerKg = 50;
-
-//   const carbonFootprint = +(carbonPerKg * weightKg).toFixed(2);
-//   const waterUsage = +(waterPerKg * weightKg).toFixed(2);
-
-//   return { carbonFootprint, waterUsage };
-// }
-
 function estimateImpact(materials, weightGrams) {
   const weightKg = weightGrams / 1000; // normalize to kg
 
@@ -171,4 +131,76 @@ Rules:
   }
 };
 
-module.exports = { analyseImpact };
+const analyseReceipt = async (imageBase64) => {
+  const groq = new Groq({
+    apiKey: process.env.GROQ_KEY,
+  });
+
+  const prompt = `
+You are an AI that extracts product information from receipt images.
+
+Analyze the provided image of a receipt and extract the following details for the main product(s) listed:
+- Name: Product name
+- Brand: Brand name if available
+- Category: Product category (e.g., electronics, clothing, food)
+- Material: Main material (e.g., plastic, metal, cotton)
+- Weight: Estimated weight in grams (if not specified, estimate based on category)
+- Origin Country: Country of origin if mentioned
+
+Return strictly in valid JSON format:
+
+{
+  "products": [
+    {
+      "name": "string",
+      "brand": "string",
+      "category": "string",
+      "material": "string",
+      "weight": number,
+      "originCountry": "string"
+    }
+  ]
+}
+
+If multiple products, list them. If no clear product, return empty array.
+Do not include any extra text outside the JSON.
+`;
+
+  try {
+    const response = await groq.chat.completions.create({
+      model: "llama-3.2-11b-vision-instruct",
+      messages: [
+        {
+          role: "user",
+          content: [
+            { type: "text", text: prompt },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:image/png;base64,${imageBase64}`,
+              },
+            },
+          ],
+        },
+      ],
+      temperature: 0.3,
+    });
+
+    const rawText = response.choices[0].message.content;
+
+    let parsed;
+    try {
+      parsed = JSON.parse(rawText);
+    } catch (err) {
+      console.error("AI returned invalid JSON:", rawText);
+      throw new Error("Invalid AI response format");
+    }
+
+    return parsed.products || [];
+  } catch (error) {
+    console.error("Groq Vision API Error:", error);
+    throw new Error("Failed to analyze receipt");
+  }
+};
+
+module.exports = { analyseImpact, analyseReceipt };
