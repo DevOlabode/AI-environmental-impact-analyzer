@@ -17,6 +17,8 @@ router.get('/show-products/:id', isLoggedIn, catchAsync(formController.showProdu
 
 router.get('/edit/:id', isLoggedIn, catchAsync(formController.editInputForm));
 
-router.post('/edit-products/:id', isLoggedIn, catchAsync(formController.editInput));
+router.put('/edit-products/:id', isLoggedIn, catchAsync(formController.editInput));
+
+router.delete('/delete-product/:id', isLoggedIn, catchAsync(formController.deleteProduct))
 
 module.exports = router;

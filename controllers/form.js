@@ -80,5 +80,5 @@ module.exports.deleteProduct = async(req, res)=>{
     const product = await Form.findByIdAndDelete(id);
     if(!product) return res.flash('error', 'Product Not Found');
 
-    res.redirect('/form/all-products')
+    res.redirect('/form/all-products');
 }

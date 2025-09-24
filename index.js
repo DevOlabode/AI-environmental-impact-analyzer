@@ -13,6 +13,8 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
 
+const methodOverride = require('method-override');
+
 const passport = require('passport');
 const localStrategy = require('passport-local');
 
@@ -52,6 +54,7 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(methodOverride('_method'));
 
 app.use(passport.initialize());
 app.use(passport.session());
