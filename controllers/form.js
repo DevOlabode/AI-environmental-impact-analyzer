@@ -8,7 +8,15 @@ module.exports.userInput = (req, res)=>{
 
 module.exports.input = async(req, res)=>{
     const formData = req.body;
-    const impactAnalysis = await analyseImpact(formData);
+    const impactAnalysis = await analyseImpact(
+    formData.name,
+    formData.brand,      // make sure your form has a brand field
+    formData.category,
+    formData.material,
+    formData.weight,
+    formData.originCountry
+);
+
 
     const product = new Form({
         ...req.body,

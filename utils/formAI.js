@@ -1,81 +1,148 @@
-const Groq = require('groq-sdk');
-const expressError = require('../utils/expressError');
+// analyseImpact.js
+const Groq = require("groq-sdk");
 
-const analyseImpact = async (name, brand, category, material, weight, originCountry)=>{
-const groq = new Groq({
-    apiKey: process.env.GROQ_KEY, 
-});
-// const prompt = `
-// You are an Environmental Impact Analyzer AI.
+// Simple baseline estimator for CO₂ & water usage per material
+// function estimateImpact(materials, weightGrams) {
+//   const weightKg = weightGrams / 1000; // normalize to kg
 
-// Given the following product details:
-// - Name: ${name || "Unknown"}
-// - Brand: ${brand || "Unknown"}
-// - Category: ${category || "Unknown"}
-// - Material: ${material || "Unknown"}
-// - Weight: ${weight || "Unknown"} grams
-// - Origin Country: ${originCountry || "Unknown"}
+//   let carbonPerKg = 0;
+//   let waterPerKg = 0;
 
-// Analyze the product's potential environmental impact and return the result strictly in JSON format with the following structure:
+//   const mat = materials;
 
-// {
-//   "carbonFootprint": <number in kg CO2>,
-//   "waterUsage": <number in liters>,
-//   "recyclability": "<Low | Medium | High>",
-//   "sustainabilityScore": <integer 1-10>,
-//   "aiExplanation": "<1-2 sentence explanation of reasoning>"
+//   if (mat.includes("plastic") || mat.includes("synthetic")) {
+//     carbonPerKg += 2.5;
+//     waterPerKg += 40;
+//   }
+//   if (mat.includes("metal")) {
+//     carbonPerKg += 8;
+//     waterPerKg += 100;
+//   }
+//   if (mat.includes("glass")) {
+//     carbonPerKg += 1.5;
+//     waterPerKg += 20;
+//   }
+//   if (mat.includes("rubber")) {
+//     carbonPerKg += 3;
+//     waterPerKg += 60;
+//   }
+//   if (mat.includes("cotton") || mat.includes("fabric")) {
+//     carbonPerKg += 2;
+//     waterPerKg += 150;
+//   }
+
+//   // Defaults if no material matched
+//   if (carbonPerKg === 0) carbonPerKg = 2;
+//   if (waterPerKg === 0) waterPerKg = 50;
+
+//   const carbonFootprint = +(carbonPerKg * weightKg).toFixed(2);
+//   const waterUsage = +(waterPerKg * weightKg).toFixed(2);
+
+//   return { carbonFootprint, waterUsage };
 // }
 
-// Rules:
-// - Always return valid JSON only, with no extra text.
-// - If data is missing (e.g., weight not provided), make a reasonable assumption and note it in aiExplanation.
-// - sustainabilityScore should balance carbon footprint, water usage, and recyclability.
-// - aiExplanation should be short, clear, and understandable for non-experts.
-//   `;
+function estimateImpact(materials, weightGrams) {
+  const weightKg = weightGrams / 1000; // normalize to kg
 
-const prompt = `
+  let carbonPerKg = 0;
+  let waterPerKg = 0;
+
+  const mat = (materials || "").toLowerCase(); // <-- fixed
+
+  if (mat.includes("plastic") || mat.includes("synthetic")) {
+    carbonPerKg += 2.5;
+    waterPerKg += 40;
+  }
+  if (mat.includes("metal")) {
+    carbonPerKg += 8;
+    waterPerKg += 100;
+  }
+  if (mat.includes("glass")) {
+    carbonPerKg += 1.5;
+    waterPerKg += 20;
+  }
+  if (mat.includes("rubber")) {
+    carbonPerKg += 3;
+    waterPerKg += 60;
+  }
+  if (mat.includes("cotton") || mat.includes("fabric")) {
+    carbonPerKg += 2;
+    waterPerKg += 150;
+  }
+
+  if (carbonPerKg === 0) carbonPerKg = 2;
+  if (waterPerKg === 0) waterPerKg = 50;
+
+  const carbonFootprint = +(carbonPerKg * weightKg).toFixed(2);
+  const waterUsage = +(waterPerKg * weightKg).toFixed(2);
+
+  return { carbonFootprint, waterUsage };
+}
+
+const analyseImpact = async (
+  name,
+  brand,
+  category,
+  material,
+  weight,
+  originCountry
+) => {
+  
+const groq = new Groq({
+    apiKey: process.env.GROQ_KEY,
+});
+
+  // Step 1: Calculate baseline estimates
+  const { carbonFootprint, waterUsage } = estimateImpact(material, weight);
+
+  // Step 2: Create strict prompt
+  const prompt = `
 You are an Environmental Impact Analyzer AI.
 
-Your task is to assess the environmental impact of a product based on its attributes. Use realistic assumptions and vary your analysis based on the product's material, weight, category, and origin country.
-
 Here are the product details:
-- Name: ${name}
-- Brand: ${brand}
-- Category: ${category}
-- Material: ${material}
-- Weight: ${weight} kg
-- Origin Country: ${originCountry}
+- Name: ${name || "Unknown"}
+- Brand: ${brand || "Unknown"}
+- Category: ${category || "Unknown"}
+- Material: ${material || "Unknown"}
+- Weight: ${weight || "Unknown"} g
+- Origin Country: ${originCountry || "Unknown"}
 
-Return your analysis strictly in **valid JSON format** with the following structure:
+Baseline estimates (calculated already):
+- Carbon Footprint: ${carbonFootprint} kg CO₂
+- Water Usage: ${waterUsage} liters
+
+Return your analysis strictly in valid JSON format:
 
 {
   "carbonFootprint": <number in kg CO2>,
   "waterUsage": <number in liters>,
   "recyclability": "<Low | Medium | High>",
   "sustainabilityScore": <integer 1-10>,
-  "aiExplanation": "<1-2 sentence explanation of reasoning>"
+  "aiExplanation": "<1-3 sentences that explain reasoning using the provided details. 
+  Mention category and originCountry explicitly. 
+  If an assumption was made, mention it clearly.>"
 }
 
-Guidelines:
-- Adjust carbonFootprint and waterUsage based on material, weight, and originCountry.
-- Use realistic estimates for different categories (e.g., electronics, clothing, food).
-- If any data is missing, make a reasonable assumption and mention it in aiExplanation.
-- Recyclability should reflect the material's typical recycling potential.
-- SustainabilityScore should balance carbon footprint, water usage, and recyclability.
-- aiExplanation must be short, clear, and tailored to the specific product.
-- Avoid repeating the same sentence structure or phrasing across different analyses.
-- Do not include any extra text outside the JSON block.
-`
+Rules:
+- NEVER contradict provided values (e.g., if originCountry is Germany, do not mention China).
+- Start from the baseline estimates; you may adjust slightly but explain why.
+- Recyclability depends on the material.
+- SustainabilityScore balances carbonFootprint, waterUsage, and recyclability.
+- NEVER assume a different weight. Use the weight provided.
+- Reference the product's category and originCountry explicitly in your explanation.
+- Do not include any extra text outside the JSON.
+`;
+
   try {
     const response = await groq.chat.completions.create({
-      model: "openai/gpt-oss-20b", 
+      model: "openai/gpt-oss-20b",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.7,
+      temperature: 0.3, // lower temp for more consistency
     });
 
-      const rawText = response.choices[0].message.content.trim();
+    const rawText = response.choices[0].message.content;
 
-    // Parse JSON safely
+    // Step 3: Parse JSON safely
     let parsed;
     try {
       parsed = JSON.parse(rawText);
@@ -84,11 +151,22 @@ Guidelines:
       throw new Error("Invalid AI response format");
     }
 
+    // Step 4: Validate key fields
+    if (
+      typeof parsed.carbonFootprint !== "number" ||
+      typeof parsed.waterUsage !== "number" ||
+      !["Low", "Medium", "High"].includes(parsed.recyclability) ||
+      typeof parsed.sustainabilityScore !== "number" ||
+      typeof parsed.aiExplanation !== "string"
+    ) {
+      throw new Error("AI returned malformed analysis");
+    }
+
     return parsed;
   } catch (error) {
     console.error("Groq API Error:", error);
     throw new Error("Failed to analyze product impact");
   }
-}
+};
 
 module.exports = { analyseImpact };
