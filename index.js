@@ -20,6 +20,7 @@ const localStrategy = require('passport-local');
 
 const authRoutes = require('./routes/auth');
 const formRoutes = require('./routes/form');
+const receiptRoutes = require('./routes/reciept')
 
 const ExpressError = require('./utils/expressError');
 
@@ -75,6 +76,7 @@ app.use((req, res, next)=>{
 
 app.use('/', authRoutes);
 app.use('/form', formRoutes);
+app.use('/form', receiptRoutes);
 
 
 app.get('/', (req, res)=>{

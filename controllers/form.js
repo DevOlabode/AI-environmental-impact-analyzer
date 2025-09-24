@@ -1,4 +1,4 @@
-const Form = require('../models/form');
+const Products = require('../models/product');
 
 const {analyseImpact } = require('../utils/formAI')
 
@@ -18,7 +18,7 @@ module.exports.input = async(req, res)=>{
 );
 
 
-    const product = new Form({
+    const product = new Products({
         ...req.body,
         owner : req.user ? req.user._id : null,
         impactAnalysis
@@ -32,22 +32,22 @@ module.exports.input = async(req, res)=>{
 }
 
 module.exports.allProducts = async(req, res)=>{
-    const products = await Form.find();
+    const products = await Products.find();
     res.render('form/index', { products })
 };
 
 module.exports.showProducts = async (req, res) => {
-    const product = await Form.findById(req.params.id);
+    const product = await Products.findById(req.params.id);
     res.render('form/show', { product })
 }
 
 module.exports.editInputForm = async(req, res)=>{
-    const product = await Form.findById(req.params.id);
+    const product = await Products.findById(req.params.id);
     res.render('form/edit', { product })
 };
 
 module.exports.editInput = async(req, res)=>{
-    const product = await Form.findById(req.params.id);
+    const product = await Products.findById(req.params.id);
 
     if(!product) {
         req.flash('error', 'Product Not Found!');
@@ -63,7 +63,7 @@ module.exports.editInput = async(req, res)=>{
     try {
         const impactAnalysis = await analyseImpact(req.body);
 
-        const updatedProduct = await Form.findByIdAndUpdate(req.params.id,
+        const updatedProduct = await Products.findByIdAndUpdate(req.params.id,
             {
                 ...req.body,
                 impactAnalysis
@@ -85,7 +85,7 @@ module.exports.editInput = async(req, res)=>{
 module.exports.deleteProduct = async(req, res)=>{
     const {id} = req.params;
 
-    const product = await Form.findByIdAndDelete(id);
+    const product = await Products.findByIdAndDelete(id);
     if(!product) return res.flash('error', 'Product Not Found');
 
     res.redirect('/form/all-products');
