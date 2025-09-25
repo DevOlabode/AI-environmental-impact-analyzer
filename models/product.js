@@ -57,9 +57,8 @@ const productSchema =Schema({
 
   impactAnalysis: impactSchema,
 
-  receipt: { type: String }, // path to receipt image
+  receipt: { type: String }, 
 
-  // Metadata
   createdAt: { type: Date, default: Date.now }
 });
 
