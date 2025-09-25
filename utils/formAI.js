@@ -139,6 +139,8 @@ const analyseReceipt = async (imageBase64) => {
   const prompt = `
 You are an AI that extracts product information from receipt images.
 
+You will be provided with an image of a receipt and based on that image : 
+
 Analyze the provided image of a receipt and extract the following details for the main product(s) listed:
 - Name: Product name
 - Brand: Brand name if available
@@ -168,7 +170,7 @@ Do not include any extra text outside the JSON.
 
   try {
     const response = await groq.chat.completions.create({
-      model: "llama-3.2-11b-vision-instruct",
+      model: "meta-llama/llama-4-scout-17b-16e-instruct",
       messages: [
         {
           role: "user",

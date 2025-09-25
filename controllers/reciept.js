@@ -100,18 +100,18 @@ module.exports.uploadReciept = async (req, res) => {
     const { image } = req.body;
     if (!image) throw new Error('No image provided');
 
-    // Save image to disk
+    // Save image locally
     const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
     const filename = `uploads/receipts/${Date.now()}.png`;
     fs.writeFileSync(filename, Buffer.from(base64Data, 'base64'));
 
-    // Instead of manual OCR + naive parsing, use Groq Vision to extract fields
-    const aiProducts = await analyseReceipt(base64Data); 
-    console.log("AI Products:", aiProducts);
+    // Use Groq Vision to extract structured product info
+    const aiProducts = await analyseReceipt(filename);
+    console.log("AI Extracted Products:", aiProducts);
 
     const savedProducts = [];
     for (const prod of aiProducts) {
-      // Run environmental impact analysis using AI
+      // Run environmental impact analysis
       const impactAnalysis = await analyseImpact(
         prod.name,
         prod.brand,
@@ -121,6 +121,7 @@ module.exports.uploadReciept = async (req, res) => {
         prod.originCountry
       );
 
+      // Save product to MongoDB
       const product = new Product({
         name: prod.name,
         brand: prod.brand,
