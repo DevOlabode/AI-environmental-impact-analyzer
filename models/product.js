@@ -49,11 +49,15 @@ const productSchema =Schema({
   originCountry: { 
     type: String 
 },
-  owner: { 
+owner: { 
     type: mongoose.Schema.Types.ObjectId,
-     ref: 'User', 
-     required: false 
-    },
+    ref: 'User', 
+    required: false 
+},
+price : {
+  type : Number,
+  required : false
+},
 
   impactAnalysis: impactSchema,
 

@@ -12,23 +12,49 @@ module.exports.getReciept = (req, res)=>{
 module.exports.analyseReciept = async (req, res) => {
     try {
         const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, '');
-        const buffer = Buffer.from(base64Data, 'base64');
+        const products = await analyseReceipt(base64Data);
 
-        const analysis = await analyseReceipt(base64Data); // or pass buffer if your function expects it
-        
-        console.log('Analysis Result:', analysis);
+        // let createdProducts = [];
+        // for (const product of products) {
+        //     const impactAnalysis = await analyseImpact(
+        //         product.name,
+        //         product.brand,
+        //         product.category,
+        //         product.material,
+        //         product.weight,
+        //         product.originCountry,
+        //         product.price
+        //     );
 
+        //     const newProduct = new Product({
+        //         name: product.name,
+        //         brand: product.brand,
+        //         category: product.category,
+        //         material: product.material,
+        //         weight: product.weight,
+        //         originCountry: product.originCountry,
+        //         price: product.price,
+        //         owner: req.user._id,
+        //         impactAnalysis: impactAnalysis,
+        //         receipt: req.body.image // store base64 for reference
+        //     });
+
+        //     await newProduct.save();
+        //     createdProducts.push(newProduct);
+        // }
+
+        console.log(products);
         res.json({
             success: true,
-            products: analysis,
-            message: 'Receipt processed successfully'
+            message: 'Receipt processed successfully!',
+            products: products
+            // products: createdProducts.length
         });
-
     } catch (error) {
-        console.error('Error analyzing receipt:', error);
-        res.status(500).json({ 
-            success: false, 
-            error: 'Failed to analyze receipt' 
+        console.error('Error processing receipt:', error);
+        res.status(500).json({
+            success: false,
+            error: error.message || 'Failed to process receipt'
         });
     }
 };

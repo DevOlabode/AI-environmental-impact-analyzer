@@ -11,11 +11,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
     currentStream = stream;
     video.srcObject = stream;
   })
-  .catch(err => {
-    console.error('Camera error:', err);
-    alert('Camera access denied or not available');
-  });
-
+  
 // Capture photo
 snap.addEventListener('click', () => {
   // Disable button during processing

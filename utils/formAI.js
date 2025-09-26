@@ -45,7 +45,8 @@ const analyseImpact = async (
   category,
   material,
   weight,
-  originCountry
+  originCountry,
+  price
 ) => {
   
 const groq = new Groq({
@@ -68,6 +69,7 @@ Here are the product details:
 - Material: ${material || "Unknown"}
 - Weight: ${weightKg || "Unknown"} kg
 - Origin Country: ${originCountry || "Unknown"}
+- Price : ${price || "Unknown"}
 
 Baseline estimates (calculated already):
 - Carbon Footprint: ${carbonFootprint} kg CO₂
@@ -159,7 +161,8 @@ Return strictly in valid JSON format:
       "category": "string",
       "material": "string",
       "weight": number,
-      "originCountry": "string"
+      "originCountry": "string",
+      "price": number
     }
   ]
 }
@@ -190,9 +193,16 @@ Do not include any extra text outside the JSON.
 
     const rawText = response.choices[0].message.content;
 
+    // Clean the response: remove markdown code blocks if present
+    let cleanedText = rawText.trim();
+    const jsonMatch = cleanedText.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/);
+    if (jsonMatch) {
+      cleanedText = jsonMatch[1];
+    }
+
     let parsed;
     try {
-      parsed = JSON.parse(rawText);
+      parsed = JSON.parse(cleanedText);
     } catch (err) {
       console.error("AI returned invalid JSON:", rawText);
       throw new Error("Invalid AI response format");
