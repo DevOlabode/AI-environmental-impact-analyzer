@@ -150,7 +150,7 @@ Analyze the provided image of a receipt and extract the following details for th
 - Material: Main material (e.g., plastic, metal, cotton),
 - Weight: Estimated weight in grams (if not specified, estimate based on category)
 - Origin Country: Country of origin 
--price: Price in USD (if available)
+- price: Price in USD (if available)
 
 - If any of this isn't available, make a reasonable assumption based on any informtion on the image provided.
 - and if you cant make a reasonable assumption, return "Unknown" for that field.

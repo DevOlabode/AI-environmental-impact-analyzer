@@ -10,6 +10,7 @@ module.exports.getReciept = (req, res)=>{
 };
 
 module.exports.analyseReciept = async (req, res) => {
+    try {
         const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, '');
         const products = await analyseReceipt(base64Data);
 
@@ -41,5 +42,17 @@ module.exports.analyseReciept = async (req, res) => {
             createdProducts.push(newProduct);
         }
 
-        res.redirect('/all-products');
+        res.json({
+            success: true,
+            message: 'Receipt processed successfully!',
+            products: createdProducts.length,
+            redirect: '/form/all-products'
+        });
+    } catch (error) {
+        console.error('Error processing receipt:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to process receipt. Please try again.'
+        });
+    }
 };

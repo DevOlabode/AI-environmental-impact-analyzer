@@ -1,5 +1,7 @@
 <% layout('layout/boilerplate.ejs') %>
 
+<h3 class="text-center text-primary m-3">All Products.</h3>
+
 <div class="container">
     <% for(let product of products){ %>
         <li class="text-primary"><a href="/form/show-products/<%= product._id %>"> <%= product.name %> </a></li>

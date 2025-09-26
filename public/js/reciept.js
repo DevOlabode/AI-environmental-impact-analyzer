@@ -39,14 +39,13 @@ snap.addEventListener('click', () => {
   .then(response => response.json())
   .then(data => {
     if (data.success) {
-      alert('Receipt processed! ' + (data.message || 'Products analyzed and saved.'));
-      if (data.products && data.products.length > 0) {
-        alert(`Created ${data.products.length} product(s). Check your products list.`);
+      alert('Receipt processed! ' + data.message);
+      if (data.products > 0) {
+        alert(`Created ${data.products} product(s).`);
       }
-      // Optional: Stop camera after successful capture
-      stopCamera();
+      window.location.href = data.redirect;
     } else {
-      alert('Upload failed: ' + (data.error || data.message || 'Unknown error'));
+      alert('Upload failed: ' + (data.error || 'Unknown error'));
     }
   })
   .catch(error => {
