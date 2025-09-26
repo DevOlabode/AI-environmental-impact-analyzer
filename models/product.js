@@ -61,8 +61,6 @@ price : {
 
   impactAnalysis: impactSchema,
 
-  receipt: { type: String }, 
-
   createdAt: { type: Date, default: Date.now }
 });
 

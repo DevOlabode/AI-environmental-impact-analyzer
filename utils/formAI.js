@@ -152,7 +152,7 @@ Analyze the provided image of a receipt and extract the following details for th
 - Origin Country: Country of origin 
 -price: Price in USD (if available)
 
-- If any of this isn't available, make a reasonable assumption based on the information given in the receipt image.
+- If any of this isn't available, make a reasonable assumption based on any informtion on the image provided.
 - and if you cant make a reasonable assumption, return "Unknown" for that field.
 
 Return strictly in valid JSON format:
@@ -202,6 +202,7 @@ Do not include any extra text outside the JSON.
     const jsonMatch = cleanedText.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/);
     if (jsonMatch) {
       cleanedText = jsonMatch[1];
+    
     }
 
     let parsed;
