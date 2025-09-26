@@ -49,7 +49,6 @@ module.exports.analyseReciept = async (req, res) => {
             redirect: '/form/all-products'
         });
     } catch (error) {
-        console.error('Error processing receipt:', error);
         res.status(500).json({
             success: false,
             error: 'Failed to process receipt. Please try again.'
