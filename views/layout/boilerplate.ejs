@@ -20,5 +20,52 @@
     <script src="/js/validateForms.js"></script>
     <script src="/js/reciept.js"></script>
 
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-leaf fa-2x text-success me-3"></i>
+                        <div>
+                            <h5 class="mb-0">EcoAnalyzer</h5>
+                            <small>AI Environmental Impact</small>
+                        </div>
+                    </div>
+                    <p class="mb-0">Empowering sustainable decisions through AI-powered environmental analysis.</p>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-light text-decoration-none"><i class="fas fa-home me-2"></i>Home</a></li>
+                        <li><a href="/form" class="text-light text-decoration-none"><i class="fas fa-search me-2"></i>Analyze Product</a></li>
+                        <li><a href="/form/all-products" class="text-light text-decoration-none"><i class="fas fa-list me-2"></i>All Products</a></li>
+                        <% if(currentUser){ %>
+                        <li><a href="/receipt" class="text-light text-decoration-none"><i class="fas fa-camera me-2"></i>Capture Receipt</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>Contact & Support</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i>support@ecoanalyzer.com</li>
+                        <li><i class="fas fa-globe me-2"></i>www.ecoanalyzer.com</li>
+                        <li><i class="fab fa-twitter me-2"></i>@EcoAnalyzerAI</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 EcoAnalyzer. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-light text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

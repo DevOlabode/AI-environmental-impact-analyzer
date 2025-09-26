@@ -67,6 +67,37 @@ body {
     transform: scale(1.05);
 }
 
+/* Enhanced Navbar Styles */
+.navbar-brand .brand-logo {
+    transition: var(--transition);
+}
+
+.navbar-brand:hover .brand-logo {
+    transform: rotate(10deg);
+}
+
+.brand-title {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: white;
+}
+
+.brand-subtitle {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: var(--shadow);
+    border-radius: var(--border-radius);
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
 /* Home Page Styles */
 .hero-section {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));

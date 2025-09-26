@@ -1,17 +1,48 @@
 <% layout('layout/boilerplate.ejs') %>
 
-<div class="container">
-    <h3 class="text-success m-3">LOGIN</h3>
-    <form action="/login" method="post" class=" row g-3 needs-validation" novalidate>
-        <label for="username" class="form-label fw-bold text-success">USERNAME</label>
-        <input type="text" name="username" class="form-control" id="username" required>
+<div class="form-container">
+    <h1 class="form-title">
+        <i class="fas fa-sign-in-alt me-2"></i>Welcome Back
+    </h1>
+    <p class="text-center text-muted mb-4">Sign in to your EcoAnalyzer account</p>
 
-        <label for="email" class="form-label fw-bold text-success">EMAIL</label>
-        <input type="email" name="email" id="email" class="form-control" required>
+    <form action="/login" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="username" class="form-label">
+                <i class="fas fa-user me-1"></i>Username
+            </label>
+            <input type="text" name="username" class="form-control" id="username" placeholder="Enter your username" required>
+            <div class="invalid-feedback">
+                Please provide a valid username.
+            </div>
+        </div>
 
-        <label for="password" class="form-label fw-bold text-success">PASSWORD</label>
-        <input type="password" name="password" id="password" class="form-control" required>
+        <div class="mb-3">
+            <label for="email" class="form-label">
+                <i class="fas fa-envelope me-1"></i>Email Address
+            </label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+            <div class="invalid-feedback">
+                Please provide a valid email address.
+            </div>
+        </div>
 
-        <button class="btn btn-primary">Submit</button>
+        <div class="mb-4">
+            <label for="password" class="form-label">
+                <i class="fas fa-lock me-1"></i>Password
+            </label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+            <div class="invalid-feedback">
+                Please provide your password.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+        </button>
     </form>
+
+    <div class="text-center mt-4">
+        <p class="mb-0">Don't have an account? <a href="/register" class="text-decoration-none">Register here</a></p>
+    </div>
 </div>

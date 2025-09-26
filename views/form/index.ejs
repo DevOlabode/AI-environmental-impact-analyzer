@@ -1,9 +1,120 @@
 <% layout('layout/boilerplate.ejs') %>
 
-<h3 class="text-center text-primary m-3">All Products.</h3>
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="mb-1">
+                <i class="fas fa-database me-2 text-success"></i>Product Database
+            </h1>
+            <p class="text-muted mb-0">Manage and analyze your environmental impact data</p>
+        </div>
+        <a href="/form" class="btn btn-success btn-lg">
+            <i class="fas fa-plus me-2"></i>Add New Product
+        </a>
+    </div>
 
-<div class="container">
-    <% for(let product of products){ %>
-        <li class="text-primary"><a href="/form/show-products/<%= product._id %>"> <%= product.name %> </a></li>
+    <% if(products && products.length > 0){ %>
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="border-0 fw-bold text-success">
+                                    <i class="fas fa-tag me-2"></i>Product Name
+                                </th>
+                                <th class="border-0 fw-bold text-success">
+                                    <i class="fas fa-folder me-2"></i>Category
+                                </th>
+                                <th class="border-0 fw-bold text-success">
+                                    <i class="fas fa-building me-2"></i>Brand
+                                </th>
+                                <th class="border-0 fw-bold text-success">
+                                    <i class="fas fa-cubes me-2"></i>Material
+                                </th>
+                                <th class="border-0 fw-bold text-success">
+                                    <i class="fas fa-weight me-2"></i>Weight
+                                </th>
+                                <th class="border-0 fw-bold text-success">
+                                    <i class="fas fa-globe me-2"></i>Origin
+                                </th>
+                                <th class="border-0 fw-bold text-success text-center">
+                                    <i class="fas fa-chart-line me-2"></i>Analysis
+                                </th>
+                                <th class="border-0 fw-bold text-success text-center">
+                                    <i class="fas fa-cogs me-2"></i>Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(let product of products){ %>
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
+                                                <i class="fas fa-box text-success"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0 fw-bold"><%= product.name %></h6>
+                                                <small class="text-muted">ID: <%= product._id.toString().slice(-6) %></small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary"><%= product.category || 'N/A' %></span>
+                                    </td>
+                                    <td><%= product.brand || 'N/A' %></td>
+                                    <td><%= product.material || 'N/A' %></td>
+                                    <td><%= product.weight ? product.weight + ' KG' : 'N/A' %></td>
+                                    <td><%= product.originCountry || 'N/A' %></td>
+                                    <td class="text-center">
+                                        <% if(product.impactAnalysis){ %>
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check me-1"></i>Analyzed
+                                            </span>
+                                        <% } else { %>
+                                            <span class="badge bg-warning">
+                                                <i class="fas fa-clock me-1"></i>Pending
+                                            </span>
+                                        <% } %>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a href="/form/show-products/<%= product._id %>"
+                                               class="btn btn-sm btn-outline-primary"
+                                               title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <% if(currentUser){ %>
+                                                <a href="/form/edit-products/<%= product._id %>"
+                                                   class="btn btn-sm btn-outline-warning"
+                                                   title="Edit Product">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 text-muted">
+            <small>Showing <%= products.length %> product<%= products.length !== 1 ? 's' : '' %></small>
+        </div>
+    <% } else { %>
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-database fa-4x text-muted"></i>
+            </div>
+            <h3 class="text-muted mb-3">No Products in Database</h3>
+            <p class="text-muted mb-4">Start building your environmental impact database by analyzing your first product.</p>
+            <a href="/form" class="btn btn-success btn-lg">
+                <i class="fas fa-plus me-2"></i>Analyze First Product
+            </a>
+        </div>
     <% } %>
 </div>

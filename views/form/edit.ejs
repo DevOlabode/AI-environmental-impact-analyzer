@@ -1,48 +1,76 @@
 <% layout('layout/boilerplate.ejs') %>
 
 <div class="form-container">
-    <h3 class="form-title"><i class="fas fa-edit me-2"></i>Edit Product</h3>
+    <h1 class="form-title">
+        <i class="fas fa-edit me-2"></i>Edit Product
+    </h1>
+    <p class="text-center text-muted mb-4">Update the product details below</p>
+
     <form action="/form/edit-products/<%= product._id %>?_method=put" method="post" class="needs-validation" novalidate>
-        <div class="mb-3">
-            <label for="product-name" class="form-label text-primary">Name *</label>
-            <input type="text" value="<%= product.name %>" name="name" id="product-name" class="form-control" placeholder="Product Name" required>
-            <div class="invalid-feedback">
-                Product name is required.
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-name" class="form-label">
+                    <i class="fas fa-tag me-1"></i>Product Name *
+                </label>
+                <input type="text" value="<%= product.name %>" name="name" id="product-name" class="form-control" placeholder="e.g., Apple iPhone 14" required>
+                <div class="invalid-feedback">
+                    Product name is required.
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="product-category" class="form-label">
+                    <i class="fas fa-folder me-1"></i>Category *
+                </label>
+                <input type="text" name="category" value="<%= product.category %>" id="product-category" class="form-control" placeholder="e.g., Electronics, Food, Clothing" required>
+                <div class="invalid-feedback">
+                    Category is required.
+                </div>
             </div>
         </div>
 
-        <div class="mb-3">
-            <label for="product-category" class="form-label text-primary">Category *</label>
-            <input type="text" name="category" value="<%= product.category %>" id="product-category" class="form-control" placeholder="Category like Food, Soap, fruit etc" required>
-            <div class="invalid-feedback">
-                Category is required.
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-brand" class="form-label">
+                    <i class="fas fa-building me-1"></i>Brand
+                </label>
+                <input type="text" name="brand" value="<%= product.brand %>" id="product-brand" class="form-control" placeholder="e.g., Apple, Nike, Coca-Cola">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="product-material" class="form-label">
+                    <i class="fas fa-cubes me-1"></i>Material *
+                </label>
+                <input type="text" name="material" value="<%= product.material %>" id="product-material" class="form-control" placeholder="e.g., Plastic, Metal, Cotton" required>
+                <div class="invalid-feedback">
+                    Material is required.
+                </div>
             </div>
         </div>
 
-        <div class="mb-3">
-            <label for="product-brand" class="form-label text-primary">Brand</label>
-            <input type="text" name="brand" value="<%= product.brand %>" id="product-brand" class="form-control" placeholder="Product Brand">
-        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-weight" class="form-label">
+                    <i class="fas fa-weight me-1"></i>Weight (KG)
+                </label>
+                <input type="number" name="weight" value="<%= product.weight %>" id="product-weight" class="form-control" placeholder="e.g., 0.5" min="0" step="0.01">
+            </div>
 
-        <div class="mb-3">
-            <label for="product-material" class="form-label text-primary">Material *</label>
-            <input type="text" name="material" value="<%= product.material %>" id="product-material" class="form-control" placeholder="Material like plastic, glass, cardboard etc" required>
-            <div class="invalid-feedback">
-                Material is required.
+            <div class="col-md-6 mb-3">
+                <label for="product-originCountry" class="form-label">
+                    <i class="fas fa-globe me-1"></i>Origin Country
+                </label>
+                <input type="text" name="originCountry" value="<%= product.originCountry %>" id="product-originCountry" class="form-control" placeholder="e.g., China, USA, Germany">
             </div>
         </div>
 
-        <div class="mb-3">
-            <label for="product-weight" class="form-label text-primary">Weight</label>
-            <input type="number" name="weight" value="<%= product.weight %>" id="product-weight" class="form-control" placeholder="Product Weight" min="0" step="0.01">
+        <div class="d-flex gap-2 justify-content-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-2"></i>Update Product
+            </button>
+            <a href="/form/show-products/<%= product._id %>" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
         </div>
-
-        <div class="mb-3">
-            <label for="product-originCountry" class="form-label text-primary">Origin Country</label>
-            <input type="text" name="originCountry" value="<%= product.originCountry %>" id="product-originCountry" class="form-control" placeholder="Country of origin">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Update Product</button>
-        <a href="/form/show-products/<%= product._id %>" class="btn btn-secondary ms-2">Cancel</a>
     </form>
 </div>

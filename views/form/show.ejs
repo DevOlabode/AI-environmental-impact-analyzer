@@ -1,53 +1,109 @@
 <% layout('layout/boilerplate.ejs') %>
 
-
 <div class="show-container">
     <div class="show-card">
         <div class="show-header">
-            <h1 class="show-title"><i class="fas fa-leaf me-3"></i><%= product.name %></h1>
-            <p class="show-subtitle">Created on <%= product.createdAt.toDateString() %></p>
+            <h1 class="show-title">
+                <i class="fas fa-tag me-3"></i><%= product.name %>
+            </h1>
+            <p class="show-subtitle">
+                <i class="fas fa-calendar me-1"></i>Analyzed on <%= product.createdAt.toDateString() %>
+            </p>
         </div>
         <div class="show-body">
             <div class="show-row">
                 <div class="show-section">
                     <h4><i class="fas fa-info-circle me-2"></i>Product Details</h4>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Brand:</strong> <%= product.brand || 'N/A' %></li>
-                        <li class="list-group-item"><strong>Category:</strong> <%= product.category %></li>
-                        <li class="list-group-item"><strong>Material:</strong> <%= product.material %></li>
-                        <li class="list-group-item"><strong>Weight:</strong> <%= product.weight ? product.weight + ' kg' : 'N/A' %></li>
-                        <li class="list-group-item"><strong>Origin Country:</strong> <%= product.originCountry || 'Unknown' %></li>
+                        <li class="list-group-item">
+                            <i class="fas fa-building text-muted me-2"></i>
+                            <strong>Brand:</strong> <%= product.brand || 'N/A' %>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-folder text-muted me-2"></i>
+                            <strong>Category:</strong> <%= product.category %>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-cubes text-muted me-2"></i>
+                            <strong>Material:</strong> <%= product.material %>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-weight text-muted me-2"></i>
+                            <strong>Weight:</strong> <%= product.weight ? product.weight + ' kg' : 'N/A' %>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-globe text-muted me-2"></i>
+                            <strong>Origin Country:</strong> <%= product.originCountry || 'Unknown' %>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="show-section">
-                    <h4><i class="fas fa-seedling me-2"></i>Environmental Impact</h4>
+                    <h4><i class="fas fa-seedling me-2"></i>Environmental Impact Analysis</h4>
                     <% if (product.impactAnalysis) { %>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span><strong>Sustainability Score:</strong></span>
+                                <span class="badge bg-<%= product.impactAnalysis.sustainabilityScore >= 7 ? 'success' : product.impactAnalysis.sustainabilityScore >= 4 ? 'warning' : 'danger' %> fs-6">
+                                    <%= product.impactAnalysis.sustainabilityScore %> / 10
+                                </span>
+                            </div>
+                            <div class="progress mb-3" style="height: 10px;">
+                                <div class="progress-bar bg-<%= product.impactAnalysis.sustainabilityScore >= 7 ? 'success' : product.impactAnalysis.sustainabilityScore >= 4 ? 'warning' : 'danger' %>"
+                                     style="width: <%= ((product.impactAnalysis.sustainabilityScore / 10) * 100) %>%"></div>
+                            </div>
+                        </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Carbon Footprint:</strong> <%= product.impactAnalysis.carbonFootprint %> kg CO₂</li>
-                            <li class="list-group-item"><strong>Water Usage:</strong> <%= product.impactAnalysis.waterUsage %> liters</li>
-                            <li class="list-group-item"><strong>Recyclability:</strong> <%= product.impactAnalysis.recyclability %></li>
-                            <li class="list-group-item"><strong>Sustainability Score:</strong> <%= product.impactAnalysis.sustainabilityScore %> / 10</li>
-                            <% if (product.impactAnalysis.aiExplanation) { %>
-                                <li class="list-group-item"><strong>AI Explanation:</strong> <%= product.impactAnalysis.aiExplanation %></li>
-                            <% } %>
+                            <li class="list-group-item">
+                                <i class="fas fa-cloud text-muted me-2"></i>
+                                <strong>Carbon Footprint:</strong> <%= product.impactAnalysis.carbonFootprint %> kg CO₂
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-tint text-muted me-2"></i>
+                                <strong>Water Usage:</strong> <%= product.impactAnalysis.waterUsage %> liters
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-recycle text-muted me-2"></i>
+                                <strong>Recyclability:</strong>
+                                <span class="badge bg-<%= product.impactAnalysis.recyclability.toLowerCase().includes('high') ? 'success' : product.impactAnalysis.recyclability.toLowerCase().includes('medium') ? 'warning' : 'secondary' %>">
+                                    <%= product.impactAnalysis.recyclability %>
+                                </span>
+                            </li>
                         </ul>
+                        <% if (product.impactAnalysis.aiExplanation) { %>
+                            <div class="mt-3 p-3 bg-light rounded">
+                                <h6 class="text-primary mb-2">
+                                    <i class="fas fa-robot me-1"></i>AI Analysis
+                                </h6>
+                                <p class="mb-0 text-muted"><%= product.impactAnalysis.aiExplanation %></p>
+                            </div>
+                        <% } %>
                     <% } else { %>
-                        <p class="text-warning">No impact analysis available.</p>
+                        <div class="text-center py-4">
+                            <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                            <p class="text-warning mb-0">No impact analysis available.</p>
+                            <small class="text-muted">The product may still be processing or analysis failed.</small>
+                        </div>
                     <% } %>
                 </div>
             </div>
 
             <div class="show-actions">
-                <a href="/form/all-products" class="btn btn-outline-secondary">← Back to All Products</a>
-                <a href="/form/edit/<%= product._id %>" class="btn btn-outline-warning">Edit Product</a>
-                <form action="/form/delete-product/<%= product._id %>?_method=DELETE" method="POST" class="d-inline">
-                    <button type="submit" class="btn btn-danger" 
-                        onclick="return confirm('Are you sure you want to delete this product?')">
-                        <i class="fas fa-trash me-2"></i>Delete
-                    </button>
-                </form>
+                <a href="/form/all-products" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to All Products
+                </a>
+                <% if(currentUser){ %>
+                    <a href="/form/edit-products/<%= product._id %>" class="btn btn-outline-warning">
+                        <i class="fas fa-edit me-2"></i>Edit Product
+                    </a>
+                    <form action="/form/delete-product/<%= product._id %>?_method=DELETE" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure you want to delete this product?')">
+                            <i class="fas fa-trash me-2"></i>Delete
+                        </button>
+                    </form>
+                <% } %>
             </div>
-      </div>
+        </div>
     </div>
-  </div>
+</div>

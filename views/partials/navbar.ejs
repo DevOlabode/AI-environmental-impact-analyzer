@@ -1,33 +1,65 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><i class="fas fa-leaf me-2"></i>Environmental Impact Analyser</a>
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <div class="brand-logo me-3">
+                <i class="fas fa-leaf fa-2x"></i>
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">EcoAnalyzer</span>
+                <small class="brand-subtitle d-block">AI Environmental Impact</small>
+            </div>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">
+                        <i class="fas fa-home me-1"></i>Home
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/form">Analyze Product</a>
+                    <a class="nav-link" href="/form">
+                        <i class="fas fa-search me-1"></i>Analyze Product
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/form/all-products">All Products</a>
+                    <a class="nav-link" href="/form/all-products">
+                        <i class="fas fa-list me-1"></i>All Products
+                    </a>
                 </li>
+                <% if(currentUser){ %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/receipt">
+                        <i class="fas fa-camera me-1"></i>Capture Receipt
+                    </a>
+                </li>
+                <% } %>
             </ul>
 
             <ul class="navbar-nav">
                 <% if(currentUser){ %>
-                    <li class="nav-item">
-                        <a href="/logout" class="btn btn-danger">Logout</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i><%= currentUser.username %>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
                     </li>
                 <% }else{ %>
                     <li class="nav-item">
-                        <a href="/login" class="btn btn-primary">Login</a>
+                        <a href="/login" class="btn btn-outline-light me-2">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/register" class="btn btn-outline-primary ms-3">Register</a>
+                        <a href="/register" class="btn btn-light">
+                            <i class="fas fa-user-plus me-1"></i>Register
+                        </a>
                     </li>
                 <% } %>
             </ul>
