@@ -10,7 +10,6 @@ module.exports.getReciept = (req, res)=>{
 };
 
 module.exports.analyseReciept = async (req, res) => {
-    try {
         const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, '');
         const products = await analyseReceipt(base64Data);
 
@@ -42,17 +41,5 @@ module.exports.analyseReciept = async (req, res) => {
             createdProducts.push(newProduct);
         }
 
-        console.log(products);
-        res.json({
-            success: true,
-            message: 'Receipt processed successfully!',
-            products: createdProducts
-    });
-    } catch (error) {
-        console.error('Error processing receipt:', error);
-        res.status(500).json({
-            success: false,
-            error: error.message || 'Failed to process receipt'
-        });
-    }
+        res.redirect('/all-products');
 };

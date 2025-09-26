@@ -1,3 +1,0 @@
-- [x] Update utils/formAI.js: Fix analyseImpact to accept and use 'price' parameter in signature and prompt.
-- [x] Update controllers/reciept.js: Loop over products from analyseReceipt, call analyseImpact for each, save Product instances with owner and impactAnalysis, respond with JSON success/message.
-- [ ] Test the changes: Restart server, test upload flow, verify no network error and products are saved.
