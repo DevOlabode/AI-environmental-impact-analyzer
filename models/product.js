@@ -23,7 +23,7 @@ const impactSchema = Schema({
 },
   aiExplanation: { 
     type: String 
-}, // AI text explaining reasoning
+},
 }, 
 { _id: false });
 

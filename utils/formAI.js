@@ -145,7 +145,7 @@ Analyze the provided image of a receipt and extract the following details for th
 - Name: Product name
 - Brand: Brand name if available
 - Category: Product category (e.g., electronics, clothing, food)
-- Material: Main material (e.g., plastic, metal, cotton)
+- Material: Main material (e.g., plastic, metal, cotton),
 - Weight: Estimated weight in grams (if not specified, estimate based on category)
 - Origin Country: Country of origin if mentioned
 

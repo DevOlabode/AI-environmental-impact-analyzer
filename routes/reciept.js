@@ -8,6 +8,6 @@ const upload = require('../utils/multer');
 
 router.get('/get-reciept', recieptController.getReciept);
 
-router.post('/upload-reciept', catchAsync(recieptController.uploadReciept));
+router.post('/analyseReciept', catchAsync(recieptController.analyseReciept));
 
 module.exports = router;
