@@ -149,7 +149,11 @@ Analyze the provided image of a receipt and extract the following details for th
 - Category: Product category (e.g., electronics, clothing, food)
 - Material: Main material (e.g., plastic, metal, cotton),
 - Weight: Estimated weight in grams (if not specified, estimate based on category)
-- Origin Country: Country of origin if mentioned
+- Origin Country: Country of origin 
+-price: Price in USD (if available)
+
+- If any of this isn't available, make a reasonable assumption based on the information given in the receipt image.
+- and if you cant make a reasonable assumption, return "Unknown" for that field.
 
 Return strictly in valid JSON format:
 
