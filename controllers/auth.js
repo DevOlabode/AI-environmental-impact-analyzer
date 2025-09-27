@@ -37,6 +37,19 @@ module.exports.logout = async(req, res)=>{
 };
 
 module.exports.profile = async(req, res)=>{
-    const user = await User.findOne({owner : req.user._id});
-    res.render('auth/profile', user)
+    const user = await User.findById(req.user._id);
+
+    if(!user){
+        req.flash('error', 'User not found');
+        return res.redirect('/');
+    }
+
+    res.render('auth/profile', {user})
 };
+
+
+//Reminder For Tomorrow:
+
+// Add More Fields To The User Model As Needed
+// Like Name, Address, Profile Picture, etc.
+// Ensure To Update The Registration And Profile Update Logic Accordingly

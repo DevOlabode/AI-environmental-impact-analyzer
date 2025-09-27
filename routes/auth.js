@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { loginAuthenticate, storeReturnTo } = require('../middleware')
+const { loginAuthenticate, storeReturnTo, isLoggedIn } = require('../middleware')
 
 const catchAsync = require('../utils/catchAsync');
 const authController = require('../controllers/auth');
@@ -16,6 +16,6 @@ router.post('/login', storeReturnTo, loginAuthenticate, authController.login);
 
 router.get('/logout', catchAsync(authController.logout));
 
-router.get('/profile', catchAsync(authController.profile));
+router.get('/profile', isLoggedIn, catchAsync(authController.profile));
 
 module.exports = router;
