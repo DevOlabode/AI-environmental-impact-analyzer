@@ -53,3 +53,6 @@ module.exports.profile = async(req, res)=>{
 // Add More Fields To The User Model As Needed
 // Like Name, Address, Profile Picture, etc.
 // Ensure To Update The Registration And Profile Update Logic Accordingly
+
+
+// Save Each Products To The Logged In User
