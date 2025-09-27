@@ -20,7 +20,7 @@ module.exports.input = async(req, res)=>{
 
     const product = new Products({
         ...req.body,
-        user : req.user._id ? req.user._id : null,
+        owner : req.user._id ? req.user._id : null,
         impactAnalysis
     });
 
@@ -32,12 +32,16 @@ module.exports.input = async(req, res)=>{
 }
 
 module.exports.allProducts = async(req, res)=>{
-    const products = await Products.find();
+    const products = await Products.find({owner: req.user._id});
     res.render('form/index', { products })
 };
 
 module.exports.showProducts = async (req, res) => {
     const product = await Products.findById(req.params.id);
+    if(!product || product.owner.toString() !== req.user._id.toString()) {
+        req.flash('error', 'Product not found or access denied');
+        return res.redirect('/form/all-products');
+    }
     res.render('form/show', { product })
 }
 
@@ -85,8 +89,17 @@ module.exports.editInput = async(req, res)=>{
 module.exports.deleteProduct = async(req, res)=>{
     const {id} = req.params;
 
-    const product = await Products.findByIdAndDelete(id);
-    if(!product) return res.flash('error', 'Product Not Found');
+    const product = await Products.findById(id);
+    if(!product) {
+        req.flash('error', 'Product Not Found');
+        return res.redirect('/form/all-products');
+    }
 
+    if(product.owner.toString() !== req.user._id.toString()) {
+        req.flash('error', 'You do not have permission to delete this product');
+        return res.redirect('/form/all-products');
+    }
+
+    await Products.findByIdAndDelete(id);
     res.redirect('/form/all-products');
 }

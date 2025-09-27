@@ -9,7 +9,7 @@ const formController = require('../controllers/form');
 
 router.get('/', formController.userInput);
 
-router.post('/get-analysis', catchAsync(formController.input));
+router.post('/get-analysis', isLoggedIn, catchAsync(formController.input));
 
 router.get('/all-products', isLoggedIn, catchAsync(formController.allProducts));
 
