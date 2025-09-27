@@ -91,6 +91,7 @@ body {
     border: none;
     box-shadow: var(--shadow);
     border-radius: var(--border-radius);
+    z-index : 1050;
 }
 
 .dropdown-item:hover {
