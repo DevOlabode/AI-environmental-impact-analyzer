@@ -20,7 +20,7 @@ module.exports.input = async(req, res)=>{
 
     const product = new Products({
         ...req.body,
-        owner : req.user ? req.user._id : null,
+        user : req.user._id ? req.user._id : null,
         impactAnalysis
     });
 
