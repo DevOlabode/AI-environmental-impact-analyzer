@@ -11,8 +11,21 @@ module.exports.getReciept = (req, res)=>{
 
 module.exports.analyseReciept = async (req, res) => {
     try {
+        if (!req.body.image) {
+            return res.status(400).json({
+                success: false,
+                error: 'No image provided. Please capture a photo of your receipt.'
+            });
+        }
         const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, '');
         const products = await analyseReceipt(base64Data);
+
+        if (!products || products.length === 0) {
+            return res.status(400).json({
+                success: false,
+                error: 'No products detected. Please upload a clear image of a receipt.'
+            });
+        }
 
         let createdProducts = [];
         for (const product of products) {
