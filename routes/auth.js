@@ -16,4 +16,6 @@ router.post('/login', storeReturnTo, loginAuthenticate, authController.login);
 
 router.get('/logout', catchAsync(authController.logout));
 
+router.get('/profile', catchAsync(authController.profile));
+
 module.exports = router;

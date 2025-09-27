@@ -34,4 +34,9 @@ module.exports.logout = async(req, res)=>{
         req.flash('success', "Successfully Signed Out");
         res.redirect('/')
     })
-}
+};
+
+module.exports.profile = async(req, res)=>{
+    const user = await User.findOne({owner : req.user._id});
+    res.render('auth/profile', user)
+};
