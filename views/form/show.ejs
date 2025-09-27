@@ -93,7 +93,7 @@
                     <i class="fas fa-arrow-left me-2"></i>Back to All Products
                 </a>
                 <% if(currentUser){ %>
-                    <a href="/form/edit-products/<%= product._id %>" class="btn btn-outline-warning">
+                    <a href="/form/edit/<%= product._id %>" class="btn btn-outline-warning">
                         <i class="fas fa-edit me-2"></i>Edit Product
                     </a>
                     <form action="/form/delete-product/<%= product._id %>?_method=DELETE" method="POST" class="d-inline">
