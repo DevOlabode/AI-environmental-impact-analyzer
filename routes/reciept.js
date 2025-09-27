@@ -10,6 +10,6 @@ const upload = require('../utils/multer');
 
 router.get('/get-reciept', isLoggedIn, recieptController.getReciept);
 
-router.post('/analyseReciept', isLoggedIn, catchAsync(recieptController.analyseReciept));
+router.post('/analyseReciept',upload.single('reciept'), isLoggedIn, catchAsync(recieptController.analyseReciept));
 
 module.exports = router;
