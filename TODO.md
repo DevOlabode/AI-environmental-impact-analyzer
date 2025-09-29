@@ -1,4 +1,0 @@
-- [x] Add isLoggedIn middleware to POST /get-analysis route in routes/form.js
-- [x] Update allProducts in controllers/form.js to filter products by owner
-- [x] Add ownership check in showProducts in controllers/form.js
-- [x] Add ownership check in deleteProduct in controllers/form.js
