@@ -6,9 +6,19 @@
         <ul class="profile-list">
             <li><strong>First Name:</strong> <%= user.firstName %></li>
             <li><strong>Last Name:</strong> <%= user.lastName %></li>
-            <li><strong>Bio:</strong> <%= user.bio %></li>
-            <li><strong>City:</strong> <%= user.location.city %></li>
-            <li><strong>Country:</strong> <%= user.location.country %></li>
+
+            <% if(user.bio){ %>
+                <li> <strong>Bio: </strong> <%= user.bio %></li>
+            <% } %>
+
+            <% if(user.location.city){ %>
+                <li><strong>City:</strong> <%= user.location.city %></li>
+            <% } %>
+
+            <% if(user.location.country){  %>
+                <li><strong>Country:</strong> <%= user.location.country %></li>
+            <% } %>
+
             <li><strong>Username:</strong> <%= user.username %></li>
             <li><strong>Email:</strong> <%= user.email %></li>
         </ul>
