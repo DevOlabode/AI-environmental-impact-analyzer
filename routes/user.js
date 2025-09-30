@@ -8,4 +8,6 @@ const userController = require('../controllers/user');
 
 router.get('/profile', isLoggedIn, catchAsync(userController.profile));
 
+router.post('/edit-profile', isLoggedIn, catchAsync(userController.editProfileForm));
+
 module.exports = router;
