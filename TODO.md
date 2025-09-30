@@ -1,3 +1,0 @@
-- [x] Modify views/auth/profile.ejs to add classes and structure for profile card
-- [x] Add CSS rules to public/css/styles.css for profile page styling
-- [x] Test the styling by running the server and viewing the profile page
