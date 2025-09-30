@@ -2,25 +2,30 @@
 
 <div class="profile-container container">
     <div class="profile-card">
+        <div class="profile-avatar">
+            <div class="avatar-placeholder">
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
         <h3 class="profile-title">Your Profile</h3>
         <ul class="profile-list">
-            <li><strong>First Name:</strong> <%= user.firstName %></li>
-            <li><strong>Last Name:</strong> <%= user.lastName %></li>
+            <li><i class="fas fa-user"></i><strong>First Name:</strong> <%= user.firstName %></li>
+            <li><i class="fas fa-user"></i><strong>Last Name:</strong> <%= user.lastName %></li>
 
             <% if(user.bio){ %>
-                <li> <strong>Bio: </strong> <%= user.bio %></li>
+                <li><i class="fas fa-info-circle"></i><strong>Bio:</strong> <%= user.bio %></li>
             <% } %>
 
             <% if(user.location.city){ %>
-                <li><strong>City:</strong> <%= user.location.city %></li>
+                <li><i class="fas fa-map-marker-alt"></i><strong>City:</strong> <%= user.location.city %></li>
             <% } %>
 
             <% if(user.location.country){  %>
-                <li><strong>Country:</strong> <%= user.location.country %></li>
+                <li><i class="fas fa-globe"></i><strong>Country:</strong> <%= user.location.country %></li>
             <% } %>
 
-            <li><strong>Username:</strong> <%= user.username %></li>
-            <li><strong>Email:</strong> <%= user.email %></li>
+            <li><i class="fas fa-at"></i><strong>Username:</strong> <%= user.username %></li>
+            <li><i class="fas fa-envelope"></i><strong>Email:</strong> <%= user.email %></li>
         </ul>
     </div>
 </div>
