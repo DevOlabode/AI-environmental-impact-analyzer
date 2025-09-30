@@ -57,11 +57,16 @@ body::before {
     background: var(--primary-gradient) !important;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--primary-gradient) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: var(--shadow);
     border: none;
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Changed from hidden to visible to allow dropdown visibility */
+    z-index: 1000;
 }
+/* Navbar Enhancements */
 
 .navbar::before {
     content: '';
@@ -73,6 +78,7 @@ body::before {
     background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     animation: rotate 20s linear infinite;
     pointer-events: none;
+    z-index: 0;
 }
 
 .navbar-brand {
@@ -92,6 +98,7 @@ body::before {
     border-radius: var(--border-radius);
     position: relative;
     overflow: hidden;
+    z-index: 2;
 }
 
 .navbar-nav .nav-link::before {
@@ -103,6 +110,7 @@ body::before {
     height: 100%;
     background: rgba(255, 255, 255, 0.1);
     transition: left 0.5s;
+    z-index: 1;
 }
 
 .navbar-nav .nav-link:hover::before {
@@ -122,6 +130,7 @@ body::before {
     border: none;
     position: relative;
     overflow: hidden;
+    z-index: 2;
 }
 
 .navbar-nav .btn::before {
@@ -133,6 +142,7 @@ body::before {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s;
+    z-index: 1;
 }
 
 .navbar-nav .btn:hover::before {
@@ -817,5 +827,74 @@ body::before {
         left: 15px;
         right: 15px;
         bottom: 15px;
+    }
+}
+
+/* Profile Page Styles */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    margin: 60px auto;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.profile-card {
+    background: var(--card-background);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    width: 100%;
+    max-width: 500px;
+}
+
+.profile-card:hover {
+    box-shadow: var(--shadow-hover), var(--glow);
+    transform: translateY(-10px);
+}
+
+.profile-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    color: var(--accent-color);
+    text-align: center;
+    text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.profile-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-list li {
+    font-size: 1.2rem;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-list li strong {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 30px 20px;
+    }
+
+    .profile-title {
+        font-size: 2rem;
+    }
+
+    .profile-list li {
+        font-size: 1rem;
     }
 }
