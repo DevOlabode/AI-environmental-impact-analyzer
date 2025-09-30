@@ -65,7 +65,15 @@ module.exports.editInput = async(req, res)=>{
     }
 
     try {
-        const impactAnalysis = await analyseImpact(req.body);
+        const formData = req.body;
+        const impactAnalysis = await analyseImpact(
+            formData.name,
+            formData.brand, 
+            formData.category,
+            formData.material,
+            formData.weight,
+            formData.originCountry
+        );
 
         const updatedProduct = await Products.findByIdAndUpdate(req.params.id,
             {
