@@ -39,6 +39,10 @@
     transform: translateY(-10px);
 }
 
+.password{
+    display : none
+}
+
 .profile-avatar {
     text-align: center;
     margin-bottom: 30px;
