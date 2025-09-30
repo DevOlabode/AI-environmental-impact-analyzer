@@ -35,16 +35,5 @@ module.exports.logout = async(req, res)=>{
     })
 };
 
-module.exports.profile = async(req, res)=>{
-    const user = await User.findById(req.user._id);
-
-    if(!user){
-        req.flash('error', 'User not found');
-        return res.redirect('/');
-    }
-
-    res.render('auth/profile', {user})
-};
-
 //Reminderer : 
 // Ensure To Update The Registration And Profile Update Logic Accordingly
