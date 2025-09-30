@@ -52,9 +52,6 @@ const analyseImpact = async (
 const groq = new Groq({
     apiKey: process.env.GROQ_KEY,
 });
-
-const weightKg = weight / 1000;
-
   // Step 1: Calculate baseline estimates
   const { carbonFootprint, waterUsage } = estimateImpact(material, weight);
 
@@ -67,7 +64,7 @@ Here are the product details:
 - Brand: ${brand || "Unknown"}
 - Category: ${category || "Unknown"}
 - Material: ${material || "Unknown"}
-- Weight: ${weightKg || "Unknown"} kg
+- Weight: ${weight || "Unknown"} kg
 - Origin Country: ${originCountry || "Unknown"}
 - Price : ${price || "Unknown"}
 
