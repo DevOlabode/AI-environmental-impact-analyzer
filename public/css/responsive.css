@@ -1,0 +1,110 @@
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .show-row {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .show-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-container {
+        padding: 30px;
+        margin: 30px;
+    }
+
+    .show-body {
+        padding: 30px;
+    }
+
+    .show-header {
+        padding: 30px;
+    }
+
+    .show-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 80px 0;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 10px 15px;
+    }
+
+    .form-container {
+        padding: 20px;
+        margin: 20px;
+    }
+}
+
+/* Responsive for Receipt Page */
+@media (max-width: 768px) {
+    .receipt-card {
+        padding: 30px;
+        margin: 20px;
+    }
+
+    .receipt-title {
+        font-size: 2.5rem;
+    }
+
+    .camera-container {
+        margin: 30px 0;
+    }
+
+    .viewfinder {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 30px 20px;
+    }
+
+    .profile-title {
+        font-size: 2rem;
+    }
+
+    .profile-list li {
+        font-size: 1rem;
+    }
+
+    .avatar-placeholder {
+        width: 100px;
+        height: 100px;
+    }
+
+    .avatar-placeholder i {
+        font-size: 3rem;
+    }
+}

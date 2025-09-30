@@ -1,0 +1,151 @@
+/* Receipt Page Styles */
+.receipt-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--background-color);
+    position: relative;
+}
+
+.receipt-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(245, 87, 108, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.receipt-card {
+    background: var(--card-background);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 50px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    z-index: 2;
+}
+
+.receipt-card:hover {
+    box-shadow: var(--shadow-hover), var(--glow);
+}
+
+.receipt-title {
+    color: var(--accent-color);
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.receipt-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.camera-container {
+    position: relative;
+    margin: 40px 0;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: #000;
+}
+
+#video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--border-radius);
+}
+
+.camera-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.viewfinder {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.snap-btn {
+    margin: 25px 0;
+    padding: 18px 50px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    background: var(--secondary-gradient);
+    border: none;
+    border-radius: 30px;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.snap-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.snap-btn:hover::before {
+    left: 100%;
+}
+
+.snap-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-hover), var(--glow);
+}
+
+.preview-container {
+    margin-top: 40px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.preview-container h3 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.preview-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}

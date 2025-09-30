@@ -1,0 +1,100 @@
+/* Navbar Enhancements */
+.navbar {
+    background: var(--primary-gradient) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--primary-gradient) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow);
+    border: none;
+    position: relative;
+    overflow: visible; /* Changed from hidden to visible to allow dropdown visibility */
+    z-index: 1000;
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--text-primary) !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 2;
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 12px 18px;
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.navbar-nav .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.navbar-nav .nav-link:hover::before {
+    left: 0;
+}
+
+.navbar-nav .nav-link:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--glow);
+}
+
+.navbar-nav .btn {
+    border-radius: 30px;
+    font-weight: 600;
+    transition: var(--transition);
+    background: var(--secondary-gradient);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.navbar-nav .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.navbar-nav .btn:hover::before {
+    left: 100%;
+}
+
+.navbar-nav .btn:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
