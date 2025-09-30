@@ -18,17 +18,23 @@ module.exports.input = async(req, res)=>{
 );
 
 
-    const product = new Products({
-        ...req.body,
-        owner : req.user._id ? req.user._id : null,
-        impactAnalysis
-    });
+if(req.user){
+        const product = new Products({
+            ...req.body,
+            owner : req.user._id ,
+            impactAnalysis
+        });
 
-    if(req.user){
         await product.save()
+        return res.render('form/show', { product })
+    }else{
+        const product = {
+            ...req.body,
+            impactAnalysis,
+            createdAt : new Date()
+        };
+        return res.render('form/show', { product } )
     }
-
-    res.render('form/show', { product })
 }
 
 module.exports.allProducts = async(req, res)=>{

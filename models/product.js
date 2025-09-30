@@ -52,7 +52,7 @@ const productSchema =Schema({
 owner : { 
     type: Schema.Types.ObjectId,
     ref: 'User', 
-    required: true 
+    required: false 
 },
 price : {
   type : Number,
