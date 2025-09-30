@@ -8,7 +8,7 @@ module.exports.profile = async(req, res)=>{
         return res.redirect('/');
     }
 
-    res.render('auth/profile', {user})
+    res.render('user/profile', {user})
 };
 
 module.exports.editProfileForm = async (req, res) => {
@@ -17,14 +17,15 @@ module.exports.editProfileForm = async (req, res) => {
 
     if (!user) {
         req.flash('error', 'User not found');
-        return res.redirect('/');
+        return res.redirect('/profile');
     }
 
     user.authenticate(password, (err, authenticatedUser, message) => {
         if (authenticatedUser) {
-            res.send("✅ Password is correct");
+            res.render('user/edit', { user });
         } else {
-            res.send("❌ Incorrect password");
+            req.flash("error", "❌ Incorrect password")
+            res.redirect('/profile');
         }
     });
 };
