@@ -29,3 +29,7 @@ module.exports.editProfileForm = async (req, res) => {
         }
     });
 };
+
+module.exports.updateProfile = async(req, res)=>{
+    const { firstName, lastName, email, password } = req.body;
+}

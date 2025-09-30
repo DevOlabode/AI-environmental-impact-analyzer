@@ -1,0 +1,71 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<div class="form-container">
+    <h1 class="form-title">
+        <i class="fas fa-user-edit me-2"></i>Edit Profile
+    </h1>
+    <p class="text-center text-muted mb-4">Update your account information</p>
+
+    <form action="/profile" method="POST" class="needs-validation" novalidate>
+        <input type="hidden" name="_method" value="PUT">
+        
+        <div class="mb-3">
+            <label for="firstName" class="form-label">
+                <i class="fas fa-user me-1"></i>First Name
+            </label>
+            <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter your first name" value="<%= user.firstName %>" required>
+            <div class="invalid-feedback">
+                Please provide a valid name
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">
+                <i class="fas fa-user me-1"></i>Last Name
+            </label>
+            <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter your last name" value="<%= user.lastName %>" required>
+            <div class="invalid-feedback">
+                Please provide a valid name.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">
+                <i class="fas fa-envelope me-1"></i>Email Address
+            </label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" value="<%= user.email %>" required>
+            <div class="invalid-feedback">
+                Please provide a valid email address.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="city" class="form-label">
+                <i class="fas fa-map-marker-alt me-1"></i>City
+            </label>
+            <input type="text" name="location[city]" id="city" class="form-control" placeholder="Enter your city" value="<%= user.location.city %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="country" class="form-label">
+                <i class="fas fa-globe me-1"></i>Country
+            </label>
+            <input type="text" name="location[country]" id="country" class="form-control" placeholder="Enter your country" value="<%= user.location.country %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="bio" class="form-label">Bio</label>
+            <textarea name="bio" id="bio" class="form-control" placeholder="A little bio about yourself"><%= user.bio %></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            <i class="fas fa-save me-2"></i>Update Profile
+        </button>
+    </form>
+
+    <div class="text-center mt-4">
+        <a href="/profile" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Cancel
+        </a>
+    </div>
+</div>
