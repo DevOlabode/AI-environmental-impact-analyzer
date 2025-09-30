@@ -6,8 +6,8 @@ module.exports.registerForm = (req, res)=>{
 };
 
 module.exports.register = async(req, res)=>{
-    const { username, email, password, lastName, firstName} = req.body
-    const user = new User({ username, email, lastName, firstName });
+    const { username, email, password, lastName, firstName, bio, location} = req.body
+    const user = new User({ username, email, lastName, firstName, bio, location});
     const registeredUser = await User.register(user, password);
     
     req.login(registeredUser, err => {
@@ -46,12 +46,5 @@ module.exports.profile = async(req, res)=>{
     res.render('auth/profile', {user})
 };
 
-
-//Reminder For Tomorrow:
-
-// Add More Fields To The User Model As Needed
-// Like Name, Address, Profile Picture, etc.
+//Reminderer : 
 // Ensure To Update The Registration And Profile Update Logic Accordingly
-
-
-// Save Each Products To The Logged In User

@@ -15,6 +15,21 @@ const userSchema = new Schema({
     lastName : {
         type : String,
         required : true
+    },
+    bio : {
+        type : String,
+        required : false,
+        default : ''
+    },
+    location : {
+        city : {
+            type : String,
+            default : ''
+        },
+        country : {
+            type : String,
+            default : ''
+        }
     }
 });
 

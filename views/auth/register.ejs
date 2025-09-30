@@ -13,7 +13,7 @@
             </label>
             <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter your first name" required>
             <div class="invalid-feedback">
-                Please provide a valid username.
+                Please provide a valid name
             </div>
         </div>
 
@@ -23,7 +23,7 @@
             </label>
             <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter Your Last Name" required>
             <div class="invalid-feedback">
-                Please provide a valid username.
+                Please provide a valid name.
             </div>
         </div>
 
@@ -45,6 +45,25 @@
             <div class="invalid-feedback">
                 Please provide a valid email address.
             </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">
+                <i class="fas fa-envelope me-1"></i>Location
+            </label>
+            <input type="text" name="city" id="city" class="form-control" placeholder="Enter your city" >
+            <div class="invalid-feedback">
+                Please provide a valid city.
+            </div>
+            <input type="text"  name="country" id="country" class="form-control mt-2" placeholder="Enter your country">
+            <div class="invalid-feedback">
+                Please provide a valid country.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="bio" class="form-label">Bio</label>
+            <textarea name="bio" id="bio" class="form-control" placeholder="A little bio about yourself"></textarea>
         </div>
 
         <div class="mb-4">
