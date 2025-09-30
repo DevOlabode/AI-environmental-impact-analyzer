@@ -8,6 +8,26 @@
 
     <form action="/register" method="post" class="needs-validation" novalidate>
         <div class="mb-3">
+            <label for="firstName" class="form-label">
+                <i class="fas fa-user me-1"></i>First Name
+            </label>
+            <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Enter your first name" required>
+            <div class="invalid-feedback">
+                Please provide a valid username.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">
+                <i class="fas fa-user me-1"></i>Last Name
+            </label>
+            <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Enter Your Last Name" required>
+            <div class="invalid-feedback">
+                Please provide a valid username.
+            </div>
+        </div>
+
+        <div class="mb-3">
             <label for="username" class="form-label">
                 <i class="fas fa-user me-1"></i>Username
             </label>
