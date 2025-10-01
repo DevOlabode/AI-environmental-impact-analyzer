@@ -170,6 +170,7 @@
 .password-section {
     grid-column: span 2;
     margin-top: 30px;
+    display: none;
 }
 
 .password-form {
