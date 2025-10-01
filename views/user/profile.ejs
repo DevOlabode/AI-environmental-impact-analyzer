@@ -1,43 +1,99 @@
 <% layout('layout/boilerplate.ejs') %>
 
-<div class="profile-container container">
-    <div class="profile-card">
+<div class="profile-wrapper">
+    <div class="profile-header">
         <div class="profile-avatar">
             <div class="avatar-placeholder">
                 <i class="fas fa-user-circle"></i>
             </div>
         </div>
-        <h3 class="profile-title">Your Profile</h3>
-        <ul class="profile-list">
-            <li><i class="fas fa-user"></i><strong>First Name:</strong> <%= user.firstName %></li>
-            <li><i class="fas fa-user"></i><strong>Last Name:</strong> <%= user.lastName %></li>
-
-            <% if(user.bio){ %>
-                <li><i class="fas fa-info-circle"></i><strong>Bio:</strong> <%= user.bio %></li>
-            <% } %>
-
-            <% if(user.location.city){ %>
-                <li><i class="fas fa-map-marker-alt"></i><strong>City:</strong> <%= user.location.city %></li>
-            <% } %>
-
-            <% if(user.location.country){  %>
-                <li><i class="fas fa-globe"></i><strong>Country:</strong> <%= user.location.country %></li>
-            <% } %>
-
-            <li><i class="fas fa-at"></i><strong>Username:</strong> <%= user.username %></li>
-            <li><i class="fas fa-envelope"></i><strong>Email:</strong> <%= user.email %></li>
-        </ul>
+        <div class="profile-info">
+            <h1 class="profile-name"><%= user.firstName %> <%= user.lastName %></h1>
+            <p class="profile-username">@<%= user.username %></p>
+        </div>
     </div>
-</div>
 
-<div class="profile-container container">
-    <button class="btn btn-warning edit-button">Edit Profile</button>
-</div>
+    <div class="profile-content">
+        <div class="profile-section">
+            <h2 class="section-title">Personal Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-user"></i>
+                    <div>
+                        <strong>First Name</strong>
+                        <p><%= user.firstName %></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-user"></i>
+                    <div>
+                        <strong>Last Name</strong>
+                        <p><%= user.lastName %></p>
+                    </div>
+                </div>
+                <% if(user.bio){ %>
+                <div class="info-item">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>Bio</strong>
+                        <p><%= user.bio %></p>
+                    </div>
+                </div>
+                <% } %>
+                <% if(user.location.city){ %>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>City</strong>
+                        <p><%= user.location.city %></p>
+                    </div>
+                </div>
+                <% } %>
+                <% if(user.location.country){ %>
+                <div class="info-item">
+                    <i class="fas fa-globe"></i>
+                    <div>
+                        <strong>Country</strong>
+                        <p><%= user.location.country %></p>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
 
-<div class="mb-3 container password">
-    <form action="/edit-profile" method="post">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
-        <button class="btn btn-primary m-3">Enter</button>
-    </form>
+        <div class="profile-section">
+            <h2 class="section-title">Account Details</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-at"></i>
+                    <div>
+                        <strong>Username</strong>
+                        <p><%= user.username %></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email</strong>
+                        <p><%= user.email %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <button class="btn btn-primary edit-button">Edit Profile</button>
+        </div>
+
+        <div class="password-section">
+            <form action="/edit-profile" method="post" class="password-form">
+                <h3>Change Password</h3>
+                <div class="form-group">
+                    <label for="password">New Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter new password" required>
+                </div>
+                <button type="submit" class="btn btn-success">Update Password</button>
+            </form>
+        </div>
+    </div>
 </div>

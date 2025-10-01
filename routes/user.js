@@ -10,4 +10,6 @@ router.get('/profile', isLoggedIn, catchAsync(userController.profile));
 
 router.post('/edit-profile', isLoggedIn, catchAsync(userController.editProfileForm));
 
+router.put('/update-profile', isLoggedIn, catchAsync(userController.updateProfile));
+
 module.exports = router;

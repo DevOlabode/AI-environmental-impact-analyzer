@@ -31,5 +31,23 @@ module.exports.editProfileForm = async (req, res) => {
 };
 
 module.exports.updateProfile = async(req, res)=>{
-    const { firstName, lastName, email, password } = req.body;
+    const updatedProfile = req.body;
+    const user = await User.findById(req.user._id);
+
+    if(!user){
+        req.flash('error', 'User not found');
+        return res.redirect('/profile');
+    }
+
+    user.firstName = updatedProfile.firstName;
+    user.lastName = updatedProfile.lastName;
+    user.email = updatedProfile.email;
+    user.location.city = updatedProfile.location.city;
+    user.location.country = updatedProfile.location.country;
+    user.bio = updatedProfile.bio;
+
+    await user.save();
+
+    req.flash('success', 'Profile updated successfully');
+    res.redirect('/profile');
 }
