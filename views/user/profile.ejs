@@ -83,7 +83,18 @@
 
         <div class="profile-actions">
             <button class="btn btn-primary edit-button">Edit Profile</button>
-            <button class="btn btn-warning password-reset">Change Password</button>
+            <button class="btn btn-warning password-reset-button">Change Password</button>
+        </div>
+
+        <div class="password-section" id="password-reset">
+            <div>Sent a 4-digit code to your email</div>
+            <form action="/reset-password" method="post" class="password-form">
+                <h3>Enter Four-Digit Code</h3>
+                <div class="form-group">
+                    <input type="number" name="resetCode" id="resetCode">
+                </div>
+                <button type="submit" class="btn btn-success">Update Profile</button>
+            </form>
         </div>
 
         <div class="password-section" id="password">

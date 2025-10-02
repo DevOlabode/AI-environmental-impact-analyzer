@@ -1,11 +1,17 @@
 const form = document.querySelector('#password');
-const button = document.querySelector('.edit-button');
+const profileButton = document.querySelector('.edit-button');
 
 document.addEventListener('DOMContentLoaded', () => {
-    // const form = document.querySelector('.password');
-    // const button = document.querySelector('.edit-button');
-
-    button.addEventListener('click', () => {
+    profileButton.addEventListener('click', () => {
         form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    });
+});
+
+const passwordButton = document.querySelector('.password-reset-button');
+const passwordForm = document.querySelector('#password-reset');
+
+document.addEventListener('DOMContentLoaded', () => {
+    passwordButton.addEventListener('click', () => {
+        passwordForm.style.display = form.style.display === 'block' ? 'none' : 'block';
     });
 });
