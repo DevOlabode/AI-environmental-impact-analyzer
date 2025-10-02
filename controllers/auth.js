@@ -35,5 +35,6 @@ module.exports.logout = async(req, res)=>{
     })
 };
 
+
 //Reminderer : 
 // Ensure To Update The Registration And Profile Update Logic Accordingly

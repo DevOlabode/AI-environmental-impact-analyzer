@@ -24,19 +24,17 @@ const sendPasswordResetCode = async (email, resetCode) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Expense Tracker - Password Reset Code',
+    subject: 'AI Environmental Analysis - Password Reset Code',
     text: `
-Expense Tracker - Password Reset Request
-
-Your password reset code is: ${resetCode}
-
-This code will expire in 15 minutes.
-
-If you didn't request this password reset, please ignore this email.
-
+    Hello,
+We've received a request to reset your password for your AI Environmental Analysis account.
+🔐 Your password reset code is: ${resetCode}
+This code will expire in 15 minutes for security purposes.
+If you did not initiate this request, please disregard this message. No changes will be made to your account.
+Thank you for helping us protect your access to environmental insights.
 Best regards,
-Expense Tracker Team
-    `
+AI Environmental Analysis Team
+`
   };
 
   try {
