@@ -95,7 +95,7 @@ module.exports.resetPassword = async (req, res) => {
     }
 };
 
-module.exports.changePassword = async (req, res) => {
+module.exports.updatePassword = async (req, res) => {
     const user = await User.findById(req.user._id);
     const { currentPassword, newPassword, confirmPassword } = req.body;
 

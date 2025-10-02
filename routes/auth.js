@@ -20,4 +20,6 @@ router.post('/send-reset-code', isLoggedIn, catchAsync(authController.sendResetC
 
 router.post('/reset-password', isLoggedIn, catchAsync(authController.resetPassword));
 
+router.post('/update-password', isLoggedIn, catchAsync(authController.updatePassword)); 
+
 module.exports = router;
