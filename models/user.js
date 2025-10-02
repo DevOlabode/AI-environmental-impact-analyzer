@@ -30,6 +30,14 @@ const userSchema = new Schema({
             type : String,
             default : ''
         }
+    },
+    resetCode: {
+        type: String,
+        default: null
+    },
+    resetCodeExpires: {
+        type: Date,
+        default: null
     }
 });
 

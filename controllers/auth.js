@@ -1,5 +1,7 @@
 const User = require('../models/user');
 
+const { sendPasswordResetCode } = require('../utils/emailService');
+
 
 module.exports.registerForm = (req, res)=>{
     res.render('auth/register')
@@ -35,6 +37,70 @@ module.exports.logout = async(req, res)=>{
     })
 };
 
+const generateResetCode = () => {
+  return Math.floor(10000 + Math.random() * 90000).toString();
+};
 
-//Reminderer : 
-// Ensure To Update The Registration And Profile Update Logic Accordingly
+module.exports.sendResetCode = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        const resetCode = generateResetCode();
+        const resetCodeExpires = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+
+        user.resetCode = resetCode;
+        user.resetCodeExpires = resetCodeExpires;
+        await user.save();
+
+        const emailResult = await sendPasswordResetCode(user.email, resetCode);
+        if (!emailResult.success) {
+            return res.status(500).json({ success: false, message: 'Failed to send email' });
+        }
+
+        res.json({ success: true, message: 'Reset code sent to your email' });
+    } catch (error) {
+        console.error('Error sending reset code:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
+
+module.exports.resetPassword = async (req, res) => {
+    try {
+        const { resetCode } = req.body;
+        const user = await User.findById(req.user._id);
+
+        if (!user || !user.resetCode || user.resetCode !== resetCode) {
+            req.flash('error', 'Invalid reset code');
+            return res.redirect('/profile');
+        }
+
+        if (user.resetCodeExpires < new Date()) {
+            req.flash('error', 'Reset code has expired');
+            return res.redirect('/profile');
+        }
+
+        // Code is valid, now you can proceed to change password
+        // For now, just clear the code and redirect or show success
+        user.resetCode = null;
+        user.resetCodeExpires = null;
+        await user.save();
+
+        req.flash('success', 'Code verified. You can now change your password.');
+        res.redirect('/profile'); // Or redirect to a password change form
+    } catch (error) {
+        console.error('Error verifying reset code:', error);
+        req.flash('error', 'An error occurred');
+        res.redirect('/profile');
+    }
+};
+
+
+
+
+
+
+
+

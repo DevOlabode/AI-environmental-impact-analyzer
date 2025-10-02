@@ -9,8 +9,28 @@ document.addEventListener('DOMContentLoaded', () => {
         editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
     });
 
-    passwordButton.addEventListener('click', () => {
+    passwordButton.addEventListener('click', async () => {
         editForm.style.display = 'none';
-        passwordForm.style.display = passwordForm.style.display === 'block' ? 'none' : 'block';
+
+        try {
+            const response = await fetch('/send-reset-code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                passwordForm.style.display = 'block';
+                alert('A reset code has been sent to your email.');
+            } else {
+                alert('Failed to send reset code. Please try again later.');
+            }
+        } catch (error) {
+            console.error('Error sending reset code:', error);
+            alert('An error occurred. Please try again later.');
+        }
     });
 });

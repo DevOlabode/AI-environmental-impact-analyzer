@@ -16,4 +16,8 @@ router.post('/login', storeReturnTo, loginAuthenticate, authController.login);
 
 router.get('/logout', catchAsync(authController.logout));
 
+router.post('/send-reset-code', isLoggedIn, catchAsync(authController.sendResetCode));
+
+router.post('/reset-password', isLoggedIn, catchAsync(authController.resetPassword));
+
 module.exports = router;
