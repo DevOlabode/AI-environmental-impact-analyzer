@@ -91,9 +91,10 @@
             <form action="/reset-password" method="post" class="password-form">
                 <h3>Enter Four-Digit Code</h3>
                 <div class="form-group">
-                    <input type="number" name="resetCode" id="resetCode">
+                    <label for="resetCode">Enter Four-Digit Code</label>
+                    <input type="number" name="resetCode" id="resetCode" class="form-control" required>
                 </div>
-                <button type="submit" class="btn btn-success">Update Profile</button>
+                <button type="submit" class="btn btn-success">Reset Password</button>
             </form>
         </div>
 
