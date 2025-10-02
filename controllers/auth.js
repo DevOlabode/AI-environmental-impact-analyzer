@@ -74,7 +74,7 @@ module.exports.resetPassword = async (req, res) => {
 
         if (!user || !user.resetCode || user.resetCode !== resetCode) {
             req.flash('error', 'Invalid reset code');
-            return res.redirect('/profile');
+            return res.render('user/passwordReset');
         }
 
         if (user.resetCodeExpires < new Date()) {
@@ -82,14 +82,12 @@ module.exports.resetPassword = async (req, res) => {
             return res.redirect('/profile');
         }
 
-        // Code is valid, now you can proceed to change password
-        // For now, just clear the code and redirect or show success
         user.resetCode = null;
         user.resetCodeExpires = null;
         await user.save();
 
         req.flash('success', 'Code verified. You can now change your password.');
-        res.redirect('/profile'); // Or redirect to a password change form
+        res.redirect('/profile'); 
     } catch (error) {
         console.error('Error verifying reset code:', error);
         req.flash('error', 'An error occurred');
