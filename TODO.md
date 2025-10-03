@@ -1,3 +1,0 @@
-- [x] Add custom styling for .password-reset-button in public/css/profile.css with gradient background and hover effects
-- [x] Enhance .password-form styling with improved colors, shadows, and animations
-- [ ] Test the changes by viewing the profile page
