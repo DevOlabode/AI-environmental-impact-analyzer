@@ -1,3 +1,0 @@
-- [x] Add productInputSchema to schema.js
-- [x] Add validateProductInput middleware to middleware.js
-- [x] Update routes/form.js to use validateProductInput for input and edit routes
