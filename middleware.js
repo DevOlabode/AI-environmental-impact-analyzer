@@ -1,4 +1,17 @@
-const passport = require('passport')
+const passport = require('passport');
+const { productSchema } = require('./schema');
+
+const ExpressError = require('./utils/ExpressError');
+
+module.exports.validateProduct  = (req, res, next)=>{
+    const { error } = productSchema.validate(req.body);
+    if(error){
+        const message = error.details.map(el => el.message).join(',');
+        throw new ExpressError(message, 400)
+    }else{
+        next();
+    }
+};
 
 module.exports.loginAuthenticate = passport.authenticate('local', {
     failureFlash : true,
