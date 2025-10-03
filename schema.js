@@ -16,3 +16,13 @@ module.exports.productSchema = Joi.object({
         aiExplanation : Joi.string().allow('')
     }).required()
 }).required()
+
+module.exports.productInputSchema = Joi.object({
+    name : Joi.string().required(),
+    brand : Joi.string().allow(''),
+    category : Joi.string().required(),
+    material : Joi.string().required(),
+    weight : Joi.number().min(0).allow(null),
+    originCountry : Joi.string().allow(''),
+    price : Joi.number().min(0).allow(null)
+}).required()

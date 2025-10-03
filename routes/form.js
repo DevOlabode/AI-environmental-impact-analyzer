@@ -5,22 +5,22 @@ const catchAsync  = require('../utils/catchAsync');
 
 const { isLoggedIn } = require('../middleware');
 
-const { validateProduct } = require('../middleware');
+const { validateProduct, validateProductInput } = require('../middleware');
 
 const formController = require('../controllers/form');
 
 router.get('/', formController.userInput);
 
-router.post('/get-analysis', validateProduct, catchAsync(formController.input));
+router.post('/get-analysis', validateProductInput, catchAsync(formController.input));
 
 router.get('/all-products', isLoggedIn, catchAsync(formController.allProducts));
 
-router.get('/show-products/:id', validateProduct, isLoggedIn, catchAsync(formController.showProducts));
+router.get('/show-products/:id', isLoggedIn, catchAsync(formController.showProducts));
 
 router.get('/edit/:id', isLoggedIn, catchAsync(formController.editInputForm));
 
-router.put('/edit-products/:id', validateProduct, isLoggedIn, catchAsync(formController.editInput));
+router.put('/edit-products/:id', validateProductInput, isLoggedIn, catchAsync(formController.editInput));
 
-router.delete('/delete-product/:id', validateProduct, isLoggedIn, catchAsync(formController.deleteProduct))
+router.delete('/delete-product/:id', isLoggedIn, catchAsync(formController.deleteProduct))
 
 module.exports = router;
