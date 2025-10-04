@@ -58,6 +58,10 @@ price : {
   type : Number,
   required : false
 },
+price : {
+  type : Number,
+  required : false
+},
 
   impactAnalysis: impactSchema,
 
