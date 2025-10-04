@@ -28,6 +28,14 @@
                             <i class="fas fa-cubes text-muted me-2"></i>
                             <strong>Material:</strong> <%= product.material %>
                         </li>
+
+                        <% if(product.price){ %>
+                        <li class="list-group-item">
+                            <i class="fas fa-cubes text-muted me-2"></i>
+                            <strong>Price:</strong>$<%= product.price %>
+                        </li>
+                            <% } %>
+
                         <li class="list-group-item">
                             <i class="fas fa-weight text-muted me-2"></i>
                             <strong>Weight:</strong> <%= product.weight ? product.weight + ' kg' : 'N/A' %>

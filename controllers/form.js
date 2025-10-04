@@ -14,7 +14,8 @@ module.exports.input = async(req, res)=>{
     formData.category,
     formData.material,
     formData.weight,
-    formData.originCountry
+    formData.originCountry,
+    formData.price
 );
 
 
@@ -78,7 +79,8 @@ module.exports.editInput = async(req, res)=>{
             formData.category,
             formData.material,
             formData.weight,
-            formData.originCountry
+            formData.originCountry,
+            formData.price
         );
 
         const updatedProduct = await Products.findByIdAndUpdate(req.params.id,
