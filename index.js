@@ -23,7 +23,7 @@ const formRoutes = require('./routes/form');
 const receiptRoutes = require('./routes/reciept');
 const userRoutes = require('./routes/user');
 
-const ExpressError = require('./utils/expressError');
+const ExpressError = require('./utils/ExpressError');
 
 const User = require('./models/user');
 
