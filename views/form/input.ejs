@@ -34,23 +34,18 @@
                 <label for="product-brand" class="form-label">
                     <i class="fas fa-building me-1"></i>Brand
                 </label>
-                <input type="text" name="brand" id="product-brand" class="form-control" placeholder="e.g., Apple, Nike, Coca-Cola" required>
-                <div class="invalid-feedback">
-                    Please provide a brand name.
-                </div>
-            </div>
-        
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="product-price" class="form-label">
-                    <i class="fas fa-building me-1"></i>Price
-                </label>
-                <input type="number" name="price" id="product-price" class="form-control" required>
-                <div class="invalid-feedback">
-                    Please provide the product price.
-                </div>
+                <input type="text" name="brand" id="product-brand" class="form-control" placeholder="e.g., Apple, Nike, Coca-Cola">
             </div>
 
+            <div class="col-md-6 mb-3">
+                <label for="product-price" class="form-label">
+                    <i class="fas fa-dollar-sign me-1"></i>Price
+                </label>
+                <input type="number" name="price" id="product-price" class="form-control" placeholder="e.g., 4.99" step="0.01" min="0">
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="product-material" class="form-label">
                     <i class="fas fa-cubes me-1"></i>Material
@@ -60,9 +55,7 @@
                     Please provide the material.
                 </div>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="product-weight" class="form-label">
                     <i class="fas fa-weight me-1"></i>Weight (KG)
@@ -72,15 +65,14 @@
                     Please provide a valid weight.
                 </div>
             </div>
+        </div>
 
+        <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="product-originCountry" class="form-label">
                     <i class="fas fa-globe me-1"></i>Origin Country
                 </label>
-                <input type="text" class="form-control" name="originCountry" id="product-originCountry" placeholder="e.g., China, USA, Germany" required>
-                <div class="invalid-feedback">
-                    Please provide the origin country.
-                </div>
+                <input type="text" class="form-control" name="originCountry" id="product-originCountry" placeholder="e.g., China, USA, Germany">
             </div>
         </div>
 

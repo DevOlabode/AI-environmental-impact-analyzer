@@ -1,0 +1,4 @@
+- Fix HTML structure and icons in views/form/input.ejs
+- Fix HTML structure and icons in views/form/edit.ejs
+- Update price icon in views/form/show.ejs
+- Add Price column to table in views/form/index.ejs
