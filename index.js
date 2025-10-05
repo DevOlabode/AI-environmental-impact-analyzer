@@ -29,6 +29,7 @@ const userRoutes = require('./routes/user');
 const ExpressError = require('./utils/ExpressError');
 
 const User = require('./models/user');
+const Impact = require('./models/impact');
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
