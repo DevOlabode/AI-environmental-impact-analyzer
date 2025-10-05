@@ -18,6 +18,8 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 
+const rateLimit = require('express-rate-limit');
+
 const authRoutes = require('./routes/auth');
 const formRoutes = require('./routes/form');
 const receiptRoutes = require('./routes/reciept');
@@ -56,8 +58,16 @@ const sessionConfig = {
     }
 }
 
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100,
+    message: 'Too many requests, please try again later.',
+});
+
 app.use(session(sessionConfig));
 app.use(flash());
+
+app.use(limiter);
 
 app.use(methodOverride('_method'));
 
