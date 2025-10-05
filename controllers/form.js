@@ -3,54 +3,52 @@ const Impact = require('../models/impact');
 
 const {analyseImpact } = require('../utils/AI')
 
-module.exports.userInput = (req, res)=>{
+module.exports.userInput = (req, res) => {
     res.render('form/input')
 };
 
-module.exports.input = async(req, res)=>{
+module.exports.input = async (req, res) => {
     const formData = req.body;
     const impactAnalysis = await analyseImpact(
-    formData.name,
-    formData.brand, 
-    formData.category,
-    formData.material,
-    formData.weight,
-    formData.originCountry,
-    formData.price
-);
-
+        formData.name,
+        formData.brand,
+        formData.category,
+        formData.material,
+        formData.weight,
+        formData.originCountry,
+        formData.price
+    );
 
     const impact = new Impact(impactAnalysis);
     await impact.save();
 
-
-if(req.user){
+    if (req.user) {
         const product = new Products({
             ...req.body,
-            owner : req.user._id ,
-            impact : impact._id
+            owner: req.user._id,
+            impactAnalysis: impact._id
         });
 
         await product.save()
         return res.render('form/show', { product })
-    }else{
+    } else {
         const product = {
             ...req.body,
             impactAnalysis,
-            createdAt : new Date()
+            createdAt: new Date()
         };
-        return res.render('form/show', { product } )
+        return res.render('form/show', { product })
     }
 }
 
-module.exports.allProducts = async(req, res)=>{
-    const products = await Products.find({owner: req.user._id});
+module.exports.allProducts = async (req, res) => {
+    const products = await Products.find({ owner: req.user._id }).populate('impactAnalysis');
     res.render('form/index', { products })
 };
 
 module.exports.showProducts = async (req, res) => {
-    const product = await Products.findById(req.params.id);
-    if(!product || product.owner.toString() !== req.user._id.toString()) {
+    const product = await Products.findById(req.params.id).populate('impactAnalysis');
+    if (!product || product.owner.toString() !== req.user._id.toString()) {
         req.flash('error', 'Product not found or access denied');
         return res.redirect('/form/all-products');
     }
@@ -62,25 +60,25 @@ module.exports.editInputForm = async(req, res)=>{
     res.render('form/edit', { product })
 };
 
-module.exports.editInput = async(req, res)=>{
+module.exports.editInput = async (req, res) => {
     const product = await Products.findById(req.params.id);
 
-    if(!product) {
+    if (!product) {
         req.flash('error', 'Product Not Found!');
         return res.redirect('/form/all-products');
     }
 
     // Check if user owns the product
-    if(product.owner && product.owner.toString() !== req.user._id.toString()) {
+    if (product.owner && product.owner.toString() !== req.user._id.toString()) {
         req.flash('error', 'You do not have permission to edit this product');
         return res.redirect('/form/all-products');
     }
 
     try {
         const formData = req.body;
-        const impactAnalysis = await analyseImpact(
+        const impactAnalysisData = await analyseImpact(
             formData.name,
-            formData.brand, 
+            formData.brand,
             formData.category,
             formData.material,
             formData.weight,
@@ -88,10 +86,13 @@ module.exports.editInput = async(req, res)=>{
             formData.price
         );
 
+        const impact = new Impact(impactAnalysisData);
+        await impact.save();
+
         const updatedProduct = await Products.findByIdAndUpdate(req.params.id,
             {
                 ...req.body,
-                impactAnalysis
+                impactAnalysis: impact._id
             },
             {
                 runValidators: true,

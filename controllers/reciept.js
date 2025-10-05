@@ -1,11 +1,12 @@
 const path = require('path');
 const Product = require('../models/product');
+const Impact = require('../models/impact');
 const { analyseReceipt, analyseImpact } = require('../utils/AI');
 
 const fs = require('fs');
 const Tesseract = require('tesseract.js');
 
-module.exports.getReciept = (req, res)=>{
+module.exports.getReciept = (req, res) => {
     res.render('reciept/getReciept')
 };
 
@@ -29,7 +30,7 @@ module.exports.analyseReciept = async (req, res) => {
 
         let createdProducts = [];
         for (const product of products) {
-            const impactAnalysis = await analyseImpact(
+            const impactAnalysisData = await analyseImpact(
                 product.name,
                 product.brand,
                 product.category,
@@ -38,6 +39,9 @@ module.exports.analyseReciept = async (req, res) => {
                 product.originCountry,
                 product.price
             );
+
+            const impact = new Impact(impactAnalysisData);
+            await impact.save();
 
             const newProduct = new Product({
                 name: product.name,
@@ -48,7 +52,7 @@ module.exports.analyseReciept = async (req, res) => {
                 originCountry: product.originCountry,
                 price: product.price,
                 owner: req.user._id,
-                impactAnalysis: impactAnalysis,
+                impactAnalysis: impact._id,
             });
 
             await newProduct.save();
