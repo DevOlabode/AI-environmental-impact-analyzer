@@ -14,11 +14,14 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 const methodOverride = require('method-override');
+const helmet = require('helmet');
 
 const passport = require('passport');
 const localStrategy = require('passport-local');
 
 const rateLimit = require('express-rate-limit');
+
+const csrf = require('csurf');
 
 const authRoutes = require('./routes/auth');
 const formRoutes = require('./routes/form');
@@ -29,6 +32,7 @@ const ExpressError = require('./utils/ExpressError');
 
 const User = require('./models/user');
 
+app.use(helmet());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -52,9 +56,11 @@ const sessionConfig = {
     resave : false,
     saveUninitialized : true,
     Cookie : {
+        secure : true,
         httpOnly: true,
         expires : Date.now() + 1000 * 60 * 60 * 24 * 7, 
-        maxAge: 1000 * 60 * 60 * 24 * 7 
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        sameSite : 'strict'
     }
 }
 
@@ -68,6 +74,8 @@ app.use(session(sessionConfig));
 app.use(flash());
 
 app.use(limiter);
+
+app.use(csrf());
 
 app.use(methodOverride('_method'));
 
@@ -86,6 +94,11 @@ app.use((req, res, next)=>{
     res.locals.info = req.flash('info');
     res.locals.warning = req.flash('warning')
     next();
+});
+
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken(); // pass token to views
+  next();
 });
 
 app.use('/', authRoutes);

@@ -19,7 +19,7 @@
 - Add caching (Redis or in-memory for analysis results)
 - Optimize database queries (indexes, pagination)
 - Compress responses (compression middleware)
-- Lazy load images/assets
+- Lazy load images/assetjs
 - Implement background job processing for heavy AI tasks
 
 ### 3. UI/UX Improvements
