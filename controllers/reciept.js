@@ -1,6 +1,6 @@
 const path = require('path');
 const Product = require('../models/product');
-const { analyseReceipt, analyseImpact } = require('../utils/formAI');
+const { analyseReceipt, analyseImpact } = require('../utils/AI');
 
 const fs = require('fs');
 const Tesseract = require('tesseract.js');
