@@ -1,4 +1,5 @@
 const Products = require('../models/product');
+const Impact = require('../models/impact');
 
 const {analyseImpact } = require('../utils/AI')
 
@@ -19,11 +20,15 @@ module.exports.input = async(req, res)=>{
 );
 
 
+    const impact = new Impact(impactAnalysis);
+    await impact.save();
+
+
 if(req.user){
         const product = new Products({
             ...req.body,
             owner : req.user._id ,
-            impactAnalysis
+            impact : impact._id
         });
 
         await product.save()
