@@ -21,8 +21,6 @@ const localStrategy = require('passport-local');
 
 const rateLimit = require('express-rate-limit');
 
-const csrf = require('csurf');
-
 const authRoutes = require('./routes/auth');
 const formRoutes = require('./routes/form');
 const receiptRoutes = require('./routes/reciept');
@@ -32,7 +30,6 @@ const ExpressError = require('./utils/ExpressError');
 
 const User = require('./models/user');
 
-app.use(helmet());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -60,7 +57,6 @@ const sessionConfig = {
         httpOnly: true,
         expires : Date.now() + 1000 * 60 * 60 * 24 * 7, 
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        sameSite : 'strict'
     }
 }
 
@@ -75,8 +71,6 @@ app.use(flash());
 
 app.use(limiter);
 
-app.use(csrf());
-
 app.use(methodOverride('_method'));
 
 app.use(passport.initialize());
@@ -85,7 +79,6 @@ passport.use(new localStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 app.use((req, res, next)=>{
     res.locals.currentUser = req.user;
@@ -96,11 +89,6 @@ app.use((req, res, next)=>{
     next();
 });
 
-app.use((req, res, next) => {
-  res.locals.csrfToken = req.csrfToken(); // pass token to views
-  next();
-});
-
 app.use('/', authRoutes);
 app.use('/form', formRoutes);
 app.use('/', receiptRoutes);
@@ -109,7 +97,7 @@ app.use('/', userRoutes);
 
 app.get('/', (req, res)=>{
     res.render('home')
-})
+});
 
 app.all(/(.*)/, (req, res, next) => {
     next(new ExpressError('Page not found', 404))
