@@ -27,15 +27,19 @@
                         <button id="startBtn" class="btn btn-success btn-lg">
                             <i class="fas fa-camera"></i> Start Scanner
                         </button>
+                        <button id="scanNowBtn" class="btn btn-primary btn-lg" style="display: none;">
+                            <i class="fas fa-search"></i> Scan Now
+                        </button>
                         <button id="stopBtn" class="btn btn-danger btn-lg" style="display: none;">
                             <i class="fas fa-stop"></i> Stop Scanner
                         </button>
                     </div>
 
                     <!-- Video Preview -->
-                    <div id="videoContainer" class="position-relative" style="display: none;">
-                        <video id="video" width="100%" style="border: 2px solid #28a745; border-radius: 8px;"></video>
-                        <div id="scanLine" style="position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: red; animation: scan 2s infinite;"></div>
+                    <div id="videoContainer" class="camera-container" style="display: none;">
+                        <div class="camera-overlay">
+                            <div class="viewfinder"></div>
+                        </div>
                     </div>
 
                     <!-- Manual Entry Option -->

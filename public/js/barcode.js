@@ -42,7 +42,7 @@ function updateStatus(message, type = 'info') {
 // Start scanner
 document.getElementById('startBtn').addEventListener('click', async () => {
     const cameraId = document.getElementById('cameraSelect').value;
-    
+
     if (!cameraId) {
         updateStatus('Please select a camera first', 'warning');
         return;
@@ -50,12 +50,13 @@ document.getElementById('startBtn').addEventListener('click', async () => {
 
     try {
         html5QrcodeScanner = new Html5Qrcode("videoContainer");
-        
+
         document.getElementById('videoContainer').style.display = 'block';
         document.getElementById('startBtn').style.display = 'none';
+        document.getElementById('scanNowBtn').style.display = 'inline-block';
         document.getElementById('stopBtn').style.display = 'inline-block';
-        
-        updateStatus('Scanning... Point camera at barcode', 'success');
+
+        updateStatus('Camera started. Click "Scan Now" to scan.', 'success');
 
         await html5QrcodeScanner.start(
             cameraId,
@@ -63,8 +64,12 @@ document.getElementById('startBtn').addEventListener('click', async () => {
                 fps: 10,
                 qrbox: { width: 250, height: 150 }
             },
-            onScanSuccess,
-            onScanFailure
+            (decodedText, decodedResult) => {
+                // Ignore continuous scan results to prevent duplicate scans
+            },
+            (error) => {
+                // Ignore scan failure errors
+            }
         );
     } catch (error) {
         console.error('Error starting scanner:', error);
@@ -76,11 +81,37 @@ document.getElementById('startBtn').addEventListener('click', async () => {
 // Stop scanner
 document.getElementById('stopBtn').addEventListener('click', stopScanner);
 
+document.getElementById('scanNowBtn').addEventListener('click', async () => {
+    try {
+        updateStatus('Scanning...', 'info');
+        // Use scanFile with a file input dialog for manual scan
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) {
+                updateStatus('No file selected', 'warning');
+                return;
+            }
+            try {
+                await Html5Qrcode.scanFile(file, false, onScanSuccess, onScanFailure);
+            } catch (error) {
+                updateStatus('Scan failed: ' + error, 'danger');
+            }
+        };
+        fileInput.click();
+    } catch (error) {
+        updateStatus('Scan failed: ' + error, 'danger');
+    }
+});
+
 function stopScanner() {
     if (html5QrcodeScanner) {
         html5QrcodeScanner.stop().then(() => {
             document.getElementById('videoContainer').style.display = 'none';
             document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('scanNowBtn').style.display = 'none';
             document.getElementById('stopBtn').style.display = 'none';
             updateStatus('Scanner stopped', 'info');
         }).catch(err => {
