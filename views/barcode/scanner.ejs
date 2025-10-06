@@ -54,27 +54,27 @@
 
             <!-- Product Form (Hidden Initially) -->
             <div id="productFormCard" class="card shadow mt-4" style="display: none;">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Product Details</h4>
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0"><i class="fas fa-box-open me-2"></i>Product Details</h4>
                 </div>
                 <div class="card-body">
                     <form id="productForm">
                         <input type="hidden" id="barcode" name="barcode">
                         
                         <div class="mb-3">
-                            <label for="name" class="form-label">Product Name *</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <label for="name" class="form-label text-dark"><i class="fas fa-tag me-1"></i>Product Name *</label>
+                            <input type="text" class="form-control border-success" id="name" name="name" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="brand" class="form-label">Brand *</label>
-                            <input type="text" class="form-control" id="brand" name="brand" required>
+                            <label for="brand" class="form-label text-dark"><i class="fas fa-industry me-1"></i>Brand *</label>
+                            <input type="text" class="form-control border-success" id="brand" name="brand" required>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="category" class="form-label">Category *</label>
-                                <select class="form-select" id="category" name="category" required>
+                                <label for="category" class="form-label text-dark"><i class="fas fa-list-alt me-1"></i>Category *</label>
+                                <select class="form-select border-success" id="category" name="category" required>
                                     <option value="">Select Category</option>
                                     <option value="Food">Food</option>
                                     <option value="Beverage">Beverage</option>
@@ -87,33 +87,33 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="price" class="form-label">Price ($) *</label>
-                                <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                                <label for="price" class="form-label text-dark"><i class="fas fa-dollar-sign me-1"></i>Price ($) *</label>
+                                <input type="number" class="form-control border-success" id="price" name="price" step="0.01" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="material" class="form-label">Material/Packaging</label>
-                                <input type="text" class="form-control" id="material" name="material" placeholder="e.g., Plastic, Glass">
+                                <label for="material" class="form-label text-dark"><i class="fas fa-box me-1"></i>Material/Packaging</label>
+                                <input type="text" class="form-control border-success" id="material" name="material" placeholder="e.g., Plastic, Glass">
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="weight" class="form-label">Weight/Quantity</label>
-                                <input type="text" class="form-control" id="weight" name="weight" placeholder="e.g., 500g, 1L">
+                                <label for="weight" class="form-label text-dark"><i class="fas fa-weight-hanging me-1"></i>Weight/Quantity</label>
+                                <input type="text" class="form-control border-success" id="weight" name="weight" placeholder="e.g., 500g, 1L">
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="originCountry" class="form-label">Country of Origin</label>
-                            <input type="text" class="form-control" id="originCountry" name="originCountry">
+                            <label for="originCountry" class="form-label text-dark"><i class="fas fa-flag-usa me-1"></i>Country of Origin</label>
+                            <input type="text" class="form-control border-success" id="originCountry" name="originCountry">
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <i class="fas fa-leaf"></i> Analyze Environmental Impact
+                            <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                                <i class="fas fa-leaf me-1"></i> Analyze Environmental Impact
                             </button>
-                            <button type="button" id="cancelBtn" class="btn btn-secondary btn-lg">
+                            <button type="button" id="cancelBtn" class="btn btn-secondary btn-lg shadow-sm">
                                 Cancel
                             </button>
                         </div>
@@ -125,6 +125,31 @@
 </div>
 
 <style>
+    #productFormCard .form-control:focus, 
+    #productFormCard .form-select:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+        outline: none;
+    }
+    #productFormCard .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        transition: background-color 0.3s ease;
+    }
+    #productFormCard .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+    #productFormCard .btn-secondary {
+        transition: background-color 0.3s ease;
+    }
+    #productFormCard .btn-secondary:hover {
+        background-color: #6c757d;
+        border-color: #5a6268;
+    }
+</style>
+
+<!-- <style>
 @keyframes scan {
     0%, 100% { top: 10%; }
     50% { top: 90%; }
@@ -139,216 +164,4 @@
     width: 1rem;
     height: 1rem;
 }
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-<script>
-let html5QrcodeScanner = null;
-let cameras = [];
-
-// Get available cameras
-async function getCameras() {
-    try {
-        const devices = await Html5Qrcode.getCameras();
-        cameras = devices;
-        const select = document.getElementById('cameraSelect');
-        select.innerHTML = '';
-        
-        if (devices.length === 0) {
-            select.innerHTML = '<option value="">No cameras found</option>';
-            return;
-        }
-
-        devices.forEach((device, index) => {
-            const option = document.createElement('option');
-            option.value = device.id;
-            option.text = device.label || `Camera ${index + 1}`;
-            select.appendChild(option);
-        });
-
-        // Select back camera by default on mobile
-        const backCamera = devices.find(d => d.label.toLowerCase().includes('back'));
-        if (backCamera) {
-            select.value = backCamera.id;
-        }
-    } catch (error) {
-        console.error('Error getting cameras:', error);
-        updateStatus('Error accessing cameras. Please grant camera permissions.', 'danger');
-    }
-}
-
-// Update status message
-function updateStatus(message, type = 'info') {
-    const statusDiv = document.getElementById('scannerStatus');
-    statusDiv.className = `alert alert-${type}`;
-    statusDiv.innerHTML = `<i class="fas fa-${type === 'danger' ? 'exclamation-circle' : 'info-circle'}"></i> ${message}`;
-}
-
-// Start scanner
-document.getElementById('startBtn').addEventListener('click', async () => {
-    const cameraId = document.getElementById('cameraSelect').value;
-    
-    if (!cameraId) {
-        updateStatus('Please select a camera first', 'warning');
-        return;
-    }
-
-    try {
-        html5QrcodeScanner = new Html5Qrcode("videoContainer");
-        
-        document.getElementById('videoContainer').style.display = 'block';
-        document.getElementById('startBtn').style.display = 'none';
-        document.getElementById('stopBtn').style.display = 'inline-block';
-        
-        updateStatus('Scanning... Point camera at barcode', 'success');
-
-        await html5QrcodeScanner.start(
-            cameraId,
-            {
-                fps: 10,
-                qrbox: { width: 250, height: 150 }
-            },
-            onScanSuccess,
-            onScanFailure
-        );
-    } catch (error) {
-        console.error('Error starting scanner:', error);
-        updateStatus('Failed to start camera: ' + error, 'danger');
-        stopScanner();
-    }
-});
-
-// Stop scanner
-document.getElementById('stopBtn').addEventListener('click', stopScanner);
-
-function stopScanner() {
-    if (html5QrcodeScanner) {
-        html5QrcodeScanner.stop().then(() => {
-            document.getElementById('videoContainer').style.display = 'none';
-            document.getElementById('startBtn').style.display = 'inline-block';
-            document.getElementById('stopBtn').style.display = 'none';
-            updateStatus('Scanner stopped', 'info');
-        }).catch(err => {
-            console.error('Error stopping scanner:', err);
-        });
-    }
-}
-
-// Handle successful scan
-async function onScanSuccess(decodedText, decodedResult) {
-    console.log(`Barcode detected: ${decodedText}`);
-    updateStatus(`Barcode detected: ${decodedText}. Looking up product...`, 'success');
-    
-    stopScanner();
-    await lookupBarcode(decodedText);
-}
-
-function onScanFailure(error) {
-    // Ignore scan failures (too noisy)
-}
-
-// Look up barcode
-async function lookupBarcode(barcode) {
-    try {
-        const response = await fetch('/lookup-barcode', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ barcode })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            if (data.exists) {
-                updateStatus('Product already in your collection!', 'info');
-                window.location.href = `/form/show-products/${data.product._id}`;
-            } else {
-                // Pre-fill form with product data
-                document.getElementById('barcode').value = barcode;
-                document.getElementById('name').value = data.product.name;
-                document.getElementById('brand').value = data.product.brand;
-                document.getElementById('category').value = data.product.category;
-                document.getElementById('material').value = data.product.material || '';
-                document.getElementById('weight').value = data.product.weight || '';
-                document.getElementById('originCountry').value = data.product.originCountry || '';
-                
-                document.getElementById('productFormCard').style.display = 'block';
-                document.getElementById('productFormCard').scrollIntoView({ behavior: 'smooth' });
-                updateStatus('Product found! Please verify details and add price.', 'success');
-            }
-        } else {
-            updateStatus(data.message, 'warning');
-            // Show empty form for manual entry
-            document.getElementById('barcode').value = barcode;
-            document.getElementById('productFormCard').style.display = 'block';
-            document.getElementById('productFormCard').scrollIntoView({ behavior: 'smooth' });
-        }
-    } catch (error) {
-        console.error('Error looking up barcode:', error);
-        updateStatus('Error looking up product. Please try again.', 'danger');
-    }
-}
-
-// Manual barcode lookup
-document.getElementById('manualLookupBtn').addEventListener('click', async () => {
-    const barcode = document.getElementById('manualBarcode').value.trim();
-    
-    if (!barcode) {
-        updateStatus('Please enter a barcode number', 'warning');
-        return;
-    }
-
-    updateStatus('Looking up barcode...', 'info');
-    await lookupBarcode(barcode);
-});
-
-// Handle form submission
-document.getElementById('productForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Analyzing...';
-
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-
-    try {
-        const response = await fetch('/save-scanned-product', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            window.location.href = result.redirect;
-        } else {
-            updateStatus('Error: ' + result.message, 'danger');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
-        }
-    } catch (error) {
-        console.error('Error saving product:', error);
-        updateStatus('Error saving product. Please try again.', 'danger');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
-    }
-});
-
-// Cancel button
-document.getElementById('cancelBtn').addEventListener('click', () => {
-    document.getElementById('productFormCard').style.display = 'none';
-    document.getElementById('productForm').reset();
-    updateStatus('Click "Start Scanner" to scan another product', 'info');
-});
-
-// Initialize cameras on page load
-getCameras();
-</script>
+</style> -->

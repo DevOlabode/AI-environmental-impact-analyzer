@@ -3,9 +3,12 @@ const Product = require('../models/product');
 const { analyseImpact } = require('../utils/AI');
 const axios = require('axios');
 
+module.exports.getBarcodeScanner = (req, res) => {
+    res.render('barcode/scanner');
+};
+
 // Fetch product data from Open Food Facts API
 const fetchProductFromBarcode = async (barcode) => {
-    try {
         // Try Open Food Facts first
         const offResponse = await axios.get(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
         
@@ -18,7 +21,7 @@ const fetchProductFromBarcode = async (barcode) => {
                 material: product.packaging || 'Mixed',
                 weight: product.quantity || '0',
                 originCountry: product.countries || 'Unknown',
-                price: 0, // User needs to input
+                price: 0,
                 barcode: barcode,
                 imageUrl: product.image_url || null
             };
@@ -29,14 +32,6 @@ const fetchProductFromBarcode = async (barcode) => {
         // Handle UPCitemdb response...
 
         return null;
-    } catch (error) {
-        console.error('Error fetching product from barcode:', error);
-        return null;
-    }
-};
-
-module.exports.getBarcodeScanner = (req, res) => {
-    res.render('barcode/scanner');
 };
 
 module.exports.lookupBarcode = async (req, res) => {
@@ -50,7 +45,6 @@ module.exports.lookupBarcode = async (req, res) => {
             });
         }
 
-        // Check if product already exists in user's collection
         if (req.user) {
             const existingProduct = await Product.findOne({
                 owner: req.user._id,
@@ -78,7 +72,6 @@ module.exports.lookupBarcode = async (req, res) => {
             });
         }
 
-        // Ensure no further code runs after sending response
         return res.json({
             success: true,
             exists: false,

@@ -8,7 +8,7 @@ const barcodeController = require('../controllers/barcode');
 const catchAsync = require('../utils/catchAsync');
 
 // Get barcode scanner page
-router.get('/scan-barcode', catchAsync(barcodeController.getBarcodeScanner));
+router.get('/scan-barcode', barcodeController.getBarcodeScanner);
 
 // Look up product by barcode
 router.post('/lookup-barcode', catchAsync(barcodeController.lookupBarcode));
