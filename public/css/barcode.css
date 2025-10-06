@@ -1,0 +1,22 @@
+    #productFormCard .form-control:focus, 
+    #productFormCard .form-select:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+        outline: none;
+    }
+    #productFormCard .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        transition: background-color 0.3s ease;
+    }
+    #productFormCard .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+    #productFormCard .btn-secondary {
+        transition: background-color 0.3s ease;
+    }
+    #productFormCard .btn-secondary:hover {
+        background-color: #6c757d;
+        border-color: #5a6268;
+    }
