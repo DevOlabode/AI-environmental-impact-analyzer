@@ -1,0 +1,85 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<div class="comparison-container">
+    <div class="comparison-header">
+        <h1><i class="fas fa-balance-scale"></i> Compare Products</h1>
+        <p>Select products from your inventory to compare their environmental impact</p>
+    </div>
+
+    <div class="product-selection">
+        <div class="product-column">
+            <h3>Product 1</h3>
+            <ul class="product-list">
+                <% for(let product of products){ %>
+                    <li class="product-item" data-product-id="<%= product._id %>">
+                        <div class="product-name"><%= product.name %></div>
+                        <div class="product-details">
+                            <% if(product.category) { %>
+                                <span><i class="fas fa-tag"></i> <%= product.category %></span>
+                            <% } %>
+                            <% if(product.price) { %>
+                                <span><i class="fas fa-dollar-sign"></i> <%= product.price %></span>
+                            <% } %>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+
+        <div class="product-column">
+            <h3>Product 2</h3>
+            <ul class="product-list">
+                <% for(let product of products){ %>
+                    <li class="product-item" data-product-id="<%= product._id %>">
+                        <div class="product-name"><%= product.name %></div>
+                        <div class="product-details">
+                            <% if(product.category) { %>
+                                <span><i class="fas fa-tag"></i> <%= product.category %></span>
+                            <% } %>
+                            <% if(product.price) { %>
+                                <span><i class="fas fa-dollar-sign"></i> <%= product.price %></span>
+                            <% } %>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="compare-button-container">
+        <button class="btn-compare" id="compareBtn" disabled>
+            <i class="fas fa-chart-line"></i> Compare Selected Products
+        </button>
+    </div>
+</div>
+
+<script>
+    const productItems = document.querySelectorAll('.product-item');
+    const compareBtn = document.getElementById('compareBtn');
+    let selectedProducts = { product1: null, product2: null };
+
+    productItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const column = this.closest('.product-column');
+            const isProduct1 = column.querySelector('h3').textContent === 'Product 1';
+
+            column.querySelectorAll('.product-item').forEach(li => li.classList.remove('selected'));
+
+            this.classList.add('selected');
+
+            if (isProduct1) {
+                selectedProducts.product1 = this.dataset.productId;
+            } else {
+                selectedProducts.product2 = this.dataset.productId;
+            }
+
+            compareBtn.disabled = !(selectedProducts.product1 && selectedProducts.product2);
+        });
+    });
+
+    compareBtn.addEventListener('click', function() {
+        if (selectedProducts.product1 && selectedProducts.product2) {
+            alert(`Comparing products: ${selectedProducts.product1} and ${selectedProducts.product2}`);
+        }
+    });
+</script>
