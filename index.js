@@ -25,7 +25,6 @@ const authRoutes = require('./routes/auth');
 const formRoutes = require('./routes/form');
 const receiptRoutes = require('./routes/reciept');
 const userRoutes = require('./routes/user');
-const barcodeRoutes = require('./routes/barcode');
 
 const ExpressError = require('./utils/ExpressError');
 
@@ -94,7 +93,6 @@ app.use('/', authRoutes);
 app.use('/form', formRoutes);
 app.use('/', receiptRoutes);
 app.use('/', userRoutes);
-app.use('/', barcodeRoutes);
 
 
 app.get('/', (req, res)=>{
