@@ -1,6 +1,6 @@
 <% layout('layout/boilerplate.ejs') %>
 
-<div class="comparison-container">
+<form action="/comparison/compare" method="POST" class="comparison-container">
     <div class="comparison-header">
         <h1><i class="fas fa-balance-scale"></i> Compare Products</h1>
         <p>Select products from your inventory to compare their environmental impact</p>
@@ -11,16 +11,19 @@
             <h3>Product 1</h3>
             <ul class="product-list">
                 <% for(let product of products){ %>
-                    <li class="product-item" data-product-id="<%= product._id %>">
-                        <div class="product-name"><%= product.name %></div>
-                        <div class="product-details">
-                            <% if(product.category) { %>
-                                <span><i class="fas fa-tag"></i> <%= product.category %></span>
-                            <% } %>
-                            <% if(product.price) { %>
-                                <span><i class="fas fa-dollar-sign"></i> <%= product.price %></span>
-                            <% } %>
-                        </div>
+                    <li class="product-item">
+                        <input type="radio" name="product1" value="<%= product._id %>" id="product1-<%= product._id %>" hidden>
+                        <label for="product1-<%= product._id %>" class="product-label">
+                            <div class="product-name"><%= product.name %></div>
+                            <div class="product-details">
+                                <% if(product.category) { %>
+                                    <span><i class="fas fa-tag"></i> <%= product.category %></span>
+                                <% } %>
+                                <% if(product.price) { %>
+                                    <span><i class="fas fa-dollar-sign"></i> <%= product.price %></span>
+                                <% } %>
+                            </div>
+                        </label>
                     </li>
                 <% } %>
             </ul>
@@ -30,16 +33,19 @@
             <h3>Product 2</h3>
             <ul class="product-list">
                 <% for(let product of products){ %>
-                    <li class="product-item" data-product-id="<%= product._id %>">
-                        <div class="product-name"><%= product.name %></div>
-                        <div class="product-details">
-                            <% if(product.category) { %>
-                                <span><i class="fas fa-tag"></i> <%= product.category %></span>
-                            <% } %>
-                            <% if(product.price) { %>
-                                <span><i class="fas fa-dollar-sign"></i> <%= product.price %></span>
-                            <% } %>
-                        </div>
+                    <li class="product-item">
+                        <input type="radio" name="product2" value="<%= product._id %>" id="product2-<%= product._id %>" hidden>
+                        <label for="product2-<%= product._id %>" class="product-label">
+                            <div class="product-name"><%= product.name %></div>
+                            <div class="product-details">
+                                <% if(product.category) { %>
+                                    <span><i class="fas fa-tag"></i> <%= product.category %></span>
+                                <% } %>
+                                <% if(product.price) { %>
+                                    <span><i class="fas fa-dollar-sign"></i> <%= product.price %></span>
+                                <% } %>
+                            </div>
+                        </label>
                     </li>
                 <% } %>
             </ul>
@@ -47,8 +53,8 @@
     </div>
 
     <div class="compare-button-container">
-        <button class="btn-compare" id="compareBtn" disabled>
+        <button class="btn-compare" id="compareBtn" disabled type="submit">
             <i class="fas fa-chart-line"></i> Compare Selected Products
         </button>
     </div>
-</div>
+</form>

@@ -26,3 +26,25 @@
             alert(`Comparing products: ${selectedProducts.product1} and ${selectedProducts.product2}`);
         }
     });
+
+
+      const compareBtn = document.getElementById('compareBtn');
+    const product1Radios = document.querySelectorAll('input[name="product1"]');
+    const product2Radios = document.querySelectorAll('input[name="product2"]');
+
+    function updateButtonState() {
+        const product1Selected = Array.from(product1Radios).some(radio => radio.checked);
+        const product2Selected = Array.from(product2Radios).some(radio => radio.checked);
+        compareBtn.disabled = !(product1Selected && product2Selected);
+    }
+
+    product1Radios.forEach(radio => {
+        radio.addEventListener('change', updateButtonState);
+    });
+
+    product2Radios.forEach(radio => {
+        radio.addEventListener('change', updateButtonState);
+    });
+
+    // Initialize button state on page load
+    updateButtonState();
