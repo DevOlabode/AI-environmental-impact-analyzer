@@ -28,6 +28,11 @@ owner : {
     ref: 'User', 
     required: false 
 },
+barcode: {
+    type: String,
+    default: null,
+    index: true 
+    },
 price : {
   type : Number,
   required : false

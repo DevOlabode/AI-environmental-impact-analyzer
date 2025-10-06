@@ -25,11 +25,11 @@ const authRoutes = require('./routes/auth');
 const formRoutes = require('./routes/form');
 const receiptRoutes = require('./routes/reciept');
 const userRoutes = require('./routes/user');
+const barcodeRoutes = require('./routes/barcode');
 
 const ExpressError = require('./utils/ExpressError');
 
 const User = require('./models/user');
-const Impact = require('./models/impact');
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -53,10 +53,10 @@ const sessionConfig = {
     secret : process.env.SECRET,
     resave : false,
     saveUninitialized : true,
-    Cookie : {
-        secure : true,
+    cookie : {
+        secure : false, // Set to false for development (localhost)
         httpOnly: true,
-        expires : Date.now() + 1000 * 60 * 60 * 24 * 7, 
+        expires : new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         maxAge: 1000 * 60 * 60 * 24 * 7,
     }
 }
@@ -94,6 +94,7 @@ app.use('/', authRoutes);
 app.use('/form', formRoutes);
 app.use('/', receiptRoutes);
 app.use('/', userRoutes);
+app.use('/', barcodeRoutes);
 
 
 app.get('/', (req, res)=>{
