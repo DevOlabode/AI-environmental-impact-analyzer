@@ -1,15 +1,14 @@
-# TODO: Update Impact Schema References
+# Footer Redesign Task
 
-## Tasks
-- [x] Update models/impact.js: Remove unused Product require
-- [x] Update controllers/form.js:
-  - [x] Fix input method: Change 'impact' to 'impactAnalysis'
-  - [x] Update editInput method: Create Impact document and set impactAnalysis to _id
-  - [x] Add populate('impactAnalysis') to allProducts and showProducts
-- [x] Update controllers/reciept.js:
-  - [x] Import Impact model
-  - [x] Update analyseReciept: Create Impact documents and set impactAnalysis to _ids
+## Steps to Complete
 
-## Followup
-- [ ] Test creating, editing, and viewing products
-- [ ] Verify receipt analysis creates Impact documents properly
+1. Update footer HTML structure in `views/partials/footer.ejs` for a more modern and professional layout.
+2. Update footer CSS styles in `public/css/styles.css` to enhance visual appeal and responsiveness.
+3. Test the footer on different screen sizes and verify integration with Bootstrap and Font Awesome.
+4. Final review and adjustments if needed.
+
+## Progress
+- [x] Step 1: Update footer.ejs
+- [x] Step 2: Update styles.css
+- [x] Step 3: Test responsiveness
+- [x] Step 4: Final review
