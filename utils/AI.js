@@ -146,7 +146,7 @@ Analyze the provided image of a receipt and extract the following details for th
 - Category: Product category (e.g., electronics, clothing, food)
 - Material: Main material (e.g., plastic, metal, cotton),
 - Weight: Estimated weight in grams (if not specified, estimate based on category)
-- Origin Country: Country of origin 
+- Origin Country: Country of origin (if not specified, make a reasonable assumption based on the store location)
 - price: Price in USD/CAD (Based on the receipt currency or the location of the store on the receipt)
 
 Guidelines:

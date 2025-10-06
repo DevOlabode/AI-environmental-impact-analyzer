@@ -128,3 +128,27 @@
     transform: translateY(-3px) scale(1.05);
     box-shadow: var(--shadow-hover), 0 0 20px rgba(255, 107, 107, 0.5);
 }
+
+/* Custom styles for sustainability score span */
+.sustainability-score {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 0.5rem 0;
+    border-radius: 0.375rem; /* similar to badge */
+    font-weight: 600;
+}
+
+.sustainability-score.high {
+    background-color: #198754; /* Bootstrap success green */
+}
+
+.sustainability-score.medium {
+    background-color: #ffc107; /* Bootstrap warning yellow */
+    color: #212529; /* dark text for contrast */
+}
+
+.sustainability-score.low {
+    background-color: #dc3545; /* Bootstrap danger red */
+}

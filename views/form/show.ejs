@@ -53,9 +53,9 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span><strong>Sustainability Score:</strong></span>
-                                <span class="badge bg-<%= product.impactAnalysis.sustainabilityScore >= 7 ? 'success' : product.impactAnalysis.sustainabilityScore >= 4 ? 'warning' : 'danger' %> fs-6">
-                                    <%= product.impactAnalysis.sustainabilityScore %> / 10
-                                </span>
+<span class="sustainability-score fs-6 <%= product.impactAnalysis.sustainabilityScore >= 7 ? 'high' : product.impactAnalysis.sustainabilityScore >= 4 ? 'medium' : 'low' %>">
+    <%= product.impactAnalysis.sustainabilityScore %> / 10
+</span>
                             </div>
                             <div class="progress mb-3" style="height: 10px;">
                                 <div class="progress-bar bg-<%= product.impactAnalysis.sustainabilityScore >= 7 ? 'success' : product.impactAnalysis.sustainabilityScore >= 4 ? 'warning' : 'danger' %>"
