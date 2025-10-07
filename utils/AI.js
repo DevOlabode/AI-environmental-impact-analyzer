@@ -291,7 +291,7 @@ ${JSON.stringify(productB, null, 2)}
   }
 };
 
-const voiceInput = async (audioBase64) => {
+const voiceInput = async (transcript) => {
   const groq = new Groq({apiKey: process.env.GROQ_KEY});
 
   const prompt = `Extract product information from this voice input and return ONLY a valid JSON object with these exact fields:
@@ -313,7 +313,7 @@ Rules:
 - Return ONLY the JSON object, no explanation or markdown formatting
 - Category must be exactly one of the listed options
 
-Voice input: "${audioBase64}"`;
+Voice input: "${transcript}"`;
 
   const response = await groq.chat.completions.create({
     model: "meta-llama/llama-4-scout-17b-16e-instruct",
@@ -334,4 +334,4 @@ Voice input: "${audioBase64}"`;
 
 
 // Function Exports.
-module.exports = { analyseImpact, analyseReceipt, compareProducts };
+module.exports = { analyseImpact, analyseReceipt, compareProducts, voiceInput };

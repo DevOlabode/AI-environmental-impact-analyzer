@@ -1,0 +1,188 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<div class="form-container">
+    <h1 class="form-title">
+        <i class="fas fa-robot me-2"></i>AI Voice Input Analysis
+    </h1>
+    <p class="text-center text-muted mb-4">Describe your product verbally, and our AI will extract the details for environmental impact analysis</p>
+
+    <div class="text-center mb-4">
+        <button type="button" id="voiceButton" class="btn btn-primary btn-lg">
+            <i class="fas fa-microphone"></i> Start Speaking
+        </button>
+        <p id="status" class="mt-2 text-muted">Click to describe your product</p>
+    </div>
+
+    <form action="/form/get-analysis" method="post" class="needs-validation" novalidate id="voiceForm">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-name" class="form-label">
+                    <i class="fas fa-tag me-1"></i>Product Name
+                </label>
+                <input type="text" name="name" id="product-name" class="form-control" placeholder="AI will fill this" required readonly>
+                <div class="invalid-feedback">
+                    Please provide a product name.
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="product-category" class="form-label">
+                    <i class="fas fa-folder me-1"></i>Category
+                </label>
+                <input type="text" name="category" id="product-category" class="form-control" placeholder="AI will fill this" required readonly>
+                <div class="invalid-feedback">
+                    Please provide a category.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-brand" class="form-label">
+                    <i class="fas fa-building me-1"></i>Brand
+                </label>
+                <input type="text" name="brand" id="product-brand" class="form-control" placeholder="AI will fill this" readonly>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="product-price" class="form-label">
+                    <i class="fas fa-dollar-sign me-1"></i>Price
+                </label>
+                <input type="number" name="price" id="product-price" class="form-control" placeholder="AI will fill this" step="0.01" min="0" readonly>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-material" class="form-label">
+                    <i class="fas fa-cubes me-1"></i>Material
+                </label>
+                <input type="text" name="material" id="product-material" class="form-control" placeholder="AI will fill this" required readonly>
+                <div class="invalid-feedback">
+                    Please provide the material.
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="product-weight" class="form-label">
+                    <i class="fas fa-weight me-1"></i>Weight (KG)
+                </label>
+                <input type="number" name="weight" id="product-weight" class="form-control" placeholder="AI will fill this" step="0.01" min="0" required readonly>
+                <div class="invalid-feedback">
+                    Please provide a valid weight.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-originCountry" class="form-label">
+                    <i class="fas fa-globe me-1"></i>Origin Country
+                </label>
+                <input type="text" class="form-control" name="originCountry" id="product-originCountry" placeholder="AI will fill this" readonly>
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success btn-lg" id="analyzeBtn" disabled>
+                <i class="fas fa-robot me-2"></i>Get Environmental Analysis
+            </button>
+        </div>
+    </form>
+
+    <div class="text-center mt-4">
+        <p class="text-muted mb-0">
+            <i class="fas fa-info-circle me-1"></i>
+            Speak clearly about the product name, brand, category, material, weight, origin, and price. AI will parse and fill the form automatically.
+        </p>
+    </div>
+</div>
+
+<script>
+let recognition;
+let isListening = false;
+
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = function() {
+        isListening = true;
+        document.getElementById('voiceButton').innerHTML = '<i class="fas fa-stop"></i> Listening...';
+        document.getElementById('voiceButton').classList.remove('btn-primary');
+        document.getElementById('voiceButton').classList.add('btn-danger');
+        document.getElementById('status').textContent = 'Listening... Speak now.';
+    };
+
+    recognition.onresult = async function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('status').textContent = 'Processing with AI...';
+
+        try {
+            const response = await fetch('/voiceinput/ai/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ transcript })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to process voice input');
+            }
+
+            const productData = await response.json();
+
+            // Fill the form
+            document.getElementById('product-name').value = productData.name || '';
+            document.getElementById('product-brand').value = productData.brand || '';
+            document.getElementById('product-category').value = productData.category || '';
+            document.getElementById('product-material').value = productData.material || '';
+            document.getElementById('product-weight').value = productData.weight || '';
+            document.getElementById('product-originCountry').value = productData.originCountry || '';
+            document.getElementById('product-price').value = productData.price || '';
+
+            document.getElementById('status').textContent = 'Form filled! Ready to analyze.';
+            document.getElementById('analyzeBtn').disabled = false;
+
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('status').textContent = 'Error processing voice input. Please try again.';
+        }
+    };
+
+    recognition.onend = function() {
+        isListening = false;
+        document.getElementById('voiceButton').innerHTML = '<i class="fas fa-microphone"></i> Start Speaking';
+        document.getElementById('voiceButton').classList.remove('btn-danger');
+        document.getElementById('voiceButton').classList.add('btn-primary');
+        if (!document.getElementById('product-name').value) {
+            document.getElementById('status').textContent = 'Click to describe your product';
+        }
+    };
+
+    recognition.onerror = function(event) {
+        console.error('Speech recognition error:', event.error);
+        document.getElementById('status').textContent = 'Speech recognition error: ' + event.error;
+        isListening = false;
+        document.getElementById('voiceButton').innerHTML = '<i class="fas fa-microphone"></i> Start Speaking';
+        document.getElementById('voiceButton').classList.remove('btn-danger');
+        document.getElementById('voiceButton').classList.add('btn-primary');
+    };
+} else {
+    document.getElementById('status').textContent = 'Speech recognition not supported in this browser.';
+    document.getElementById('voiceButton').disabled = true;
+}
+
+document.getElementById('voiceButton').addEventListener('click', function() {
+    if (!recognition) return;
+    if (isListening) {
+        recognition.stop();
+    } else {
+        recognition.start();
+    }
+});
+</script>
