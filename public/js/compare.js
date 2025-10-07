@@ -28,7 +28,6 @@
     });
 
 
-      const compareBtn = document.getElementById('compareBtn');
     const product1Radios = document.querySelectorAll('input[name="product1"]');
     const product2Radios = document.querySelectorAll('input[name="product2"]');
 
