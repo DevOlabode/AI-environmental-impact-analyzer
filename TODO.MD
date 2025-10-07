@@ -1,4 +1,2 @@
-Product Comparison Tool 
-        ○ Select 2-3 products from saved list
-        ○ Side-by-side impact comparison
-Render in EJS template with Bootstrap cards
+- [x] Write EJS code for views/comparison/result.ejs to display comparison results
+- [x] Add CSS styles to public/css/comparison.css for result page elements

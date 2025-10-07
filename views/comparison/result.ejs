@@ -1,0 +1,58 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<div class="result-container">
+    <div class="result-header">
+        <h1><i class="fas fa-chart-bar"></i> Comparison Results</h1>
+        <p><%= compare.comparisonSummary %></p>
+    </div>
+
+    <div class="products-comparison">
+        <div class="product-result">
+            <h3><%= compare.productA.name %></h3>
+            <div class="eco-score">Eco Score: <%= compare.productA.ecoScore %>/10</div>
+            <div class="strengths">
+                <h4>Strengths:</h4>
+                <ul>
+                    <% compare.productA.strengths.forEach(strength => { %>
+                        <li><%= strength %></li>
+                    <% }) %>
+                </ul>
+            </div>
+            <div class="weaknesses">
+                <h4>Weaknesses:</h4>
+                <ul>
+                    <% compare.productA.weaknesses.forEach(weakness => { %>
+                        <li><%= weakness %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+
+        <div class="product-result">
+            <h3><%= compare.productB.name %></h3>
+            <div class="eco-score">Eco Score: <%= compare.productB.ecoScore %>/10</div>
+            <div class="strengths">
+                <h4>Strengths:</h4>
+                <ul>
+                    <% compare.productB.strengths.forEach(strength => { %>
+                        <li><%= strength %></li>
+                    <% }) %>
+                </ul>
+            </div>
+            <div class="weaknesses">
+                <h4>Weaknesses:</h4>
+                <ul>
+                    <% compare.productB.weaknesses.forEach(weakness => { %>
+                        <li><%= weakness %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="verdict">
+        <h2>Verdict</h2>
+        <p><strong>Better Product:</strong> <%= compare.verdict.betterProduct %></p>
+        <p><strong>Reason:</strong> <%= compare.verdict.reason %></p>
+    </div>
+</div>
