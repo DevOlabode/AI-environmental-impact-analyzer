@@ -1,4 +1,6 @@
-- [x] Modify controllers/dashboard.js to check for product count and set noProducts flag
-- [x] Modify views/dashboard/impact.ejs to conditionally show no products message
-- [x] Modify views/comparison/compare.ejs to show no products message if no products
-- [x] Test the dashboard and comparison with no products
+Next Thing to Do: 
+
+    2. Voice Input 
+        ○ Web Speech API (built into browsers, no backend needed)
+        ○ Convert speech to text for product name/details
+Works with your existing form submission
