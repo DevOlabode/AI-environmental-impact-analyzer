@@ -1,12 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="/">
             <div class="brand-logo me-3">
-                <i class="fas fa-leaf fa-2x"></i>
+                <i class="fas fa-leaf fa-2x text-success"></i>
             </div>
             <div class="brand-text">
-                <span class="brand-title">EcoAnalyzer</span>
-                <small class="brand-subtitle d-block">AI Environmental Impact</small>
+                <span class="brand-title h4 mb-0">EcoAnalyzer</span>
+                <small class="brand-subtitle d-block text-light opacity-75">AI Environmental Impact</small>
             </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +33,16 @@
                 </li>
                 <% if(currentUser){ %>
                 <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/impact">
+                        <i class="fas fa-chart-line me-1"></i>Impact Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/compare">
+                        <i class="fas fa-balance-scale me-1"></i>Compare Products
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/get-reciept">
                         <i class="fas fa-camera me-1"></i>Capture Receipt
                     </a>
@@ -40,7 +52,7 @@
 
             <ul class="navbar-nav">
                 <% if(currentUser){ %>
-                    <li class="nav-item dropdown mx-5">
+                    <li class="nav-item dropdown mx-3">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-circle me-1"></i><%= currentUser.username %>
                         </a>

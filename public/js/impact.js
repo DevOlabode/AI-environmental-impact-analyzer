@@ -1,0 +1,134 @@
+// Total CO2 Over Time
+const totalCO2Data = <%- JSON.stringify(totalCO2OverTime) %>;
+const totalCO2Labels = totalCO2Data.map(item => item._id);
+const totalCO2Values = totalCO2Data.map(item => item.totalCO2);
+
+new Chart(document.getElementById('totalCO2Chart'), {
+    type: 'line',
+    data: {
+        labels: totalCO2Labels,
+        datasets: [{
+            label: 'Total CO2 (kg)',
+            data: totalCO2Values,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'CO2 Footprint Over Time'
+            }
+        }
+    }
+});
+
+// Category Breakdown
+const categoryData = <%- JSON.stringify(categoryBreakdown) %>;
+const categoryLabels = categoryData.map(item => item._id);
+const categoryValues = categoryData.map(item => item.totalCO2);
+
+new Chart(document.getElementById('categoryChart'), {
+    type: 'pie',
+    data: {
+        labels: categoryLabels,
+        datasets: [{
+            label: 'CO2 by Category',
+            data: categoryValues,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 205, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'right',
+            }
+        }
+    }
+});
+
+// Monthly Comparison
+const monthlyData = <%- JSON.stringify(monthlyComparison) %>;
+const monthlyLabels = monthlyData.map(item => item._id);
+const monthlyValues = monthlyData.map(item => item.totalCO2);
+
+new Chart(document.getElementById('monthlyChart'), {
+    type: 'line',
+    data: {
+        labels: monthlyLabels,
+        datasets: [{
+            label: 'Monthly CO2 (kg)',
+            data: monthlyValues,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Monthly CO2 Comparison'
+            }
+        }
+    }
+});
+
+// Top 10 Worst Products
+const top10Data = <%- JSON.stringify(top10Worst) %>;
+const top10Labels = top10Data.map(item => item.name);
+const top10Values = top10Data.map(item => item.carbonFootprint);
+
+new Chart(document.getElementById('top10Chart'), {
+    type: 'bar',
+    data: {
+        labels: top10Labels,
+        datasets: [{
+            label: 'CO2 Footprint (kg)',
+            data: top10Values,
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
