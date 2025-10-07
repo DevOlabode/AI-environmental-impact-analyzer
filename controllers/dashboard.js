@@ -7,8 +7,17 @@ module.exports.getDashboard = async (req, res) => {
 
 module.exports.getImpact = async (req, res) => {
     try {
-        // Total CO2 footprint over time (daily)
-        const totalCO2OverTime = await Product.aggregate([
+        const productCount = await Product.countDocuments({ owner: req.user._id });
+        const noProducts = productCount === 0;
+
+        let totalCO2OverTime = [];
+        let categoryBreakdown = [];
+        let monthlyComparison = [];
+        let top10Worst = [];
+
+        if (!noProducts) {
+            // Total CO2 footprint over time (daily)
+            totalCO2OverTime = await Product.aggregate([
             { $match: { owner: req.user._id, createdAt: { $exists: true, $type: "date" } } },
             { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
             { $unwind: '$impact' },
@@ -18,7 +27,7 @@ module.exports.getImpact = async (req, res) => {
         ]);
 
         // Category breakdown
-        const categoryBreakdown = await Product.aggregate([
+        categoryBreakdown = await Product.aggregate([
             { $match: { owner: req.user._id } },
             { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
             { $unwind: '$impact' },
@@ -28,7 +37,7 @@ module.exports.getImpact = async (req, res) => {
         ]);
 
         // Monthly comparison
-        const monthlyComparison = await Product.aggregate([
+        monthlyComparison = await Product.aggregate([
             { $match: { owner: req.user._id, createdAt: { $exists: true, $type: "date" } } },
             { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
             { $unwind: '$impact' },
@@ -38,7 +47,7 @@ module.exports.getImpact = async (req, res) => {
         ]);
 
         // Top 10 worst products
-        const top10Worst = await Product.aggregate([
+        top10Worst = await Product.aggregate([
             { $match: { owner: req.user._id } },
             { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
             { $unwind: '$impact' },
@@ -47,8 +56,10 @@ module.exports.getImpact = async (req, res) => {
             { $limit: 10 },
             { $project: { name: 1, carbonFootprint: '$impact.carbonFootprint' } }
         ]);
+        }
 
         res.render('dashboard/impact', {
+            noProducts,
             totalCO2OverTime: totalCO2OverTime || [],
             categoryBreakdown: categoryBreakdown || [],
             monthlyComparison: monthlyComparison || [],

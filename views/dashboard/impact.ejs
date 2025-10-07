@@ -3,6 +3,14 @@
 <div class="container dashboard-container">
     <h1 class="text-center mb-5"><i class="fas fa-chart-line"></i> Environmental Impact Dashboard</h1>
 
+    <% if (noProducts) { %>
+        <div class="alert alert-info text-center" role="alert">
+            <h4>No Products Available</h4>
+            <p>You haven't added any products yet. Start by adding a product to see your environmental impact analysis.</p>
+            <a href="/form" class="btn btn-primary">Add Product</a>
+        </div>
+    <% } else { %>
+
     <div class="row">
         <!-- Total CO2 Footprint Over Time -->
         <div class="col-lg-6 mb-4">
@@ -54,7 +62,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -195,3 +202,6 @@
         }
     });
 </script>
+
+<% } %>
+</div>

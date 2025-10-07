@@ -1,5 +1,18 @@
 <% layout('layout/boilerplate.ejs') %>
 
+<% if (products.length === 0) { %>
+    <div class="container comparison-container">
+        <div class="comparison-header">
+            <h1><i class="fas fa-balance-scale"></i> Compare Products</h1>
+        </div>
+        <div class="alert alert-info text-center" role="alert">
+            <h4>No Products Available</h4>
+            <p>You haven't added any products yet. Add some products to compare their environmental impact.</p>
+            <a href="/form" class="btn btn-primary">Add Product</a>
+        </div>
+    </div>
+<% } else { %>
+
 <form action="/comparison" method="POST" class="comparison-container">
     <div class="comparison-header">
         <h1><i class="fas fa-balance-scale"></i> Compare Products</h1>
@@ -58,3 +71,5 @@
         </button>
     </div>
 </form>
+
+<% } %>

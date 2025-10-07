@@ -1,7 +1,4 @@
-### Impact Dashboard Implementation
-
-- [x] Add route in routes/dashboard.js for /impact
-- [x] Update controllers/dashboard.js to add getImpact function with data aggregation for charts
-- [x] Update views/dashboard/impact.ejs to include Chart.js and render the 4 charts
-- [x] Add Chart.js CDN in the view
-- [x] Make the dashboard look good with styling
+- [x] Modify controllers/dashboard.js to check for product count and set noProducts flag
+- [x] Modify views/dashboard/impact.ejs to conditionally show no products message
+- [x] Modify views/comparison/compare.ejs to show no products message if no products
+- [x] Test the dashboard and comparison with no products
