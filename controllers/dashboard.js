@@ -1,0 +1,56 @@
+const Product = require('../models/product');
+
+module.exports.getDashboard = async (req, res) => {
+    const products = await Product.find({ owner: req.user._id });
+    res.render('dashboard', { products });
+};
+
+module.exports.getImpact = async (req, res) => {
+    try {
+        // Total CO2 footprint over time (daily)
+        const totalCO2OverTime = await Product.aggregate([
+            { $match: { owner: req.user._id } },
+            { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
+            { $unwind: '$impact' },
+            { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, totalCO2: { $sum: '$impact.carbonFootprint' } } },
+            { $sort: { '_id': 1 } }
+        ]);
+
+        // Category breakdown
+        const categoryBreakdown = await Product.aggregate([
+            { $match: { owner: req.user._id } },
+            { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
+            { $unwind: '$impact' },
+            { $group: { _id: '$category', totalCO2: { $sum: '$impact.carbonFootprint' } } }
+        ]);
+
+        // Monthly comparison
+        const monthlyComparison = await Product.aggregate([
+            { $match: { owner: req.user._id } },
+            { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
+            { $unwind: '$impact' },
+            { $group: { _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } }, totalCO2: { $sum: '$impact.carbonFootprint' } } },
+            { $sort: { '_id': 1 } }
+        ]);
+
+        // Top 10 worst products
+        const top10Worst = await Product.aggregate([
+            { $match: { owner: req.user._id } },
+            { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
+            { $unwind: '$impact' },
+            { $sort: { 'impact.carbonFootprint': -1 } },
+            { $limit: 10 },
+            { $project: { name: 1, carbonFootprint: '$impact.carbonFootprint' } }
+        ]);
+
+        res.render('dashboard/impact', {
+            totalCO2OverTime,
+            categoryBreakdown,
+            monthlyComparison,
+            top10Worst
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};

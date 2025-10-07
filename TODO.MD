@@ -1,23 +1,7 @@
-### Tomorrow's Work 
+### Impact Dashboard Implementation
 
-## Features :
-
-Impact Dashboard (Chart.js - already in your stack) 
-    Total CO2 footprint over time
-    Category breakdown (pie chart)
-    Monthly comparison (line chart)
-    Top 10 worst products (bar chart)
-
-## Product Entry Methods
-
-Voice Input 
-    Web Speech API (built into browsers, no backend needed)
-    Convert speech to text for product name/details
-    Works with your existing form submission
-
- ## User Experience
-
-Product Recommendation
-    Show similar but more eco-friendly alternatives
-    Based on category and material
-    Simple algorithm, no ML needed
+- [x] Add route in routes/dashboard.js for /impact
+- [x] Update controllers/dashboard.js to add getImpact function with data aggregation for charts
+- [x] Update views/dashboard/impact.ejs to include Chart.js and render the 4 charts
+- [x] Add Chart.js CDN in the view
+- [x] Make the dashboard look good with styling

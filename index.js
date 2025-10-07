@@ -26,6 +26,7 @@ const formRoutes = require('./routes/form');
 const receiptRoutes = require('./routes/reciept');
 const userRoutes = require('./routes/user');
 const comparisonRoutes = require('./routes/comparison');
+const dashboardRoutes = require('./routes/dashboard');
 
 const ExpressError = require('./utils/ExpressError');
 
@@ -95,6 +96,7 @@ app.use('/form', formRoutes);
 app.use('/', receiptRoutes);
 app.use('/', userRoutes);
 app.use('/', comparisonRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 
 app.get('/', (req, res)=>{
