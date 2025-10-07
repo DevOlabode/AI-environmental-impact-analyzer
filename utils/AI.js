@@ -293,5 +293,5 @@ ${JSON.stringify(productB, null, 2)}
 
 
 
-
+// Function Exports.
 module.exports = { analyseImpact, analyseReceipt, compareProducts };
