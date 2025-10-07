@@ -7,6 +7,6 @@ module.exports.productToCompare =  async(req, res) => {
 
 module.exports.compareProducts = async(req, res) => {
     const { product1, product2 } = req.body;
-    console.log(product1, product2);
-    res.send('Comparison feature coming soon!');
+    const prod1 = await Product.findById(product1);
+    const prod2 = await Product.findById(product2);
 };
