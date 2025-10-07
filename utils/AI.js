@@ -1,6 +1,8 @@
 // analyseImpact.js
 const Groq = require("groq-sdk");
 
+// Impact estimation based on materials and weight
+
 function estimateImpact(materials, weightGrams) {
   const weightKg = weightGrams / 1000; // normalize to kg
 
@@ -38,6 +40,8 @@ function estimateImpact(materials, weightGrams) {
 
   return { carbonFootprint, waterUsage };
 }
+
+// Main function to analyze product impact
 
 const analyseImpact = async (
   name,
@@ -130,6 +134,8 @@ Rules:
   }
 };
 
+// Function to analyze receipt image and extract product details
+
 const analyseReceipt = async (imageBase64) => {
   const groq = new Groq({
     apiKey: process.env.GROQ_KEY,
@@ -221,6 +227,8 @@ Do not include any extra text outside the JSON.
 };
 
 
+// Function to compare two products based on their environmental impact
+
 const compareProducts = async (productA, productB) => {
   const groq = new Groq({ apiKey: process.env.GROQ_KEY });
     const prompt = `
@@ -282,6 +290,8 @@ ${JSON.stringify(productB, null, 2)}
     throw new Error("AI returned invalid JSON");
   }
 };
+
+
 
 
 module.exports = { analyseImpact, analyseReceipt, compareProducts };
