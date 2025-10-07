@@ -1,0 +1,158 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<div class="form-container">
+    <h1 class="form-title">
+        <i class="fas fa-microphone me-2"></i>Voice Input Analysis
+    </h1>
+    <p class="text-center text-muted mb-4">Speak product details to get AI-powered environmental impact analysis</p>
+
+    <form action="/form/get-analysis" method="post" class="needs-validation" novalidate id="voiceForm">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-name" class="form-label">
+                    <i class="fas fa-tag me-1"></i>Product Name
+                </label>
+                <div class="input-group">
+                    <input type="text" name="name" id="product-name" class="form-control" placeholder="e.g., Apple iPhone 14" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="startListening('product-name')">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a product name.
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="product-category" class="form-label">
+                    <i class="fas fa-folder me-1"></i>Category
+                </label>
+                <div class="input-group">
+                    <input type="text" name="category" id="product-category" class="form-control" placeholder="e.g., Electronics, Food, Clothing" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="startListening('product-category')">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a category.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-brand" class="form-label">
+                    <i class="fas fa-building me-1"></i>Brand
+                </label>
+                <div class="input-group">
+                    <input type="text" name="brand" id="product-brand" class="form-control" placeholder="e.g., Apple, Nike, Coca-Cola">
+                    <button type="button" class="btn btn-outline-secondary" onclick="startListening('product-brand')">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="product-price" class="form-label">
+                    <i class="fas fa-dollar-sign me-1"></i>Price
+                </label>
+                <div class="input-group">
+                    <input type="number" name="price" id="product-price" class="form-control" placeholder="e.g., 4.99" step="0.01" min="0">
+                    <button type="button" class="btn btn-outline-secondary" onclick="startListening('product-price')">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-material" class="form-label">
+                    <i class="fas fa-cubes me-1"></i>Material
+                </label>
+                <div class="input-group">
+                    <input type="text" name="material" id="product-material" class="form-control" placeholder="e.g., Plastic, Metal, Cotton" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="startListening('product-material')">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div class="invalid-feedback">
+                    Please provide the material.
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="product-weight" class="form-label">
+                    <i class="fas fa-weight me-1"></i>Weight (KG)
+                </label>
+                <div class="input-group">
+                    <input type="number" name="weight" id="product-weight" class="form-control" placeholder="e.g., 0.5" step="0.01" min="0" required>
+                    <button type="button" class="btn btn-outline-secondary" onclick="startListening('product-weight')">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid weight.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="product-originCountry" class="form-label">
+                    <i class="fas fa-globe me-1"></i>Origin Country
+                </label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="originCountry" id="product-originCountry" placeholder="e.g., China, USA, Germany">
+                    <button type="button" class="btn btn-outline-secondary" onclick="startListening('product-originCountry')">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-robot me-2"></i>Get Environmental Analysis
+            </button>
+        </div>
+    </form>
+
+    <div class="text-center mt-4">
+        <p class="text-muted mb-0">
+            <i class="fas fa-info-circle me-1"></i>
+            Click the microphone to speak. Our AI will analyze carbon footprint, water usage, recyclability, and more.
+        </p>
+    </div>
+</div>
+
+<script>
+let recognition;
+let currentField;
+
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById(currentField).value = transcript;
+    };
+
+    recognition.onerror = function(event) {
+        console.error('Speech recognition error:', event.error);
+        alert('Speech recognition error: ' + event.error);
+    };
+} else {
+    alert('Speech recognition not supported in this browser.');
+}
+
+function startListening(fieldId) {
+    if (!recognition) return;
+    currentField = fieldId;
+    recognition.start();
+}
+</script>
