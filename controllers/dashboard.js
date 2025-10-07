@@ -9,9 +9,10 @@ module.exports.getImpact = async (req, res) => {
     try {
         // Total CO2 footprint over time (daily)
         const totalCO2OverTime = await Product.aggregate([
-            { $match: { owner: req.user._id } },
+            { $match: { owner: req.user._id, createdAt: { $exists: true, $type: "date" } } },
             { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
             { $unwind: '$impact' },
+            { $match: { 'impact.carbonFootprint': { $exists: true, $ne: null } } },
             { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } }, totalCO2: { $sum: '$impact.carbonFootprint' } } },
             { $sort: { '_id': 1 } }
         ]);
@@ -21,14 +22,17 @@ module.exports.getImpact = async (req, res) => {
             { $match: { owner: req.user._id } },
             { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
             { $unwind: '$impact' },
-            { $group: { _id: '$category', totalCO2: { $sum: '$impact.carbonFootprint' } } }
+            { $match: { 'impact.carbonFootprint': { $exists: true, $ne: null } } },
+            { $group: { _id: '$category', totalCO2: { $sum: '$impact.carbonFootprint' } } },
+            { $sort: { totalCO2: -1 } }
         ]);
 
         // Monthly comparison
         const monthlyComparison = await Product.aggregate([
-            { $match: { owner: req.user._id } },
+            { $match: { owner: req.user._id, createdAt: { $exists: true, $type: "date" } } },
             { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
             { $unwind: '$impact' },
+            { $match: { 'impact.carbonFootprint': { $exists: true, $ne: null } } },
             { $group: { _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } }, totalCO2: { $sum: '$impact.carbonFootprint' } } },
             { $sort: { '_id': 1 } }
         ]);
@@ -38,16 +42,17 @@ module.exports.getImpact = async (req, res) => {
             { $match: { owner: req.user._id } },
             { $lookup: { from: 'impacts', localField: 'impactAnalysis', foreignField: '_id', as: 'impact' } },
             { $unwind: '$impact' },
+            { $match: { 'impact.carbonFootprint': { $exists: true, $ne: null } } },
             { $sort: { 'impact.carbonFootprint': -1 } },
             { $limit: 10 },
             { $project: { name: 1, carbonFootprint: '$impact.carbonFootprint' } }
         ]);
 
         res.render('dashboard/impact', {
-            totalCO2OverTime,
-            categoryBreakdown,
-            monthlyComparison,
-            top10Worst
+            totalCO2OverTime: totalCO2OverTime || [],
+            categoryBreakdown: categoryBreakdown || [],
+            monthlyComparison: monthlyComparison || [],
+            top10Worst: top10Worst || []
         });
     } catch (err) {
         console.error(err);
