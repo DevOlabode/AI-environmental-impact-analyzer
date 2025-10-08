@@ -17,5 +17,6 @@ module.exports.processVoiceInput = catchAsync(async (req, res) => {
         return res.status(400).json({ error: 'Transcript is required' });
     }
     const productData = await voiceInput(transcript);
+    console.log(productData);
     res.send({ productData });
 });

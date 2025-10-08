@@ -307,6 +307,9 @@ const voiceInput = async (transcript) => {
 }
 
 Rules:
+- Return valid JSON only, no extra text or formatting
+- Use "Unknown" for any text fields if information is missing
+- Use 0 for weight and price if not mentioned
 - Extract all available information from the voice input
 - If information is not mentioned, use "Unknown" for text fields or 0 for numeric fields
 - Convert all weights to kilograms (kg)

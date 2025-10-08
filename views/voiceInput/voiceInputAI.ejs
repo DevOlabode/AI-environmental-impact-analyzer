@@ -124,7 +124,7 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         document.getElementById('status').textContent = 'Processing with AI...';
 
         try {
-            const response = await fetch('/voiceinput/ai/process', {
+            const response = await fetch('/voiceInput/ai/process', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -137,6 +137,9 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             }
 
             const productData = await response.json();
+
+            //Remove ReadOnly
+            document.querySelector('input').removeAttribute("readonly");
 
             // Fill the form
             document.getElementById('product-name').value = productData.name || '';
