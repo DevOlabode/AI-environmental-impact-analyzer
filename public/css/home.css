@@ -1,6 +1,6 @@
 /* Home Page Styles */
 .hero-section {
-    background: yellowgreen;
+    background: var(--gradient-primary);
     color: white;
     padding: 120px 0;
     text-align: center;
