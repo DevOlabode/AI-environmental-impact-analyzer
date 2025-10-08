@@ -9,7 +9,7 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     margin: 0;
-    padding: 0;
+    padding: 0 24px;
     overflow-x: hidden;
     position: relative;
     font-weight: 400;
