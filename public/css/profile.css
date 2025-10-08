@@ -2,8 +2,8 @@
 .profile-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    background: var(--background);
+    padding: 24px;
+    background: var(--background-color);
     min-height: 100vh;
 }
 
@@ -14,20 +14,19 @@
     padding: 40px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    margin-bottom: 30px;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 32px;
+    border: 1px solid var(--border-color);
 }
 
 .profile-avatar {
-    margin-right: 30px;
+    margin-right: 32px;
 }
 
 .avatar-placeholder {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background: var(--primary-gradient);
+    background: var(--gradient-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,13 +36,12 @@
 
 .avatar-placeholder:hover {
     transform: scale(1.05);
-    box-shadow: var(--shadow-hover), var(--glow);
+    box-shadow: var(--shadow-hover);
 }
 
 .avatar-placeholder i {
-    font-size: 5rem;
-    color: var(--text-primary);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    font-size: 3rem;
+    color: white;
 }
 
 .profile-info {
@@ -51,79 +49,76 @@
 }
 
 .profile-name {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--accent-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
     margin: 0;
-    text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
 }
 
 .profile-username {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--text-secondary);
-    margin: 10px 0 0 0;
+    margin: 8px 0 0 0;
 }
 
 .profile-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 32px;
 }
 
 .profile-section {
     background: var(--card-background);
-    padding: 30px;
+    padding: 32px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
     transition: var(--transition);
 }
 
 .profile-section:hover {
-    box-shadow: var(--shadow-hover), var(--glow);
-    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
 }
 
 .section-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
     margin-bottom: 20px;
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 8px;
 }
 
 .info-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
 }
 
 .info-item {
     display: flex;
     align-items: center;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    padding: 16px;
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
     transition: var(--transition);
 }
 
 .info-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(5px);
+    background: var(--background-color);
+    transform: translateX(4px);
 }
 
 .info-item i {
-    font-size: 1.5rem;
-    color: var(--accent-color);
-    margin-right: 15px;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-right: 16px;
     transition: var(--transition);
 }
 
 .info-item:hover i {
     transform: scale(1.1);
-    color: var(--text-primary);
 }
 
 .info-item div {
@@ -132,48 +127,49 @@
 
 .info-item strong {
     display: block;
-    font-weight: 700;
-    color: var(--accent-color);
-    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
 }
 
 .info-item p {
     margin: 0;
-    color: var(--text-primary);
-    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
 }
 
 .profile-actions {
     grid-column: span 2;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 24px;
 }
 
 .edit-button {
-    padding: 15px 30px;
-    font-size: 1.2rem;
+    padding: 12px 24px;
+    font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 25px;
-    background: var(--primary-gradient);
-    color: var(--text-primary);
+    border-radius: var(--border-radius);
+    background: var(--gradient-primary);
+    color: white;
     border: none;
     box-shadow: var(--shadow);
     transition: var(--transition);
     cursor: pointer;
+    margin-right: 16px;
 }
 
 .edit-button:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover), var(--glow);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
 .password-reset-button {
-    padding: 15px 30px;
-    font-size: 1.2rem;
+    padding: 12px 24px;
+    font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 25px;
-    background: linear-gradient(135deg, #ff9500, #ff3b30);
-    color: var(--text-primary);
+    border-radius: var(--border-radius);
+    background: #ff9800;
+    color: white;
     border: none;
     box-shadow: var(--shadow);
     transition: var(--transition);
@@ -181,32 +177,31 @@
 }
 
 .password-reset-button:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover), 0 0 20px rgba(255, 147, 0, 0.5);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
 .password-section {
     grid-column: span 2;
-    margin-top: 30px;
+    margin-top: 32px;
     display: none;
 }
 
 .password-form {
     background: var(--card-background);
-    padding: 40px;
+    padding: 32px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    max-width: 520px;
+    border: 1px solid var(--border-color);
+    max-width: 500px;
     margin: 0 auto;
     transition: var(--transition);
     animation: fadeInUp 0.6s ease-out both;
 }
 
 .password-form h3 {
-    font-size: 1.8rem;
-    color: var(--accent-color);
+    font-size: 1.5rem;
+    color: var(--primary-color);
     margin-bottom: 20px;
     text-align: center;
 }
@@ -214,12 +209,12 @@
 .reset-message {
     text-align: center;
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 20px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
 }
 
 .form-group {
@@ -236,9 +231,9 @@
 .form-control {
     width: 100%;
     padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background: var(--background-color);
     color: var(--text-primary);
     font-size: 1rem;
     transition: var(--transition);
@@ -246,16 +241,16 @@
 
 .form-control:focus {
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
 .btn-success {
     padding: 12px 24px;
     font-size: 1rem;
     font-weight: 600;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #28a745, #20c997);
+    border-radius: var(--border-radius);
+    background: #28a745;
     color: white;
     border: none;
     cursor: pointer;
@@ -264,7 +259,7 @@
 
 .btn-success:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
 }
 
 /* Responsive Design */

@@ -1,97 +1,112 @@
-/* Sidebar Styles - Commented out as sidebar is removed */
-/*
-.sidebar {
+/* Sidebar Styles */
+#sidebar {
     position: fixed;
-    top: 0;
+    top: 60px;
     left: -280px; /* Hidden by default */
     width: 280px;
-    height: 100vh;
-    background-color: #161b22; /* GitHub sidebar background */
-    color: #c9d1d9;
+    height: calc(100vh - 60px);
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    color: var(--text-primary);
     overflow-y: auto;
-    z-index: 1050; /* Above navbar */
+    z-index: 1050;
     transition: left 0.3s ease-in-out;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    box-shadow: var(--shadow-lg);
 }
 
-.sidebar.show {
+#sidebar.show {
     left: 0;
 }
 
-.sidebar .d-flex {
-    padding: 16px;
-    border-bottom: 1px solid #30363d;
+#sidebar .d-flex {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.sidebar .navbar-brand {
-    color: #c9d1d9;
-    font-weight: 600;
-}
-
-.sidebar .navbar-brand:hover {
-    color: #fff;
-}
-
-.sidebar .nav-link {
-    color: #c9d1d9;
-    padding: 10px 16px;
-    margin: 4px 0;
-    border-radius: 6px;
-    transition: background-color 0.2s ease-in-out;
-    display: flex;
-    align-items: center;
-}
-
-.sidebar .nav-link i {
-    width: 20px; /* Align icons */
-    text-align: center;
-    margin-right: 10px;
-}
-
-.sidebar .nav-link:hover {
-    background-color: #30363d;
-    color: #fff;
-}
-
-.sidebar .nav-link.active {
-    background-color: #30363d;
-    color: #fff;
-}
-
-.sidebar hr {
-    border-color: #30363d;
-    margin: 16px 0;
-}
-
-.sidebar .user-section {
-    padding: 16px;
-    border-top: 1px solid #30363d;
-}
-
-.sidebar .user-section .d-flex {
-    padding: 0; /* Override default d-flex padding */
-    border-bottom: none;
-}
-
-.sidebar .user-section .btn {
-    font-size: 0.875rem;
-    padding: 6px 12px;
-}
-
-#sidebarClose {
-    color: #c9d1d9;
-    border: none;
-    background: none;
+#sidebar .navbar-brand {
+    color: var(--primary-color);
+    font-weight: 700;
     font-size: 1.25rem;
 }
 
-#sidebarClose:hover {
-    color: #fff;
+#sidebar .navbar-brand:hover {
+    color: var(--accent-color);
+    text-decoration: none;
 }
 
-/* Main content adjustment when sidebar is open (optional, depending on layout) */
+#sidebar .nav-link {
+    color: var(--text-secondary);
+    padding: 12px 20px;
+    margin: 4px 0;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+#sidebar .nav-link svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+#sidebar .nav-link:hover {
+    background-color: var(--surface-color);
+    color: var(--primary-color);
+    transform: translateX(4px);
+}
+
+#sidebar .nav-link.active {
+    background-color: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+}
+
+#sidebar hr {
+    border-color: var(--border-color);
+    margin: 20px 0;
+}
+
+#sidebar .user-section {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+#sidebar .user-section .d-flex {
+    padding: 0;
+    border-bottom: none;
+    margin-bottom: 16px;
+}
+
+#sidebar .user-section .btn {
+    font-size: 0.875rem;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+}
+
+#sidebarClose {
+    color: var(--text-secondary);
+    border: none;
+    background: none;
+    font-size: 1.25rem;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+#sidebarClose:hover {
+    color: var(--primary-color);
+    background-color: var(--surface-color);
+}
+
+/* Main content adjustment when sidebar is open */
 body.sidebar-open {
-    overflow: hidden; /* Prevent scrolling when sidebar is open */
+    overflow: hidden;
 }
 
 /* Overlay for when sidebar is open */
@@ -101,12 +116,13 @@ body.sidebar-open {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1040; /* Below sidebar, above main content */
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1040;
     display: none;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .overlay.show {
     display: block;
 }
-*/

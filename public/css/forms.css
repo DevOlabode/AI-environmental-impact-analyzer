@@ -3,100 +3,104 @@
     max-width: 900px;
     margin: 60px auto;
     background: var(--card-background);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 50px;
+    border: 1px solid var(--border-color);
+    padding: 48px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
-}
-
-.form-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-    pointer-events: none;
 }
 
 .form-title {
-    color: var(--accent-color);
-    margin-bottom: 40px;
+    color: var(--primary-color);
+    margin-bottom: 32px;
     text-align: center;
-    font-size: 2.5rem;
-    font-weight: 800;
-    text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 24px;
 }
 
 .form-label {
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     display: block;
 }
 
 .form-control {
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    padding: 15px 20px;
-    font-size: 1.1rem;
+    padding: 12px 16px;
+    font-size: 1rem;
     transition: var(--transition);
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--background-color);
     color: var(--text-primary);
-    backdrop-filter: blur(10px);
+    width: 100%;
 }
 
 .form-control:focus {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25), var(--glow);
-    transform: scale(1.02);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    outline: none;
+}
+
+.form-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
 }
 
 .btn-primary {
-    background: var(--primary-gradient);
+    background: var(--gradient-primary);
     border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
+    padding: 12px 32px;
+    border-radius: var(--border-radius);
     font-weight: 600;
+    color: white;
     transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.btn-primary:hover::before {
-    left: 100%;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: var(--shadow-hover), var(--glow);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
 .btn-secondary {
-    background: var(--secondary-gradient);
+    background: var(--gradient-secondary);
     border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
+    padding: 12px 32px;
+    border-radius: var(--border-radius);
     font-weight: 600;
+    color: white;
     transition: var(--transition);
+    cursor: pointer;
 }
 
 .btn-secondary:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: var(--shadow-hover), var(--glow);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.checkbox-group, .radio-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.checkbox-group input, .radio-group input {
+    margin-right: 8px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 4px;
+}
+
+.success-message {
+    color: var(--primary-color);
+    font-size: 0.875rem;
+    margin-top: 4px;
 }

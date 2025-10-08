@@ -1,17 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* Root Variables for a Vibrant, Fascinating Theme */
+/* Root Variables for a Modern, Professional, Eco-Friendly Theme */
 :root {
-    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --accent-color: #ff6b6b;
-    --background-color: #0f0f23;
-    --card-background: rgba(255, 255, 255, 0.1);
-    --text-primary: #ffffff;
-    --text-secondary: #b8c5d6;
-    --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    --shadow-hover: 0 16px 64px rgba(0, 0, 0, 0.4);
-    --border-radius: 20px;
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    --glow: 0 0 20px rgba(102, 126, 234, 0.5);
+    --primary-color: #2E7D32; /* Deep green for eco theme */
+    --secondary-color: #2196F3; /* Professional blue */
+    --accent-color: #4CAF50; /* Lighter green accent */
+    --background-color: #ffffff; /* Clean white background */
+    --surface-color: #f8f9fa; /* Light gray for surfaces */
+    --card-background: #ffffff; /* White cards */
+    --text-primary: #212529; /* Dark text */
+    --text-secondary: #6c757d; /* Gray text */
+    --text-muted: #adb5bd; /* Muted text */
+    --border-color: #e9ecef; /* Light border */
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --border-radius: 12px;
+    --border-radius-lg: 16px;
+    --transition: all 0.3s ease;
+    --gradient-primary: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+    --gradient-secondary: linear-gradient(135deg, #2196F3 0%, #42A5F5 100%);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.2);
 }
