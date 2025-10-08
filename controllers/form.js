@@ -53,7 +53,7 @@ module.exports.allProducts = async (req, res) => {
             { category: { $regex: search, $options: 'i' } }
         ];
     }
-    
+
 
     // Filter by category
     if (category && category.trim() !== '') {
@@ -68,8 +68,6 @@ module.exports.allProducts = async (req, res) => {
     const products = await Products.find(filter).populate('impactAnalysis');
     res.render('form/index', { products, search, category, brand });
 };
-
-
 
 module.exports.showProducts = async (req, res) => {
     const product = await Products.findById(req.params.id).populate('impactAnalysis');
