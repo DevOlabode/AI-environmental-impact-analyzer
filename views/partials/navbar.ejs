@@ -46,3 +46,43 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/compare">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-balance-scale me-1">
+                            <path fill-rule="evenodd" d="M8 1a1 1 0 00-1 1v1H4a1 1 0 00-1 1v1h10V4a1 1 0 00-1-1H9V2a1 1 0 00-1-1zM3 7v1h10V7H3zm1 2v5h1v-5H4zm6 0v5h1v-5h-1z"></path>
+                        </svg>
+                        Compare Products
+                    </a>
+                </li>
+            </ul>
+            <% } %>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item d-lg-none">
+                    <button class="btn btn-outline-light" id="sidebarToggle" aria-label="Toggle sidebar">
+                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" version="1.1" width="20" data-view-component="true" class="octicon octicon-three-bars">
+                            <path fill-rule="evenodd" d="M1 3h14v2H1V3zm0 4h14v2H1V7zm0 4h14v2H1v-2z"></path>
+                        </svg>
+                    </button>
+                </li>
+                <% if(currentUser){ %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" version="1.1" width="20" data-view-component="true" class="octicon octicon-person me-1">
+                            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zM8 8a3 3 0 100-6 3 3 0 000 6z"></path>
+                        </svg>
+                        <span><%= currentUser.username %></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+                <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/register">Register</a>
+                </li>
+                <% } %>
+            </ul>
+        </div>

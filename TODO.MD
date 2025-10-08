@@ -1,3 +1,3 @@
-- [ ] Update navbar.ejs to add custom-navbar class, remove bg-primary, set height to 60px
-- [ ] Update navbar.css with eco-friendly gradient background, improved hover effects, shadows, and transitions
+- [x] Update navbar.ejs to add custom-navbar class, remove bg-primary, set height to 60px
+- [x] Update navbar.css with eco-friendly gradient background, improved hover effects, shadows, and transitions
 - [ ] Test the styling by running the application
