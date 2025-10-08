@@ -12,7 +12,7 @@ Complete overhaul of the app's design to a modern, professional, light-themed in
 - [x] Update forms.css: Professional form styling with new colors.
 - [x] Update show.css: Update product show pages for consistency.
 - [x] Update other CSS files (receipt.css, profile.css, etc.) to match new theme.
-- [ ] Update EJS partials (navbar.ejs, sidebar.ejs, footer.ejs) for improved structure if needed.
+- [x] Update EJS partials (navbar.ejs, sidebar.ejs, footer.ejs) for improved structure if needed.
 - [ ] Test responsiveness and run the app to verify changes.
 - [ ] Final tweaks based on visual inspection.
 

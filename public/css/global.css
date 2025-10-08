@@ -94,12 +94,43 @@ a:hover {
     background: var(--surface-color);
     border-top: 1px solid var(--border-color);
     margin-top: auto;
+    padding: 24px 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo {
+    margin-right: 12px;
+}
+
+.footer-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-right {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 .footer-link {
     color: var(--text-secondary);
     text-decoration: none;
     font-weight: 500;
+    font-size: 0.9rem;
     transition: var(--transition);
 }
 
