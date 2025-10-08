@@ -138,9 +138,6 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
 
             const productData = await response.json();
 
-            //Remove ReadOnly
-            document.querySelector('input').removeAttribute("readonly");
-
             // Fill the form
             document.getElementById('product-name').value = productData.name || '';
             document.getElementById('product-brand').value = productData.brand || '';
@@ -149,6 +146,10 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             document.getElementById('product-weight').value = productData.weight || '';
             document.getElementById('product-originCountry').value = productData.originCountry || '';
             document.getElementById('product-price').value = productData.price || '';
+
+            // Remove readonly from all inputs
+            const inputs = document.querySelectorAll('input[readonly]');
+            inputs.forEach(input => input.removeAttribute('readonly'));
 
             document.getElementById('status').textContent = 'Form filled! Ready to analyze.';
             document.getElementById('analyzeBtn').disabled = false;

@@ -283,8 +283,15 @@ ${JSON.stringify(productB, null, 2)}
 
   const rawText = response.choices[0].message.content;
 
+  // Clean the response: remove markdown code blocks if present
+  let cleanedText = rawText.trim();
+  const jsonMatch = cleanedText.match(/```(?:json)?\s*(\{[\s\S]*?\})\s*```/);
+  if (jsonMatch) {
+    cleanedText = jsonMatch[1];
+  }
+
   try {
-    return JSON.parse(rawText);
+    return JSON.parse(cleanedText);
   } catch (err) {
     console.error("Invalid AI JSON:", rawText);
     throw new Error("AI returned invalid JSON");
