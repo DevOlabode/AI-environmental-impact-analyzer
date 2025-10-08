@@ -105,8 +105,9 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span class="badge bg-primary"><%= product.category || 'N/A' %></span></td>
-                                    <td><%= product.brand || 'N/A' %></td>
+                                    
+                                    <td> <a href="/form/all-products?category=<%= product.category %>"> <span class="badge bg-primary"><%= product.category || 'N/A' %></span> </a></td>
+                                    <td> <a href="/form/all-products?brand=<%= product.brand %>"> <span class="badge bg-warning"><%= product.brand || 'N/A' %></span> </a></td>
                                     <td><%= product.price ? '$' + product.price : 'N/A' %></td>
                                     <td><%= product.material || 'N/A' %></td>
                                     <td><%= product.weight ? product.weight + ' KG' : 'N/A' %></td>
