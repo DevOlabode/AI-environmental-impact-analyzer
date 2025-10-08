@@ -5,6 +5,7 @@
     border-bottom: 1px solid var(--border-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    height: 60px;
 }
 
 .navbar-brand {
@@ -42,6 +43,11 @@
     color: var(--primary-color);
     background-color: var(--surface-color);
     font-weight: 600;
+}
+
+.nav-link svg {
+    vertical-align: middle;
+    margin-top: -2px;
 }
 
 .dropdown-menu {

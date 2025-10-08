@@ -102,6 +102,7 @@ app.use('/voiceInput', voiceInputRoutes);
 
 
 app.get('/', (req, res)=>{
+    req.flash('success', 'The Homepage')
     res.render('home')
 });
 

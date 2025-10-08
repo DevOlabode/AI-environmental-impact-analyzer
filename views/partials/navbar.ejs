@@ -1,19 +1,19 @@
-
-
-<nav class="navbar navbar-expand-lg custom-navbar fixed-top" style="height: 60px;">
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar fixed-top">
     <div class="container-fluid px-3">
         <a class="navbar-brand d-flex align-items-center text-decoration-none" href="/" style="font-weight: 600; font-size: 20px;">
             <img src="https://trityenviro.com/assets/setting/environmental-impact-assessment-eia-online1.png" width="36" height="36" class="me-2 rounded-circle border border-2">
             <span>EcoAnalyzer</span>
         </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-home me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-home me-1">
                             <path fill-rule="evenodd" d="M8 3.293l6 6V13a1 1 0 01-1 1h-3v-3H6v3H3a1 1 0 01-1-1v-3.707l6-6z"></path>
                         </svg>
                         Home
@@ -21,7 +21,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/form">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-search me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-search me-1">
                             <path fill-rule="evenodd" d="M11.742 10.344a6.5 6.5 0 111.397-1.398l3.85 3.85a1 1 0 01-1.414 1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"></path>
                         </svg>
                         Analyze Product
@@ -29,16 +29,17 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/form/all-products">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-list-unordered me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-list-unordered me-1">
                             <path fill-rule="evenodd" d="M2 3.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z"></path>
                         </svg>
                         All Products
                     </a>
                 </li>
+
                 <% if(currentUser){ %>
                 <li class="nav-item">
                     <a class="nav-link" href="/dashboard/impact">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-graph me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-graph me-1">
                             <path fill-rule="evenodd" d="M0 0h1v15H0V0zm2 10h1v5H2v-5zm2-4h1v9H4V6zm2-2h1v11H6V4zm2-2h1v13H8V2zm2-2h1v15h-1V0z"></path>
                         </svg>
                         Impact Dashboard
@@ -46,26 +47,28 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/compare">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-balance-scale me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-balance-scale me-1">
                             <path fill-rule="evenodd" d="M8 1a1 1 0 00-1 1v1H4a1 1 0 00-1 1v1h10V4a1 1 0 00-1-1H9V2a1 1 0 00-1-1zM3 7v1h10V7H3zm1 2v5h1v-5H4zm6 0v5h1v-5h-1z"></path>
                         </svg>
                         Compare Products
                     </a>
                 </li>
+                <% } %>
             </ul>
-            <% } %>
+
             <ul class="navbar-nav ms-auto">
+                <% if(currentUser){ %>
                 <li class="nav-item d-lg-none">
                     <button class="btn btn-outline-secondary" id="sidebarToggle" aria-label="Toggle sidebar">
-                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" version="1.1" width="20" data-view-component="true" class="octicon octicon-three-bars">
+                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" width="20" class="octicon octicon-three-bars">
                             <path fill-rule="evenodd" d="M1 3h14v2H1V3zm0 4h14v2H1V7zm0 4h14v2H1v-2z"></path>
                         </svg>
                     </button>
                 </li>
-                <% if(currentUser){ %>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" version="1.1" width="20" data-view-component="true" class="octicon octicon-person me-1">
+                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" width="20" class="octicon octicon-person me-1">
                             <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zM8 8a3 3 0 100-6 3 3 0 000 6z"></path>
                         </svg>
                         <span><%= currentUser.username %></span>
@@ -78,11 +81,11 @@
                 </li>
                 <% } else { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
+                    <a href="/login" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="/register" class="btn btn-success">Register</a>
                 </li>
                 <% } %>
             </ul>
         </div>
+    </div>
+</nav>
