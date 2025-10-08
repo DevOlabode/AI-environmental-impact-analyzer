@@ -21,7 +21,7 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     font-family: 'Poppins', sans-serif;
     background: var(--background-color);
     color: var(--text-primary);
@@ -30,9 +30,9 @@ body {
     padding: 0;
     overflow-x: hidden;
     position: relative;
-}
+} */
 
-body::before {
+/* body::before {
     content: '';
     position: fixed;
     top: 0;
@@ -44,7 +44,7 @@ body::before {
                 radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
     pointer-events: none;
     z-index: -1;
-}
+} */
 
 .container {
     max-width: 1200px;
