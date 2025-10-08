@@ -18,5 +18,5 @@ module.exports.processVoiceInput = catchAsync(async (req, res) => {
     }
     const productData = await voiceInput(transcript);
     console.log(productData);
-    res.send({ productData });
+    res.json( productData );
 });

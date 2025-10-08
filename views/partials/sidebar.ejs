@@ -1,0 +1,76 @@
+<div class="sidebar bg-dark text-white p-3">
+    <div class="brand mb-4">
+        <a class="navbar-brand d-flex align-items-center text-white" href="/">
+            <div class="brand-logo me-3">
+                <i class="fas fa-leaf fa-2x text-success"></i>
+            </div>
+            <div class="brand-text">
+                <span class="brand-title h5 mb-0">EcoAnalyzer</span>
+                <small class="brand-subtitle d-block text-light opacity-75">AI Environmental Impact</small>
+            </div>
+        </a>
+    </div>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/">
+                <i class="fas fa-home me-2"></i>Home
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/form">
+                <i class="fas fa-search me-2"></i>Analyze Product
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/form/all-products">
+                <i class="fas fa-list me-2"></i>All Products
+            </a>
+        </li>
+        <% if(currentUser){ %>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/dashboard/impact">
+                <i class="fas fa-chart-line me-2"></i>Impact Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/compare">
+                <i class="fas fa-balance-scale me-2"></i>Compare Products
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/get-reciept">
+                <i class="fas fa-camera me-2"></i>Capture Receipt
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/voiceInput">
+                <i class="fas fa-microphone me-2"></i>Voice Input
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/profile">
+                <i class="fas fa-user me-2"></i>Profile
+            </a>
+        </li>
+        <% } %>
+    </ul>
+    <hr class="my-3">
+    <div class="user-section">
+        <% if(currentUser){ %>
+        <div class="d-flex align-items-center mb-2">
+            <i class="fas fa-user-circle me-2"></i>
+            <span><%= currentUser.username %></span>
+        </div>
+        <a href="/logout" class="btn btn-outline-light btn-sm w-100">
+            <i class="fas fa-sign-out-alt me-1"></i>Logout
+        </a>
+        <% }else{ %>
+        <a href="/login" class="btn btn-outline-light btn-sm w-100 mb-2">
+            <i class="fas fa-sign-in-alt me-1"></i>Login
+        </a>
+        <a href="/register" class="btn btn-light btn-sm w-100">
+            <i class="fas fa-user-plus me-1"></i>Register
+        </a>
+        <% } %>
+    </div>
+</div>
