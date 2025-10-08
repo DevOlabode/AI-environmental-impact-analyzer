@@ -53,6 +53,7 @@ module.exports.allProducts = async (req, res) => {
             { category: { $regex: search, $options: 'i' } }
         ];
     }
+    
 
     // Filter by category
     if (category && category.trim() !== '') {
