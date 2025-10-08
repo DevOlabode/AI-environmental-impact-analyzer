@@ -2,54 +2,14 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark custom-navbar sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="/">
-            <div class="brand-logo me-3">
-                <i class="fas fa-leaf fa-2x text-success"></i>
-            </div>
-            <div class="brand-text">
-                <span class="brand-title h4 mb-0">EcoAnalyzer</span>
-                <small class="brand-subtitle d-block text-light opacity-75">AI Environmental Impact</small>
-            </div>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="btn btn-link text-white me-3" id="sidebarToggle" aria-label="Toggle sidebar">
+            <i class="fas fa-bars fa-lg"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">
-                        <i class="fas fa-home me-1"></i>Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/form">
-                        <i class="fas fa-search me-1"></i>Analyze Product
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/form/all-products">
-                        <i class="fas fa-list me-1"></i>All Products
-                    </a>
-                </li>
-                <% if(currentUser){ %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/dashboard/impact">
-                        <i class="fas fa-chart-line me-1"></i>Impact Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/compare">
-                        <i class="fas fa-balance-scale me-1"></i>Compare Products
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/get-reciept">
-                        <i class="fas fa-camera me-1"></i>Capture Receipt
-                    </a>
-                </li>
-                <% } %>
-            </ul>
-
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="/images/github-mark-white.png" alt="GitHub Logo" width="30" height="30" class="me-2">
+            <span class="brand-title h4 mb-0">EcoAnalyzer</span>
+        </a>
+        <div class="d-flex ms-auto">
             <ul class="navbar-nav">
                 <% if(currentUser){ %>
                     <li class="nav-item dropdown mx-3">

@@ -2,29 +2,109 @@
 .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 250px;
+    left: -280px; /* Hidden by default */
+    width: 280px;
     height: 100vh;
+    background-color: #161b22; /* GitHub sidebar background */
+    color: #c9d1d9;
     overflow-y: auto;
-    z-index: 1000;
+    z-index: 1050; /* Above navbar */
+    transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
 }
+
+.sidebar.show {
+    left: 0;
+}
+
+.sidebar .d-flex {
+    padding: 16px;
+    border-bottom: 1px solid #30363d;
+}
+
+.sidebar .navbar-brand {
+    color: #c9d1d9;
+    font-weight: 600;
+}
+
+.sidebar .navbar-brand:hover {
+    color: #fff;
+}
+
 .sidebar .nav-link {
-    padding: 10px 15px;
-    margin: 5px 0;
-    border-radius: 5px;
+    color: #c9d1d9;
+    padding: 10px 16px;
+    margin: 4px 0;
+    border-radius: 6px;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
 }
-.sidebar .nav-link:hover {
-    background: rgba(255,255,255,0.1);
-}
-.sidebar .brand {
+
+.sidebar .nav-link i {
+    width: 20px; /* Align icons */
     text-align: center;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-right: 10px;
 }
+
+.sidebar .nav-link:hover {
+    background-color: #30363d;
+    color: #fff;
+}
+
+.sidebar .nav-link.active {
+    background-color: #30363d;
+    color: #fff;
+}
+
+.sidebar hr {
+    border-color: #30363d;
+    margin: 16px 0;
+}
+
 .sidebar .user-section {
-    padding: 15px 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 16px;
+    border-top: 1px solid #30363d;
 }
-.main-content {
-    margin-left: 250px;
+
+.sidebar .user-section .d-flex {
+    padding: 0; /* Override default d-flex padding */
+    border-bottom: none;
+}
+
+.sidebar .user-section .btn {
+    font-size: 0.875rem;
+    padding: 6px 12px;
+}
+
+#sidebarClose {
+    color: #c9d1d9;
+    border: none;
+    background: none;
+    font-size: 1.25rem;
+}
+
+#sidebarClose:hover {
+    color: #fff;
+}
+
+/* Main content adjustment when sidebar is open (optional, depending on layout) */
+body.sidebar-open {
+    overflow: hidden; /* Prevent scrolling when sidebar is open */
+}
+
+/* Overlay for when sidebar is open */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040; /* Below sidebar, above main content */
+    display: none;
+}
+
+.overlay.show {
+    display: block;
 }
