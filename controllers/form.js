@@ -42,35 +42,32 @@ module.exports.input = async (req, res) => {
 }
 
 module.exports.allProducts = async (req, res) => {
-  const { search, category, brand } = req.query;
+    const { search, category, brand } = req.query;
+    const filter = { owner: req.user._id };
 
-  // Base query (only products belonging to this user)
-  let query = { owner: req.user._id };
+    // Search by name, brand, or category (case-insensitive)
+    if (search) {
+        filter.$or = [
+            { name: { $regex: search, $options: 'i' } },
+            { brand: { $regex: search, $options: 'i' } },
+            { category: { $regex: search, $options: 'i' } }
+        ];
+    }
 
-  // Add search and filters dynamically
-  if (search) {
-    // Case-insensitive regex match for name, brand, or category
-    query.$or = [
-      { name: { $regex: search, $options: 'i' } },
-      { brand: { $regex: search, $options: 'i' } },
-      { category: { $regex: search, $options: 'i' } }
-    ];
-  }
+    // Filter by category
+    if (category && category.trim() !== '') {
+        filter.category = { $regex: category, $options: 'i' };
+    }
 
-  if (category && category !== 'all') {
-    query.category = { $regex: category, $options: 'i' };
-  }
+    // Filter by brand
+    if (brand && brand.trim() !== '') {
+        filter.brand = { $regex: brand, $options: 'i' };
+    }
 
-  if (brand && brand !== 'all') {
-    query.brand = { $regex: brand, $options: 'i' };
-  }
-
-  const products = await Products.find(query)
-    .populate('impactAnalysis')
-    .sort({ createdAt: -1 });
-
-  res.render('form/index', { products, search, category, brand });
+    const products = await Products.find(filter).populate('impactAnalysis');
+    res.render('form/index', { products, search, category, brand });
 };
+
 
 
 module.exports.showProducts = async (req, res) => {

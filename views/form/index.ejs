@@ -6,12 +6,50 @@
             <h1 class="mb-1">
                 <i class="fas fa-database me-2 text-success"></i>Product Database
             </h1>
-            <p class="text-white opacity-50 mb-0 ">Manage and analyze your environmental impact data</p>
+            <p class="text-white opacity-50 mb-0">Manage and analyze your environmental impact data</p>
         </div>
         <a href="/form" class="btn btn-success btn-lg">
             <i class="fas fa-plus me-2"></i>Add New Product
         </a>
     </div>
+
+    <!-- 🔍 Search & Filter Form -->
+    <form method="GET" action="/form/all-products" class="card p-3 mb-4 shadow-sm bg-light">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label for="search" class="form-label text-success fw-bold">
+                    <i class="fas fa-search me-2"></i>Search (name, brand, category)
+                </label>
+                <input type="text" id="search" name="search" class="form-control"
+                       placeholder="Search products..." value="<%= search || '' %>">
+            </div>
+
+            <div class="col-md-3">
+                <label for="category" class="form-label text-success fw-bold">
+                    <i class="fas fa-folder me-2"></i>Category
+                </label>
+                <input type="text" id="category" name="category" class="form-control"
+                       placeholder="e.g. Footwear" value="<%= category || '' %>">
+            </div>
+
+            <div class="col-md-3">
+                <label for="brand" class="form-label text-success fw-bold">
+                    <i class="fas fa-building me-2"></i>Brand
+                </label>
+                <input type="text" id="brand" name="brand" class="form-control"
+                       placeholder="e.g. Nike" value="<%= brand || '' %>">
+            </div>
+
+            <div class="col-md-2 d-flex justify-content-between">
+                <button type="submit" class="btn btn-success w-100 me-2">
+                    <i class="fas fa-filter me-1"></i>Apply
+                </button>
+                <a href="/form/all" class="btn btn-secondary w-100">
+                    <i class="fas fa-undo me-1"></i>Reset
+                </a>
+            </div>
+        </div>
+    </form>
 
     <% if(products && products.length > 0){ %>
         <div class="card shadow-sm">
@@ -58,14 +96,16 @@
                                                 <i class="fas fa-box text-success"></i>
                                             </div>
                                             <div>
-                                                <h6 class="mb-0 fw-bold"> <a href="/form/show-products/<%= product._id %>" class="text-decoration-none"> <%= product.name %> </a> </h6>
+                                                <h6 class="mb-0 fw-bold">
+                                                    <a href="/form/show-products/<%= product._id %>" class="text-decoration-none">
+                                                        <%= product.name %>
+                                                    </a>
+                                                </h6>
                                                 <small class="text-muted">ID: <%= product._id.toString().slice(-6) %></small>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
-                                        <span class="badge bg-primary"><%= product.category || 'N/A' %></span>
-                                    </td>
+                                    <td><span class="badge bg-primary"><%= product.category || 'N/A' %></span></td>
                                     <td><%= product.brand || 'N/A' %></td>
                                     <td><%= product.price ? '$' + product.price : 'N/A' %></td>
                                     <td><%= product.material || 'N/A' %></td>
