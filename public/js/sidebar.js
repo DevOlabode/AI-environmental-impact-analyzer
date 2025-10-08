@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', function() {
     const sidebarToggle = document.getElementById('sidebarToggle');
     const sidebarClose = document.getElementById('sidebarClose');
@@ -30,3 +31,4 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.addEventListener('click', closeSidebar);
     }
 });
+*/

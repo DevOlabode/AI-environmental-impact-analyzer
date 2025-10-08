@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/variables.css">
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/navbar.css">
-    <link rel="stylesheet" href="/css/sidebar.css">
+
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/forms.css">
     <link rel="stylesheet" href="/css/show.css">
@@ -30,7 +30,7 @@
 </head>
 <body class="d-flex min-vh-100">
     <%- include('../partials/navbar.ejs') %>
-    <div class="main-content flex-grow-1 d-flex flex-column">
+    <div class="main-content flex-grow-1 d-flex flex-column" style="margin-top: 48px;">
         <%- include('../partials/flash.ejs') %>
         <div class="flex-grow-1">
             <%- body %>
@@ -47,6 +47,5 @@
     <script src="/js/user.js"></script>
     <script src="/js/barcode.js"></script>
     <script src="/js/compare.js"></script>
-<div class="overlay"></div>
 </body>
 </html>
