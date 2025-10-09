@@ -1,0 +1,359 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-receipt"></i> Scan Receipt Barcodes
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        Upload a photo of your receipt. We'll detect all barcodes and fetch product details automatically!
+                    </div>
+
+                    <!-- Upload Section -->
+                    <div class="text-center mb-4">
+                        <input type="file" id="receiptInput" accept="image/*" capture="environment" class="d-none">
+                        <button class="btn btn-primary btn-lg" onclick="document.getElementById('receiptInput').click()">
+                            <i class="fas fa-camera"></i> Take/Upload Receipt Photo
+                        </button>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="mb-4" style="display: none;">
+                        <h5>Receipt Image:</h5>
+                        <div class="position-relative">
+                            <img id="receiptImage" src="" alt="Receipt" class="img-fluid border rounded">
+                            <canvas id="barcodeCanvas" style="position: absolute; top: 0; left: 0; pointer-events: none;"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Status Messages -->
+                    <div id="statusArea"></div>
+
+                    <!-- Detected Products -->
+                    <div id="productsArea" style="display: none;">
+                        <h4 class="mb-3">Detected Products:</h4>
+                        <div id="productsList" class="row"></div>
+                        
+                        <div class="text-center mt-4">
+                            <button id="saveAllBtn" class="btn btn-success btn-lg">
+                                <i class="fas fa-save"></i> Save All Products
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.product-card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+}
+
+.product-card h5 {
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.product-card .form-label {
+    font-weight: 600;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.product-card input {
+    font-size: 0.9rem;
+}
+
+#receiptImage {
+    max-height: 500px;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+#barcodeCanvas {
+    max-height: 500px;
+}
+
+.barcode-box {
+    border: 3px solid #28a745;
+    position: absolute;
+}
+
+.spinner-container {
+    text-align: center;
+    padding: 30px;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2@1.8.4/dist/quagga.min.js"></script>
+<script>
+let detectedBarcodes = [];
+let productsData = [];
+
+// Handle file selection
+document.getElementById('receiptInput').addEventListener('change', async function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Show loading
+    showStatus('Processing receipt image...', 'info', true);
+
+    // Display image
+    const reader = new FileReader();
+    reader.onload = async function(event) {
+        const img = document.getElementById('receiptImage');
+        img.src = event.target.result;
+        document.getElementById('imagePreview').style.display = 'block';
+
+        // Wait for image to load
+        img.onload = async function() {
+            await scanBarcodesFromImage(img);
+        };
+    };
+    reader.readAsDataURL(file);
+});
+
+// Scan barcodes from image using QuaggaJS
+async function scanBarcodesFromImage(imgElement) {
+    detectedBarcodes = [];
+    const canvas = document.getElementById('barcodeCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas size to match image
+    canvas.width = imgElement.naturalWidth;
+    canvas.height = imgElement.naturalHeight;
+    canvas.style.width = imgElement.offsetWidth + 'px';
+    canvas.style.height = imgElement.offsetHeight + 'px';
+
+    showStatus('Scanning for barcodes...', 'info', true);
+
+    // Create a temporary canvas for Quagga
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imgElement.naturalWidth;
+    tempCanvas.height = imgElement.naturalHeight;
+    tempCtx.drawImage(imgElement, 0, 0);
+
+    // Configure Quagga
+    Quagga.decodeSingle({
+        decoder: {
+            readers: [
+                "code_128_reader",
+                "ean_reader",
+                "ean_8_reader",
+                "code_39_reader",
+                "upc_reader",
+                "upc_e_reader"
+            ],
+            multiple: true
+        },
+        locate: true,
+        src: imgElement.src
+    }, function(result) {
+        if (result && result.codeResult) {
+            const barcode = result.codeResult.code;
+            
+            // Draw box around detected barcode
+            if (result.box) {
+                ctx.strokeStyle = '#28a745';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(result.box[0][0], result.box[0][1]);
+                for (let i = 1; i < result.box.length; i++) {
+                    ctx.lineTo(result.box[i][0], result.box[i][1]);
+                }
+                ctx.closePath();
+                ctx.stroke();
+            }
+
+            detectedBarcodes.push(barcode);
+            console.log('Detected barcode:', barcode);
+        }
+    });
+
+    // Wait a bit for processing
+    setTimeout(async () => {
+        if (detectedBarcodes.length === 0) {
+            showStatus('No barcodes detected in the image. Try taking a clearer photo.', 'warning', false);
+            return;
+        }
+
+        showStatus(`Found ${detectedBarcodes.length} barcode(s). Fetching product details...`, 'success', true);
+        
+        // Fetch product details
+        await fetchProductDetails();
+    }, 3000);
+}
+
+// Fetch product details from backend
+async function fetchProductDetails() {
+    try {
+        const response = await fetch('/process-receipt-barcodes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ barcodes: detectedBarcodes })
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.products.length > 0) {
+            productsData = data.products;
+            displayProducts(data.products);
+            
+            let message = `Found ${data.totalFound} product(s)!`;
+            if (data.notFoundBarcodes.length > 0) {
+                message += ` (${data.notFoundBarcodes.length} barcode(s) not found in database)`;
+            }
+            showStatus(message, 'success', false);
+        } else {
+            showStatus('No products found for the detected barcodes.', 'warning', false);
+        }
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        showStatus('Error fetching product details. Please try again.', 'danger', false);
+    }
+}
+
+// Display products for user review
+function displayProducts(products) {
+    const productsList = document.getElementById('productsList');
+    productsList.innerHTML = '';
+
+    products.forEach((product, index) => {
+        const productCard = `
+            <div class="col-md-6 mb-3">
+                <div class="product-card">
+                    <h5><i class="fas fa-box"></i> Product ${index + 1}</h5>
+                    
+                    <div class="mb-2">
+                        <label class="form-label">Product Name:</label>
+                        <input type="text" class="form-control form-control-sm" 
+                               value="${product.name}" 
+                               onchange="updateProduct(${index}, 'name', this.value)">
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Brand:</label>
+                        <input type="text" class="form-control form-control-sm" 
+                               value="${product.brand}" 
+                               onchange="updateProduct(${index}, 'brand', this.value)">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <label class="form-label">Category:</label>
+                            <select class="form-select form-select-sm" 
+                                    onchange="updateProduct(${index}, 'category', this.value)">
+                                <option value="Food" ${product.category === 'Food' ? 'selected' : ''}>Food</option>
+                                <option value="Beverage" ${product.category === 'Beverage' ? 'selected' : ''}>Beverage</option>
+                                <option value="Electronics" ${product.category === 'Electronics' ? 'selected' : ''}>Electronics</option>
+                                <option value="Clothing" ${product.category === 'Clothing' ? 'selected' : ''}>Clothing</option>
+                                <option value="Household" ${product.category === 'Household' ? 'selected' : ''}>Household</option>
+                                <option value="Personal Care" ${product.category === 'Personal Care' ? 'selected' : ''}>Personal Care</option>
+                                <option value="Other" ${product.category === 'Other' ? 'selected' : ''}>Other</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label class="form-label">Price ($):</label>
+                            <input type="number" class="form-control form-control-sm" 
+                                   value="${product.price}" step="0.01"
+                                   onchange="updateProduct(${index}, 'price', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 mb-2">
+                            <label class="form-label">Material:</label>
+                            <input type="text" class="form-control form-control-sm" 
+                                   value="${product.material}" 
+                                   onchange="updateProduct(${index}, 'material', this.value)">
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label class="form-label">Weight:</label>
+                            <input type="text" class="form-control form-control-sm" 
+                                   value="${product.weight}" 
+                                   onchange="updateProduct(${index}, 'weight', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Origin Country:</label>
+                        <input type="text" class="form-control form-control-sm" 
+                               value="${product.originCountry}" 
+                               onchange="updateProduct(${index}, 'originCountry', this.value)">
+                    </div>
+
+                    <small class="text-muted">Barcode: ${product.barcode}</small>
+                </div>
+            </div>
+        `;
+        productsList.innerHTML += productCard;
+    });
+
+    document.getElementById('productsArea').style.display = 'block';
+}
+
+// Update product data
+function updateProduct(index, field, value) {
+    productsData[index][field] = value;
+}
+
+// Save all products
+document.getElementById('saveAllBtn').addEventListener('click', async function() {
+    const btn = this;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
+
+    try {
+        const response = await fetch('/save-barcode-products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ products: productsData })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            window.location.href = result.redirect;
+        } else {
+            showStatus('Error: ' + result.message, 'danger', false);
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-save"></i> Save All Products';
+        }
+    } catch (error) {
+        console.error('Error saving products:', error);
+        showStatus('Error saving products. Please try again.', 'danger', false);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save"></i> Save All Products';
+    }
+});
+
+// Show status message
+function showStatus(message, type, showSpinner) {
+    const statusArea = document.getElementById('statusArea');
+    const spinnerHTML = showSpinner ? '<div class="spinner-border spinner-border-sm me-2"></div>' : '';
+    
+    statusArea.innerHTML = `
+        <div class="alert alert-${type}">
+            ${spinnerHTML}${message}
+        </div>
+    `;
+}
+</script>
