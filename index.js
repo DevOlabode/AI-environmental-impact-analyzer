@@ -27,7 +27,8 @@ const receiptRoutes = require('./routes/reciept');
 const userRoutes = require('./routes/user');
 const comparisonRoutes = require('./routes/comparison');
 const dashboardRoutes = require('./routes/dashboard');
-const voiceInputRoutes = require('./routes/voiceInput');
+// const voiceInputRoutes = require('./routes/voiceInput');
+
 
 const ExpressError = require('./utils/ExpressError');
 
@@ -98,7 +99,7 @@ app.use('/', receiptRoutes);
 app.use('/', userRoutes);
 app.use('/', comparisonRoutes);
 app.use('/dashboard', dashboardRoutes);
-app.use('/voiceInput', voiceInputRoutes);
+// app.use('/', voiceInputRoutes);
 
 
 app.get('/', (req, res)=>{
@@ -106,17 +107,17 @@ app.get('/', (req, res)=>{
     res.render('home')
 });
 
-// app.all(/(.*)/, (req, res, next) => {
-//     next(new ExpressError('Page not found', 404))
-// });
+app.all(/(.*)/, (req, res, next) => {
+    next(new ExpressError('Page not found', 404))
+});
 
-// app.use((err, req, res, next)=>{
-//     const {statusCode = 500} = err;
-//     if(!err.message){
-//         err.message = 'Something Went Wrong!'
-//     }
-//     res.status(statusCode).render('error', {err})
-// });
+app.use((err, req, res, next)=>{
+    const {statusCode = 500} = err;
+    if(!err.message){
+        err.message = 'Something Went Wrong!'
+    }
+    res.status(statusCode).render('error', {err})
+});
 
 const PORT = process.env.PORT || 3000;
 

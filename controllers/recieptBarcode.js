@@ -1,6 +1,6 @@
 // controllers/receiptBarcode.js
 const Product = require('../models/product');
-const { analyseImpact } = require('../utils/formAI');
+const { analyseImpact } = require('../utils/AI');
 const axios = require('axios');
 
 // Fetch product data from barcode
