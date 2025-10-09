@@ -160,6 +160,9 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const inputs = document.querySelectorAll('input[readonly]');
             inputs.forEach(input => input.removeAttribute('readonly'));
 
+            const textArea = document.querySelector('textarea');
+            textArea.removeAttribute('readonly')
+
             document.getElementById('status').textContent = 'Form filled! Ready to analyze.';
             document.getElementById('analyzeBtn').disabled = false;
 

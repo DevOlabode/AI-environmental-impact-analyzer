@@ -18,6 +18,17 @@ module.exports.processVoiceInput = catchAsync(async (req, res) => {
     }
     const productData = await voiceInput(transcript);
 
+    console.log(productData);
+
+    if(!productData){
+        req.flash('error', 'Could not process the voice input. Please try again.');
+        return res.redirect('/voiceInput/ai');
+    }
+
+    if(productData){
+        return res.json( productData );
+    }
+
     const product = new Product(productData);
     await product.save();
 
