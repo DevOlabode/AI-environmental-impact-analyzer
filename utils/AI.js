@@ -50,7 +50,8 @@ const analyseImpact = async (
   material,
   weight,
   originCountry,
-  price
+  price,
+  notes
 ) => {
   
 const groq = new Groq({
@@ -71,6 +72,7 @@ Here are the product details:
 - Weight: ${weight || "Unknown"} kg
 - Origin Country: ${originCountry || "Unknown"}
 - Price : ${price || "Unknown"}
+- Notes: ${notes || "None"}
 
 Baseline estimates (calculated already):
 - Carbon Footprint: ${carbonFootprint} kg CO₂

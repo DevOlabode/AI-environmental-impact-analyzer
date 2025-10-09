@@ -73,6 +73,15 @@
             </div>
         </div>
 
+        <% if(product.notes){ %>
+        <div class="col-md-6 mb-3">
+            <label for="product-notes" class="form-label">
+                <i class="fas fa-sticky-note me-1"></i>Notes
+            </label>
+            <textarea name="notes" id="product-notes" class="form-control rounded" style="border-radius: 5px;" placeholder="Add any extra information about the product..." ></textarea>
+        </div>
+            <% } %>
+
         <div class="d-flex gap-2 justify-content-center">
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save me-2"></i>Update Product
