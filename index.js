@@ -27,7 +27,7 @@ const receiptRoutes = require('./routes/reciept');
 const userRoutes = require('./routes/user');
 const comparisonRoutes = require('./routes/comparison');
 const dashboardRoutes = require('./routes/dashboard');
-// const voiceInputRoutes = require('./routes/voiceInput');
+const voiceInputRoutes = require('./routes/voiceInput');
 
 
 const ExpressError = require('./utils/ExpressError');
@@ -99,7 +99,7 @@ app.use('/', receiptRoutes);
 app.use('/', userRoutes);
 app.use('/', comparisonRoutes);
 app.use('/dashboard', dashboardRoutes);
-// app.use('/', voiceInputRoutes);
+app.use('/', voiceInputRoutes);
 
 
 app.get('/', (req, res)=>{
