@@ -85,6 +85,13 @@
             </div>
         </div>
 
+    <div class="col-md-6 mb-3">
+        <label for="product-notes" class="form-label">
+            <i class="fas fa-sticky-note me-1"></i>Notes
+        </label>
+        <textarea name="notes" id="product-notes" class="form-control rounded" style="border-radius: 5px;" placeholder="AI will fill this" readonly></textarea>
+    </div>
+
         <div class="d-grid">
             <button type="submit" class="btn btn-success btn-lg" id="analyzeBtn" disabled>
                 <i class="fas fa-robot me-2"></i>Get Environmental Analysis
@@ -146,6 +153,7 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             document.getElementById('product-weight').value = productData.weight || '';
             document.getElementById('product-originCountry').value = productData.originCountry || '';
             document.getElementById('product-price').value = productData.price || '';
+            document.getElementById('product-notes').value = productData.notes || '';
 
             // Remove readonly from all inputs
             const inputs = document.querySelectorAll('input[readonly]');
