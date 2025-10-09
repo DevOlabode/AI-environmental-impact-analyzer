@@ -16,7 +16,8 @@ module.exports.input = async (req, res) => {
         formData.material,
         formData.weight,
         formData.originCountry,
-        formData.price
+        formData.price,
+        formData.notes
     );
 
     const impact = new Impact(impactAnalysis);
@@ -106,7 +107,8 @@ module.exports.editInput = async (req, res) => {
             formData.material,
             formData.weight,
             formData.originCountry,
-            formData.price
+            formData.price,
+            formData.notes
         );
 
         const impact = new Impact(impactAnalysisData);

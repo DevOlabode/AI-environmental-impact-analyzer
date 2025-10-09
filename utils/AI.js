@@ -156,6 +156,7 @@ Analyze the provided image of a receipt and extract the following details for th
 - Weight: Estimated weight in grams (if not specified, estimate based on category)
 - Origin Country: Country of origin (if not specified, make a reasonable assumption based on the store location)
 - price: Price in USD/CAD (Based on the receipt currency or the location of the store on the receipt)
+- notes : Any additional notes mentioned on the receipt about the product
 
 Guidelines:
 - Focus on the information on the receipt image. 
@@ -312,7 +313,8 @@ const voiceInput = async (transcript) => {
   "material": "primary material (e.g., Plastic, Metal, Glass, Cotton, Aluminum) or Unknown",
   "weight": "numeric value only in kg (convert if needed, e.g., 500g becomes 0.5)",
   "originCountry": "country name or Unknown",
-  "price": "numeric value only (no currency symbols)"
+  "price": "numeric value only (no currency symbols)",
+  "notes" : "Additional Notes the User mentioned or None"
 }
 
 Rules:

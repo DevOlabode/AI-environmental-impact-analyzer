@@ -8,6 +8,7 @@ module.exports.productSchema = Joi.object({
     weight : Joi.number().min(0).allow(null),
     originCountry : Joi.string().allow(''),
     price : Joi.number().min(0).allow(null),
+    notes : Joi.string().allow(''),
     impactAnalysis : Joi.object({
         carbonFootprint : Joi.number().min(0).required(),
         waterUsage : Joi.number().min(0).required(),
@@ -24,5 +25,6 @@ module.exports.productInputSchema = Joi.object({
     material : Joi.string().required(),
     weight : Joi.number().min(0).allow(null),
     originCountry : Joi.string().allow(''),
-    price : Joi.number().min(0).allow(null)
+    price : Joi.number().min(0).allow(null),
+    notes : Joi.string().allow('')
 }).required()
