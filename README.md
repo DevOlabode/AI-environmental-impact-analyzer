@@ -11,6 +11,7 @@ A web application that leverages AI to analyze the environmental footprint of co
   - Receipt upload with OCR processing using Tesseract.js
   - Voice input for hands-free data entry
 - **Product Management**: View, edit, and delete saved products with impact analysis.
+- **Favorites/Bookmarks**: Star important products for quick access and view them in a dedicated 'Favourites' page with search and filter options.
 - **Comparison Tool**: Compare environmental impacts between different products.
 - **Dashboard**: Comprehensive analytics including total CO2 footprint over time, category breakdown, monthly comparisons, and identification of top environmental impact products.
 - **Responsive Design**: Mobile-friendly interface with modern CSS and animations.
@@ -85,7 +86,8 @@ A web application that leverages AI to analyze the environmental footprint of co
    - Use voice input for quick data entry
 3. **View Analysis**: See detailed environmental impact reports with sustainability scores.
 4. **Manage Products**: Edit, delete, or compare your saved products.
-5. **Dashboard**: Monitor your environmental impact trends and insights.
+5. **Favorites**: Star products from the list or detail view, and access them quickly via the 'Favourites' link in the user menu.
+6. **Dashboard**: Monitor your environmental impact trends and insights.
 
 ## Project Structure
 
@@ -154,6 +156,8 @@ AI-environmental-impact-analyzer/
 - `GET /form/edit/:id` - Edit product form
 - `PUT /form/edit/:id` - Update product
 - `DELETE /form/delete/:id` - Delete product
+- `POST /form/toggle-favorite/:id` - Toggle favorite status for a product
+- `GET /form/favorites` - View favorited products
 - `GET /receipt` - Receipt upload page
 - `POST /receipt/upload` - Process receipt upload
 - `GET /comparison` - Product comparison page
