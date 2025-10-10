@@ -38,7 +38,10 @@ const User = require('./models/user');
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-mongoose.connect('mongodb://127.0.0.1:27017/environmental-analyser')
+mongoose.connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then(() => {
         console.log("Mongo Connection Open")   
     }).catch((err) => {
@@ -63,7 +66,7 @@ const sessionConfig = {
     resave : false,
     saveUninitialized : true,
     cookie : {
-        secure : false, // Set to false for development (localhost)
+        secure : false, 
         httpOnly: true,
         expires : new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         maxAge: 1000 * 60 * 60 * 24 * 7,
