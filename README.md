@@ -5,14 +5,14 @@ A web application that leverages AI to analyze the environmental footprint of co
 ## Features
 
 - **AI-Powered Analysis**: Utilizes advanced machine learning algorithms to assess environmental impact including carbon footprint, water usage, and recyclability.
-- **User Authentication**: Secure user accounts with Passport.js for personalized product tracking.
+- **User Authentication**: Secure user accounts with Passport.js for personalized product tracking, including password reset via email verification.
 - **Product Input Methods**:
   - Manual form input for product details
   - Receipt upload with OCR processing using Tesseract.js
   - Voice input for hands-free data entry
 - **Product Management**: View, edit, and delete saved products with impact analysis.
 - **Comparison Tool**: Compare environmental impacts between different products.
-- **Dashboard**: Visualize sustainability metrics and trends.
+- **Dashboard**: Comprehensive analytics including total CO2 footprint over time, category breakdown, monthly comparisons, and identification of top environmental impact products.
 - **Responsive Design**: Mobile-friendly interface with modern CSS and animations.
 - **Security**: Rate limiting, input sanitization, and CSRF protection.
 
