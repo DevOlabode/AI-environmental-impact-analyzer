@@ -138,3 +138,32 @@ a:hover {
     color: var(--primary-color);
     text-decoration: underline;
 }
+
+/* Star Toggle Button Styles */
+.star-toggle {
+    position: relative;
+    transition: var(--transition);
+}
+
+.star-toggle:hover {
+    transform: scale(1.1);
+}
+
+.star-toggle i.fa-star {
+    color: inherit;
+}
+
+.btn-warning i.fa-star {
+    color: #ffc107;
+    text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+}
+
+.btn-outline-warning i.fa-star {
+    color: #ffc107;
+    opacity: 0.5;
+}
+
+.btn-outline-warning:hover i.fa-star {
+    opacity: 1;
+    text-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
+}

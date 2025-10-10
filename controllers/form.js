@@ -150,3 +150,60 @@ module.exports.deleteProduct = async(req, res)=>{
     await Products.findByIdAndDelete(id);
     res.redirect('/form/all-products');
 }
+
+module.exports.toggleFavorite = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await Products.findById(id);
+
+        if (!product) {
+            req.flash('error', 'Product not found');
+            return res.redirect(req.get('Referrer') || '/form/all-products');
+        }
+
+        if (product.owner.toString() !== req.user._id.toString()) {
+            req.flash('error', 'You do not have permission to modify this product');
+            return res.redirect(req.get('Referrer') || '/form/all-products');
+        }
+
+        product.favourite = !product.favourite;
+        await product.save();
+
+        const action = product.favourite ? 'favorited' : 'unfavorited';
+        req.flash('success', `Product ${action} successfully`);
+        res.redirect(req.get('Referrer') || '/form/all-products');
+    } catch (error) {
+        req.flash('error', 'Error toggling favorite: ' + error.message);
+        res.redirect(req.get('Referrer') || '/form/all-products');
+    }
+};
+
+module.exports.getFavorites = async (req, res) => {
+    const { search, category, brand } = req.query;
+    const filter = { 
+        owner: req.user._id,
+        favourite: true 
+    };
+
+    // Search by name, brand, or category (case-insensitive)
+    if (search) {
+        filter.$or = [
+            { name: { $regex: search, $options: 'i' } },
+            { brand: { $regex: search, $options: 'i' } },
+            { category: { $regex: search, $options: 'i' } }
+        ];
+    }
+
+    // Filter by category
+    if (category && category.trim() !== '') {
+        filter.category = { $regex: category, $options: 'i' };
+    }
+
+    // Filter by brand
+    if (brand && brand.trim() !== '') {
+        filter.brand = { $regex: brand, $options: 'i' };
+    }
+
+    const products = await Products.find(filter).populate('impactAnalysis');
+    res.render('form/favorites', { products, search, category, brand });
+};

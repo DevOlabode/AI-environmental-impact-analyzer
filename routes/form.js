@@ -23,4 +23,8 @@ router.put('/edit-products/:id', validateProductInput, isLoggedIn, catchAsync(fo
 
 router.delete('/delete-product/:id', isLoggedIn, catchAsync(formController.deleteProduct))
 
+router.post('/toggle-favorite/:id', isLoggedIn, catchAsync(formController.toggleFavorite))
+
+router.get('/favorites', isLoggedIn, catchAsync(formController.getFavorites))
+
 module.exports = router;

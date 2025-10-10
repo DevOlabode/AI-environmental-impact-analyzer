@@ -40,12 +40,15 @@ notes : {
   type : String,
   required : false
 },
+favourite : {
+  type : Boolean,
+  default : false
+},
 impactAnalysis: {
     type: Schema.Types.ObjectId,
     ref: 'Impact',
     required: false
   },
-
   createdAt: { type: Date, default: Date.now }
 });
 

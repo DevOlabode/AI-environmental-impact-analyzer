@@ -4,28 +4,28 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="mb-1">
-                <i class="fas fa-database me-2 text-success"></i>Product Database
+                <i class="fas fa-star me-2 text-warning"></i>Your Favourites
             </h1>
-            <p class="text-white opacity-50 mb-0">Manage and analyze your environmental impact data</p>
+            <p class="text-white opacity-50 mb-0">Starred products for quick access and analysis</p>
         </div>
-        <a href="/form" class="btn btn-success btn-lg">
-            <i class="fas fa-plus me-2"></i>Add New Product
+        <a href="/form/all-products" class="btn btn-outline-light">
+            <i class="fas fa-list me-2"></i>View All Products
         </a>
     </div>
 
     <!-- 🔍 Search & Filter Form -->
-    <form method="GET" action="/form/all-products" class="card p-3 mb-4 shadow-sm bg-light">
+    <form method="GET" action="/form/favorites" class="card p-3 mb-4 shadow-sm bg-light">
         <div class="row g-3 align-items-end">
             <div class="col-md-4">
-                <label for="search" class="form-label text-success fw-bold">
+                <label for="search" class="form-label text-warning fw-bold">
                     <i class="fas fa-search me-2"></i>Search (name, brand, category)
                 </label>
                 <input type="text" id="search" name="search" class="form-control"
-                       placeholder="Search products..." value="<%= search || '' %>">
+                       placeholder="Search favorites..." value="<%= search || '' %>">
             </div>
 
             <div class="col-md-3">
-                <label for="category" class="form-label text-success fw-bold">
+                <label for="category" class="form-label text-warning fw-bold">
                     <i class="fas fa-folder me-2"></i>Category
                 </label>
                 <input type="text" id="category" name="category" class="form-control"
@@ -33,7 +33,7 @@
             </div>
 
             <div class="col-md-3">
-                <label for="brand" class="form-label text-success fw-bold">
+                <label for="brand" class="form-label text-warning fw-bold">
                     <i class="fas fa-building me-2"></i>Brand
                 </label>
                 <input type="text" id="brand" name="brand" class="form-control"
@@ -41,10 +41,10 @@
             </div>
 
             <div class="col-md-2 d-flex justify-content-between">
-                <button type="submit" class="btn btn-success w-100 me-2">
+                <button type="submit" class="btn btn-warning w-100 me-2">
                     <i class="fas fa-filter me-1"></i>Apply
                 </button>
-                <a href="/form/all-products" class="btn btn-secondary w-100">
+                <a href="/form/favorites" class="btn btn-secondary w-100">
                     <i class="fas fa-undo me-1"></i>Reset
                 </a>
             </div>
@@ -58,31 +58,31 @@
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="border-0 fw-bold text-success">
+                                <th class="border-0 fw-bold text-warning">
                                     <i class="fas fa-tag me-2"></i>Product Name
                                 </th>
-                                <th class="border-0 fw-bold text-success">
+                                <th class="border-0 fw-bold text-warning">
                                     <i class="fas fa-folder me-2"></i>Category
                                 </th>
-                                <th class="border-0 fw-bold text-success">
+                                <th class="border-0 fw-bold text-warning">
                                     <i class="fas fa-building me-2"></i>Brand
                                 </th>
-                                <th class="border-0 fw-bold text-success">
+                                <th class="border-0 fw-bold text-warning">
                                     <i class="fas fa-dollar-sign me-2"></i>Price
                                 </th>
-                                <th class="border-0 fw-bold text-success">
+                                <th class="border-0 fw-bold text-warning">
                                     <i class="fas fa-cubes me-2"></i>Material
                                 </th>
-                                <th class="border-0 fw-bold text-success">
+                                <th class="border-0 fw-bold text-warning">
                                     <i class="fas fa-weight me-2"></i>Weight
                                 </th>
-                                <th class="border-0 fw-bold text-success">
+                                <th class="border-0 fw-bold text-warning">
                                     <i class="fas fa-globe me-2"></i>Origin
                                 </th>
-                                <th class="border-0 fw-bold text-success text-center">
+                                <th class="border-0 fw-bold text-warning text-center">
                                     <i class="fas fa-chart-line me-2"></i>Analysis
                                 </th>
-                                <th class="border-0 fw-bold text-success text-center">
+                                <th class="border-0 fw-bold text-warning text-center">
                                     <i class="fas fa-cogs me-2"></i>Actions
                                 </th>
                             </tr>
@@ -92,8 +92,8 @@
                                 <tr class="align-middle">
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="bg-success bg-opacity-10 rounded-circle p-2 me-3">
-                                                <i class="fas fa-box text-success"></i>
+                                            <div class="bg-warning bg-opacity-10 rounded-circle p-2 me-3">
+                                                <i class="fas fa-star text-warning"></i>
                                             </div>
                                             <div>
                                                 <h6 class="mb-0 fw-bold">
@@ -106,8 +106,8 @@
                                         </div>
                                     </td>
                                     
-                                    <td> <a href="/form/all-products?category=<%= product.category %>"> <span class="badge bg-primary"><%= product.category || 'N/A' %></span> </a></td>
-                                    <td> <a href="/form/all-products?brand=<%= product.brand %>"> <span class="badge bg-warning"><%= product.brand || 'N/A' %></span> </a></td>
+                                    <td> <a href="/form/favorites?category=<%= product.category %>"> <span class="badge bg-primary"><%= product.category || 'N/A' %></span> </a></td>
+                                    <td> <a href="/form/favorites?brand=<%= product.brand %>"> <span class="badge bg-warning"><%= product.brand || 'N/A' %></span> </a></td>
                                     <td><%= product.price ? '$' + product.price : 'N/A' %></td>
                                     <td><%= product.material || 'N/A' %></td>
                                     <td><%= product.weight ? product.weight + ' KG' : 'N/A' %></td>
@@ -130,18 +130,16 @@
                                                title="View Details">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <% if(currentUser){ %>
-                                                <form method="POST" action="/form/toggle-favorite/<%= product._id %>" style="display: inline;">
-                                                    <button type="submit" class="btn btn-sm <%= product.favourite ? 'btn-warning' : 'btn-outline-warning' %>" title="Toggle Favorite">
-                                                        <i class="fas fa-star"></i>
-                                                    </button>
-                                                </form>
-                                                <a href="/form/edit/<%= product._id %>"
-                                                   class="btn btn-sm btn-outline-warning"
-                                                   title="Edit Product">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            <% } %>
+                                            <form method="POST" action="/form/toggle-favorite/<%= product._id %>" style="display: inline;">
+                                                <button type="submit" class="btn btn-sm <%= product.favourite ? 'btn-warning' : 'btn-outline-warning' %>" title="Toggle Favorite">
+                                                    <i class="fas <%= product.favourite ? 'fa-star' : 'fa-star' %>"></i>
+                                                </button>
+                                            </form>
+                                            <a href="/form/edit/<%= product._id %>"
+                                               class="btn btn-sm btn-outline-warning"
+                                               title="Edit Product">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -153,17 +151,17 @@
         </div>
 
         <div class="mt-3 text-muted">
-            <small>Showing <%= products.length %> product<%= products.length !== 1 ? 's' : '' %></small>
+            <small>Showing <%= products.length %> favorite product<%= products.length !== 1 ? 's' : '' %></small>
         </div>
     <% } else { %>
         <div class="text-center py-5">
             <div class="mb-4">
-                <i class="fas fa-database fa-4x text-muted"></i>
+                <i class="fas fa-star fa-4x text-muted"></i>
             </div>
-            <h3 class="text-muted mb-3">No Products in Database</h3>
-            <p class="text-muted mb-4">Start building your environmental impact database by analyzing your first product.</p>
-            <a href="/form" class="btn btn-success btn-lg">
-                <i class="fas fa-plus me-2"></i>Analyze First Product
+            <h3 class="text-muted mb-3">No Favorites Yet</h3>
+            <p class="text-muted mb-4">Star some products from your database to see them here. Important items will appear in this quick-access view.</p>
+            <a href="/form/all-products" class="btn btn-outline-warning">
+                <i class="fas fa-star me-2"></i>Browse and Star Products
             </a>
         </div>
     <% } %>
