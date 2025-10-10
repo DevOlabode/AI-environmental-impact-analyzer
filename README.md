@@ -14,6 +14,7 @@ A web application that leverages AI to analyze the environmental footprint of co
 - **Favorites/Bookmarks**: Star important products for quick access and view them in a dedicated 'Favourites' page with search and filter options.
 - **Comparison Tool**: Compare environmental impacts between different products.
 - **Dashboard**: Comprehensive analytics including total CO2 footprint over time, category breakdown, monthly comparisons, and identification of top environmental impact products.
+- **Dark Mode**: Toggle between light and dark themes for comfortable viewing in different lighting conditions.
 - **Responsive Design**: Mobile-friendly interface with modern CSS and animations.
 - **Security**: Rate limiting, input sanitization, and CSRF protection.
 
