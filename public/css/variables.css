@@ -23,3 +23,22 @@
     --glass-bg: rgba(255, 255, 255, 0.8);
     --glass-border: rgba(255, 255, 255, 0.2);
 }
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --primary-color: #4CAF50; /* Lighter green for dark mode */
+    --secondary-color: #42A5F5; /* Lighter blue */
+    --accent-color: #81C784; /* Even lighter green */
+    --background-color: #121212; /* Dark background */
+    --surface-color: #1e1e1e; /* Darker surface */
+    --card-background: #1e1e1e; /* Dark cards */
+    --text-primary: #ffffff; /* White text */
+    --text-secondary: #cccccc; /* Light gray text */
+    --text-muted: #888888; /* Muted text */
+    --border-color: #333333; /* Dark border */
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(30, 30, 30, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
