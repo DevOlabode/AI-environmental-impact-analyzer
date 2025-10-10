@@ -28,6 +28,8 @@ const userRoutes = require('./routes/user');
 const comparisonRoutes = require('./routes/comparison');
 const dashboardRoutes = require('./routes/dashboard');
 
+const sanitizeV5 = require('./utils/mongoSanitizev5');
+
 const ExpressError = require('./utils/ExpressError');
 
 const User = require('./models/user');
@@ -43,6 +45,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/environmental-analyser')
     });
 
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(sanitizeV5({ replaceWith: '_' }));
+
+app.set('query parser', 'extended');
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended : true}));
 app.engine('ejs', ejsMate);
