@@ -44,8 +44,8 @@ A web application that leverages AI to analyze the environmental footprint of co
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/ai-environmental-impact-analyzer.git
-   cd ai-environmental-impact-analyzer
+   git clone https://github.com/DevOlabode/AI-environmental-impact-analyzer.git
+   cd AI-environmental-impact-analyzer
    ```
 
 2. **Install dependencies**:
@@ -90,7 +90,7 @@ A web application that leverages AI to analyze the environmental footprint of co
 ## Project Structure
 
 ```
-ai-environmental-impact-analyzer/
+AI-environmental-impact-analyzer/
 ├── controllers/          # Route handlers
 │   ├── auth.js
 │   ├── comparison.js
