@@ -11,6 +11,7 @@
     --text-primary: #212529; /* Dark text */
     --text-secondary: #6c757d; /* Gray text */
     --text-muted: #adb5bd; /* Muted text */
+    --placeholder-color: #adb5bd; /* Placeholder color */
     --border-color: #e9ecef; /* Light border */
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -35,6 +36,7 @@
     --text-primary: #ffffff; /* White text */
     --text-secondary: #cccccc; /* Light gray text */
     --text-muted: #888888; /* Muted text */
+    --placeholder-color: #888888; /* Placeholder color */
     --border-color: #333333; /* Dark border */
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
