@@ -38,15 +38,13 @@ const User = require('./models/user');
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => {
-        console.log("Mongo Connection Open")   
-    }).catch((err) => {
-        console.log("Error", err)
-    });
+mongoose.connect(process.env.DB_URL)
+  .then(() => {
+    console.log("Mongo Connection Open");
+  })
+  .catch((err) => {
+    console.log("Error", err);
+  });
 
 app.set('views', path.join(__dirname, 'views'));
 
