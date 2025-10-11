@@ -43,6 +43,10 @@ A web application that leverages AI to analyze the environmental footprint of co
 - **Joi** for input validation
 - **connect-flash** for flash messages
 
+## Live Demo
+
+You can access the live demo [here](https://ai-environmental-impact-analyzer-3.onrender.com/)
+
 ## Installation
 
 1. **Clone the repository**:
