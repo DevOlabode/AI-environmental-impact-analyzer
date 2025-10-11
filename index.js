@@ -21,6 +21,19 @@ const localStrategy = require('passport-local');
 
 const rateLimit = require('express-rate-limit');
 
+const helmetConfig = {
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com", "https://html5-qrcode", "https://ericblade"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
+            imgSrc: ["'self'", "data:", "https:", "http:"],
+            connectSrc: ["'self'", "https:", "http:"],
+            fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
+        },
+    },
+};
+
 const authRoutes = require('./routes/auth');
 const formRoutes = require('./routes/form');
 const receiptRoutes = require('./routes/reciept');
@@ -55,11 +68,12 @@ app.set('query parser', 'extended');
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended : true}));
 app.engine('ejs', ejsMate);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 
-app.use(helmet());
+app.use(helmet(helmetConfig));
 
 const sessionConfig = {
     secret : process.env.SECRET,
@@ -111,7 +125,6 @@ app.use('/dashboard', dashboardRoutes);
 app.use('/voiceInput', voiceInputRoutes);
 
 app.get('/', (req, res)=>{
-    req.flash('success', 'The Homepage')
     res.render('home')
 });
 

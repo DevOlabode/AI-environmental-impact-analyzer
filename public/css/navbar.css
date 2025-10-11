@@ -6,6 +6,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     height: 60px;
+    overflow: visible;
 }
 
 .navbar-brand {
@@ -50,12 +51,17 @@
     margin-top: -2px;
 }
 
+.dropdown {
+    position: relative;
+}
+
 .dropdown-menu {
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-lg);
     border-radius: var(--border-radius);
     margin-top: 8px;
+    z-index: 1060;
 }
 
 .dropdown-item {
