@@ -1,7 +1,7 @@
 const path = require('path');
 const Product = require('../models/product');
 const Impact = require('../models/impact');
-const { analyseReceipt } = require('../utils/AI');
+const { analyseReceipt } = require('../AI/analyseReciept');
 const analyseImpact = require('../AI/analyseImpact');
 
 const fs = require('fs');
