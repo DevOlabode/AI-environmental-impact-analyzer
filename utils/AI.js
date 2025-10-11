@@ -344,7 +344,7 @@ Voice input: "${transcript}"`;
   }
 };
 
-const recommendPRoducts = async (category, material, price, sustainabilityScore) => {
+const recommendProducts = async (category, material, price, sustainabilityScore) => {
   const groq = new Groq({ apiKey: process.env.GROQ_KEY });
   const prompt = `
   You are an AI sustainability assistant. Based on the product details below, suggest 3 alternative products that are more environmentally friendly.
@@ -388,4 +388,4 @@ Sustainability Score: ${sustainabilityScore}
 
 
 // Function Exports.
-module.exports = { analyseImpact, analyseReceipt, compareProducts, voiceInput, recommendPRoducts };
+module.exports = { analyseImpact, analyseReceipt, compareProducts, voiceInput, recommendProducts };

@@ -1,7 +1,7 @@
 const Products = require('../models/product');
 const Impact = require('../models/impact');
 
-const {analyseImpact, recommendPRoducts } = require('../utils/AI')
+const {analyseImpact, recommendProducts } = require('../utils/AI')
 
 module.exports.userInput = (req, res) => {
     res.render('form/input')
@@ -23,32 +23,34 @@ module.exports.input = async (req, res) => {
     const impact = new Impact(impactAnalysis);
     await impact.save();
 
-const recommendProducts = await recommendPRoducts(
-    formData.category,
-    formData.material,
-    formData.price,
-    impact.sustainabilityScore
-);
-    console.log(recommendProducts);
+    const recommendations = await recommendProducts(
+        formData.category,
+        formData.material,
+        formData.price || 0,
+        impact.sustainabilityScore
+    );
+    console.log(recommendations);
 
     if (req.user) {
         const product = new Products({
             ...req.body,
-
             owner: req.user._id,
             impactAnalysis: impact._id
         });
 
         await product.save();
-        return res.render('form/show', { product })
+
+        // Manually set impactAnalysis for rendering since not populated
+        product.impactAnalysis = impactAnalysis;
+
+        return res.render('form/show', { product, recommendations })
     } else {
         const product = {
             ...req.body,
-            recommendProducts,
             impactAnalysis,
             createdAt: new Date()
         };
-        return res.render('form/show', { product })
+        return res.render('form/show', { product, recommendations })
     }
 }
 
@@ -86,7 +88,22 @@ module.exports.showProducts = async (req, res) => {
         req.flash('error', 'Product not found or access denied');
         return res.redirect('/form/all-products');
     }
-    res.render('form/show', { product })
+
+    let recommendations = [];
+    try {
+        const sustainabilityScore = product.impactAnalysis?.sustainabilityScore || 5;
+        recommendations = await recommendProducts(
+            product.category,
+            product.material,
+            product.price || 0,
+            sustainabilityScore
+        );
+    } catch (error) {
+        console.error('Error generating recommendations:', error);
+        recommendations = [];
+    }
+
+    res.render('form/show', { product, recommendations })
 }
 
 module.exports.editInputForm = async(req, res)=>{
