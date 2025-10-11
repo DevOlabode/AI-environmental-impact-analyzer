@@ -31,7 +31,6 @@ module.exports.input = async (req, res) => {
         formData.price || 0,
         impact.sustainabilityScore
     );
-    console.log(recommendations);
 
     if (req.user) {
         const product = new Products({
