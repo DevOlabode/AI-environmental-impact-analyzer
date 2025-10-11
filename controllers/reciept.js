@@ -1,7 +1,8 @@
 const path = require('path');
 const Product = require('../models/product');
 const Impact = require('../models/impact');
-const { analyseReceipt, analyseImpact } = require('../utils/AI');
+const { analyseReceipt } = require('../utils/AI');
+const analyseImpact = require('../AI/analyseImpact');
 
 const fs = require('fs');
 const Tesseract = require('tesseract.js');

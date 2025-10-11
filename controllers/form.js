@@ -1,7 +1,9 @@
 const Products = require('../models/product');
 const Impact = require('../models/impact');
 
-const {analyseImpact, recommendProducts } = require('../utils/AI')
+// const {analyseImpact, recommendProducts } = require('../utils/AI')
+const analyseImpact = require('../AI/analyseImpact');
+const { recommendProducts } = require('../utils/AI');
 
 module.exports.userInput = (req, res) => {
     res.render('form/input')
