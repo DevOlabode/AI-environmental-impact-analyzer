@@ -1,8 +1,7 @@
 const passport = require('passport');
 const { productSchema, productInputSchema } = require('./schema');
 
-const ExpressError = require('./utils/ExpressError');
-
+const ExpressError = require('./utils/expressError');
 
 module.exports.validateProduct  = (req, res, next)=>{
     const { error } = productSchema.validate(req.body);

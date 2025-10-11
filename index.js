@@ -44,7 +44,7 @@ const voiceInputRoutes = require('./routes/voiceInput');
 
 const sanitizeV5 = require('./utils/mongoSanitizev5');
 
-const ExpressError = require('./utils/ExpressError');
+const ExpressError = require('./utils/expressError');
 const User = require('./models/user');
 
 app.use(express.json({ limit: '10mb' }));
