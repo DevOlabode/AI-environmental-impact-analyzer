@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const { compareProducts } = require('../utils/AI');
+const { compareProducts } = require('../AI/compareProducts');
 
 module.exports.productToCompare =  async(req, res) => {
     const products = await Product.find({ owner: req.user._id });
