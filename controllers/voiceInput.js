@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 const User = require('../models/user');
-const { voiceInput } = require('../utils/AI');
+const { voiceInput } = require('../AI/voiceInput');
 const catchAsync = require('../utils/catchAsync');
 
 module.exports.voiceInputEJS = (req, res) =>{
