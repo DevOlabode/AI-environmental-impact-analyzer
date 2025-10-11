@@ -3,6 +3,8 @@ const { productSchema, productInputSchema } = require('./schema');
 
 const ExpressError = require('./utils/ExpressError');
 
+
+
 module.exports.validateProduct  = (req, res, next)=>{
     const { error } = productSchema.validate(req.body);
     if(error){
@@ -12,6 +14,8 @@ module.exports.validateProduct  = (req, res, next)=>{
         next();
     }
 };
+
+
 
 module.exports.validateProductInput = (req, res, next)=>{
     const { error } = productInputSchema.validate(req.body);

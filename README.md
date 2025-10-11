@@ -107,7 +107,7 @@ AI-environmental-impact-analyzer/
 │   ├── impact.js
 │   ├── product.js
 │   └── user.js
-├── public/               # Static assets
+├── public/               # Frontend CSS and JS Code
 │   ├── css/
 │   ├── images/
 │   └── js/

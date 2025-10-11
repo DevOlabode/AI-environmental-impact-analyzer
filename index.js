@@ -45,7 +45,6 @@ const voiceInputRoutes = require('./routes/voiceInput');
 const sanitizeV5 = require('./utils/mongoSanitizev5');
 
 const ExpressError = require('./utils/ExpressError');
-
 const User = require('./models/user');
 
 app.use(express.json({ limit: '10mb' }));
@@ -88,7 +87,7 @@ const sessionConfig = {
 }
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    windowMs: 15 * 60 * 1000, 
     max: 150,
     message: 'Too many requests, please try again later.',
 });
