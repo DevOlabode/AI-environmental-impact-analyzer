@@ -5,6 +5,7 @@ A web application that leverages AI to analyze the environmental footprint of co
 ## Features
 
 - **AI-Powered Analysis**: Utilizes advanced machine learning algorithms to assess environmental impact including carbon footprint, water usage, and recyclability.
+- **Product Recommendations**: AI-generated eco-friendly alternatives based on category, material, price, and sustainability score, displayed compactly in the product details section on the show page.
 - **User Authentication**: Secure user accounts with Passport.js for personalized product tracking, including password reset via email verification.
 - **Product Input Methods**:
   - Manual form input for product details
@@ -85,7 +86,7 @@ A web application that leverages AI to analyze the environmental footprint of co
    - Use the form to manually enter product details
    - Upload a receipt image for automatic data extraction
    - Use voice input for quick data entry
-3. **View Analysis**: See detailed environmental impact reports with sustainability scores.
+3. **View Analysis**: See detailed environmental impact reports with sustainability scores and AI-recommended eco-friendly alternatives.
 4. **Manage Products**: Edit, delete, or compare your saved products.
 5. **Favorites**: Star products from the list or detail view, and access them quickly via the 'Favourites' link in the user menu.
 6. **Dashboard**: Monitor your environmental impact trends and insights.
