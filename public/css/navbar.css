@@ -38,6 +38,8 @@
 .navbar-nav .nav-item .nav-link:hover {
     color: var(--primary-color);
     background-color: var(--surface-color);
+    border: none;
+    outline: none;
 }
 
 .navbar-nav .nav-item .nav-link.active {
