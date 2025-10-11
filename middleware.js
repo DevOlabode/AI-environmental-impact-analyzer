@@ -4,7 +4,6 @@ const { productSchema, productInputSchema } = require('./schema');
 const ExpressError = require('./utils/ExpressError');
 
 
-
 module.exports.validateProduct  = (req, res, next)=>{
     const { error } = productSchema.validate(req.body);
     if(error){
