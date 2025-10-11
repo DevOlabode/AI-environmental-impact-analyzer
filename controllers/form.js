@@ -1,7 +1,7 @@
 const Products = require('../models/product');
 const Impact = require('../models/impact');
 
-const {analyseImpact } = require('../utils/AI')
+const {analyseImpact, recommendPRoducts } = require('../utils/AI')
 
 module.exports.userInput = (req, res) => {
     res.render('form/input')
@@ -23,18 +23,28 @@ module.exports.input = async (req, res) => {
     const impact = new Impact(impactAnalysis);
     await impact.save();
 
+const recommendProducts = await recommendPRoducts(
+    formData.category,
+    formData.material,
+    formData.price,
+    impact.sustainabilityScore
+);
+    console.log(recommendProducts);
+
     if (req.user) {
         const product = new Products({
             ...req.body,
+
             owner: req.user._id,
             impactAnalysis: impact._id
         });
 
-        await product.save()
+        await product.save();
         return res.render('form/show', { product })
     } else {
         const product = {
             ...req.body,
+            recommendProducts,
             impactAnalysis,
             createdAt: new Date()
         };

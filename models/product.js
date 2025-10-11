@@ -44,10 +44,7 @@ favourite : {
   type : Boolean,
   default : false
 },
-recommendedProducts : [{
-  type : String,
-  required : false
-  }],
+recommendedProducts : [String],
 impactAnalysis: {
     type: Schema.Types.ObjectId,
     ref: 'Impact',

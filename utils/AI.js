@@ -344,7 +344,7 @@ Voice input: "${transcript}"`;
   }
 };
 
-const recommendPRoducts = async (category, material, price, impactScore) => {
+const recommendPRoducts = async (category, material, price, sustainabilityScore) => {
   const groq = new Groq({ apiKey: process.env.GROQ_KEY });
   const prompt = `
   You are an AI sustainability assistant. Based on the product details below, suggest 3 alternative products that are more environmentally friendly.
@@ -353,9 +353,8 @@ Each alternative should:
 - Belong to the same general category
 - Use more sustainable materials OR have a lower environmental impact
 - Be realistic and commonly available in the market
-- NOT require access to external APIs or real-time data
 
-For each alternative, return the response in this exact JSON format:
+For each alternative, return the response in this exact JSON format without any extra text or formatting:
 
 [
   {
@@ -366,10 +365,10 @@ For each alternative, return the response in this exact JSON format:
 ]
 
 Here are the details of the original product:
-Category: {{category}}
-Material: {{material}}
-price: {{price}}
-Environmental Impact Score: {{impactScore}}
+Category: ${category}
+Material: ${material}
+price: ${price}
+Sustainability Score: ${sustainabilityScore}
   `
 
   const response = await groq.chat.completions.create({
@@ -389,4 +388,4 @@ Environmental Impact Score: {{impactScore}}
 
 
 // Function Exports.
-module.exports = { analyseImpact, analyseReceipt, compareProducts, voiceInput };
+module.exports = { analyseImpact, analyseReceipt, compareProducts, voiceInput, recommendPRoducts };
