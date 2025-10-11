@@ -26,7 +26,7 @@ Guidelines:
 - If any of this isn't available on the reciept, make a reasonable assumption based on the information provided.
 - and if you can't make a reasonable assumption, return "Unknown" for that field.
 
-Return strictly in valid JSON format:
+:
 
 {
   "products": [
@@ -84,7 +84,7 @@ Do not include any extra text outside the JSON.
       throw new Error("Invalid AI response format");
     }
 
-    return parsed.products || [];
+    return Array.isArray(parsed) ? parsed : parsed.products || [];
   } catch (error) {
     console.error("Groq Vision API Error:", error);
     throw new Error("Failed to analyze receipt");
