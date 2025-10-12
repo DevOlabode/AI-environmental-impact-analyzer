@@ -47,6 +47,7 @@ A web application that leverages AI to analyze the environmental footprint of co
 
 You can access the live demo [here](https://ai-environmental-impact-analyzer-3.onrender.com/)
 
+
 ## Installation
 
 1. **Clone the repository**:
