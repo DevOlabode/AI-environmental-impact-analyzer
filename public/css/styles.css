@@ -1014,6 +1014,11 @@
     position: relative;
 }
 
+.footer-brand img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .brand-icon {
     background: linear-gradient(135deg, var(--accent-color), #4ecdc4);
     border-radius: 50%;
