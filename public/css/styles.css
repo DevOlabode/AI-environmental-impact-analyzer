@@ -21,37 +21,6 @@
     box-sizing: border-box;
 }
 
-/* body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--background-color);
-    color: var(--text-primary);
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    position: relative;
-} */
-
-/* body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.3) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-} */
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
 /* Navbar Enhancements */
 .navbar {
     background: var(--primary-gradient) !important;
@@ -1303,4 +1272,64 @@
 /* Dark Mode Footer Visibility */
 .footer-modern .text-muted {
     color: white !important;
+}
+
+/* Theme-specific Footer Styles */
+[data-theme="light"] .footer-modern {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    color: #333;
+}
+
+[data-theme="light"] .footer-modern::before {
+    background: radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(118, 75, 162, 0.05) 0%, transparent 70%);
+}
+
+[data-theme="light"] .footer-heading {
+    color: #ff6b6b;
+}
+
+[data-theme="light"] .footer-link {
+    color: #6c757d !important;
+}
+
+[data-theme="light"] .footer-link:hover {
+    color: #ff6b6b !important;
+}
+
+[data-theme="light"] .social-link {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: #6c757d;
+}
+
+[data-theme="light"] .social-link:hover {
+    background: #ff6b6b;
+    color: white;
+}
+
+[data-theme="light"] .newsletter .input-group .form-control {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+
+[data-theme="light"] .footer-legal {
+    color: #6c757d !important;
+}
+
+[data-theme="light"] .footer-legal:hover {
+    color: #ff6b6b !important;
+}
+
+.footer-text {
+    color: inherit;
+}
+
+/* Navbar Toggler Visibility in Dark Mode */
+[data-theme="dark"] .navbar-toggler {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
