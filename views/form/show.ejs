@@ -12,7 +12,95 @@
             </p>
         </div>
         <div class="show-body">
-            <div class="show-row">
+            <!-- Mobile-first layout: Product name/date, then impact, then alternatives -->
+            <div class="show-row-mobile d-block d-md-none">
+                <!-- Product Details Section (for mobile: name and date only) -->
+                <div class="show-section product-summary-mobile">
+                    <h4><i class="fas fa-tag me-2"></i><%= product.name %></h4>
+                    <p class="text-muted">
+                        <i class="fas fa-calendar me-1"></i>Analyzed on <%= product.createdAt ? product.createdAt.toDateString() : 'Unknown date' %>
+                    </p>
+                </div>
+
+                <!-- Environmental Impact Analysis Section -->
+                <div class="show-section impact-analysis-mobile">
+                    <h4><i class="fas fa-seedling me-2"></i>Environmental Impact Analysis</h4>
+                    <% if (product.impactAnalysis && typeof product.impactAnalysis === 'object') { %>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span><strong>Sustainability Score:</strong></span>
+<span class="sustainability-score fs-6 <%= product.impactAnalysis.sustainabilityScore >= 7 ? 'high' : product.impactAnalysis.sustainabilityScore >= 4 ? 'medium' : 'low' %>">
+    <%= product.impactAnalysis.sustainabilityScore %> / 10
+</span>
+                            </div>
+                            <div class="progress mb-3" style="height: 10px;">
+<div class="progress-bar bg-<%= product.impactAnalysis.sustainabilityScore >= 7 ? 'success' : product.impactAnalysis.sustainabilityScore >= 4 ? 'warning' : 'danger' %>"
+     style="width: <%= ((product.impactAnalysis.sustainabilityScore / 10) * 100) %>%"></div>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fas fa-cloud text-muted me-2"></i>
+                                <strong>Carbon Footprint:</strong> <%= product.impactAnalysis.carbonFootprint %> kg CO₂
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-tint text-muted me-2"></i>
+                                <strong>Water Usage:</strong> <%= product.impactAnalysis.waterUsage %> liters
+                            </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-recycle text-muted me-2"></i>
+                            <strong>Recyclability:</strong>
+                            <% if (product.impactAnalysis && product.impactAnalysis.recyclability) { %>
+                                <span class="badge bg-<%= product.impactAnalysis.recyclability.toLowerCase().includes('high') ? 'success' : product.impactAnalysis.recyclability.toLowerCase().includes('medium') ? 'warning' : 'secondary' %>">
+                                    <%= product.impactAnalysis.recyclability %>
+                                </span>
+                            <% } else { %>
+                                <span class="badge bg-secondary">Unknown</span>
+                            <% } %>
+                        </li>
+                        </ul>
+                        <% if (product.impactAnalysis.aiExplanation) { %>
+                            <div class="mt-3 p-3 bg-light rounded">
+                                <h6 class="text-primary mb-2">
+                                    <i class="fas fa-robot me-1"></i>Analysis
+                                </h6>
+                                <p class="mb-0 text-muted"><%= product.impactAnalysis.aiExplanation %></p>
+                            </div>
+                        <% } %>
+                    <% } else { %>
+                        <div class="text-center py-4">
+                            <i class="fas fa-exclamation-triangle fa-2x text-warning mb-2"></i>
+                            <p class="text-warning mb-0">No impact analysis available.</p>
+                            <small class="text-muted">The product may still be processing or analysis failed.</small>
+                        </div>
+                    <% } %>
+                </div>
+
+                <!-- Alternative Products Section -->
+                <div class="show-section alternatives-mobile">
+                    <% if (recommendations && recommendations.length > 0) { %>
+                        <h4><i class="fas fa-leaf text-success me-2"></i>Alternative Eco-Friendly Products</h4>
+                        <div class="row g-2">
+                            <% recommendations.slice(0, 3).forEach(rec => { %>
+                                <div class="col-12">
+                                    <div class="card border-0 bg-light shadow-sm h-100">
+                                        <div class="card-body p-2">
+                                            <h6 class="card-title mb-1 text-primary"><%= rec.name %></h6>
+                                            <small class="text-muted d-block mb-1">Material: <strong><%= rec.material %></strong></small>
+                                            <small class="text-success d-block"><%= rec.why_better %></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% } else { %>
+                        <p class="text-muted mt-3 mb-0"><small>No recommendations available at this time.</small></p>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Desktop layout: Original two-column -->
+            <div class="show-row-desktop d-none d-md-block">
                 <div class="show-section">
                     <h4><i class="fas fa-info-circle me-2"></i>Product Details</h4>
                     <ul class="list-group list-group-flush">
@@ -51,27 +139,6 @@
                             </li>
                         <% } %>
                     </ul>
-
-                    <% if (recommendations && recommendations.length > 0) { %>
-                        <h5 class="mt-3 mb-3">
-                            <i class="fas fa-leaf text-success me-2"></i>Other Recommended Eco-Friendly Products
-                        </h5>
-                        <div class="row g-2">
-                            <% recommendations.slice(0, 3).forEach(rec => { %>
-                                <div class="col-12">
-                                    <div class="card border-0 bg-light shadow-sm h-100">
-                                        <div class="card-body p-2">
-                                            <h6 class="card-title mb-1 text-primary"><%= rec.name %></h6>
-                                            <small class="text-muted d-block mb-1">Material: <strong><%= rec.material %></strong></small>
-                                            <small class="text-success d-block"><%= rec.why_better %></small>
-                                        </div>
-                                    </div>
-                                </div>
-                            <% }); %>
-                        </div>
-                    <% } else { %>
-                        <p class="text-muted mt-3 mb-0"><small>No recommendations available at this time.</small></p>
-                    <% } %>
                 </div>
 
                 <div class="show-section">
