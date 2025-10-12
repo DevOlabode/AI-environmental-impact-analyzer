@@ -114,3 +114,44 @@
     color: var(--primary-color);
     background-color: var(--surface-color);
 }
+
+/* Mobile navbar collapse styles */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        margin-top: 10px;
+        padding: 10px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1050;
+    }
+
+    .navbar-nav .nav-item .nav-link {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 5px;
+    }
+
+    .dropdown-menu {
+        position: static;
+        float: none;
+        width: 100%;
+        margin-top: 0;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding-left: 20px;
+    }
+
+    .dropdown-item {
+        padding: 10px 30px;
+    }
+}
