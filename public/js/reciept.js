@@ -5,24 +5,40 @@ const snap = document.getElementById('snap');
 
 let currentStream = null;
 
-// Request camera access
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => {
-    currentStream = stream;
-    video.srcObject = stream;
-  })
-  
-// Capture photo
+// Request camera access only when "Take Photo" button is clicked
 snap.addEventListener('click', () => {
+  if (!currentStream) {
+    // Request camera access
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        currentStream = stream;
+        video.srcObject = stream;
+        // After camera is ready, proceed with capture
+        setTimeout(() => {
+          capturePhoto();
+        }, 500); // Small delay to ensure video is ready
+      })
+      .catch(error => {
+        console.error('Error accessing camera:', error);
+        alert('Camera access denied or not available. Please allow camera access to take photos.');
+      });
+  } else {
+    // Camera already active, proceed with capture
+    capturePhoto();
+  }
+});
+
+// Function to capture photo
+function capturePhoto() {
   // Disable button during processing
   snap.disabled = true;
   snap.textContent = 'Processing...';
-  
+
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   const ctx = canvas.getContext('2d');
   ctx.drawImage(video, 0, 0);
-  
+
   // Convert to Base64
   const dataUrl = canvas.toDataURL('image/jpeg', 0.8); // Use JPEG for smaller size
   preview.src = dataUrl;
@@ -57,7 +73,7 @@ snap.addEventListener('click', () => {
     snap.disabled = false;
     snap.textContent = 'Take Photo';
   });
-});
+}
 
 // Function to stop camera
 function stopCamera() {
