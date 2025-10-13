@@ -1,0 +1,189 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white text-center py-4">
+                    <h2 class="mb-0">
+                        <i class="fas fa-bullseye me-3"></i>Set Your CO2 Reduction Goal
+                    </h2>
+                    <p class="mb-0 mt-2 opacity-75">Commit to making a positive environmental impact</p>
+                </div>
+
+                <div class="card-body p-4">
+                    <form action="/goals/set" method="POST" id="goalForm">
+                        <!-- Goal Title -->
+                        <div class="mb-4">
+                            <label for="goalTitle" class="form-label fw-bold">
+                                <i class="fas fa-tag text-success me-2"></i>Goal Title
+                            </label>
+                            <input type="text" class="form-control form-control-lg" id="goalTitle" name="title"
+                                   placeholder="e.g., Reduce my carbon footprint by 20%" required>
+                            <div class="form-text">Give your goal a clear, motivating name</div>
+                        </div>
+
+                        <!-- CO2 Reduction Target -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="reductionAmount" class="form-label fw-bold">
+                                    <i class="fas fa-cloud text-muted me-2"></i>CO2 Reduction Target
+                                </label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control form-control-lg" id="reductionAmount"
+                                           name="reductionAmount" placeholder="100" min="1" step="0.1" required>
+                                    <select class="form-select" id="reductionUnit" name="reductionUnit" required>
+                                        <option value="kg">kg CO₂</option>
+                                        <option value="tons">tons CO₂</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="timeframe" class="form-label fw-bold">
+                                    <i class="fas fa-calendar-alt text-primary me-2"></i>Timeframe
+                                </label>
+                                <select class="form-select form-select-lg" id="timeframe" name="timeframe" required>
+                                    <option value="">Select timeframe</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="quarterly">Quarterly</option>
+                                    <option value="yearly">Yearly</option>
+                                    <option value="custom">Custom Period</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Custom Date Range (hidden by default) -->
+                        <div class="mb-4" id="customDateRange" style="display: none;">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-calendar text-info me-2"></i>Custom Period
+                            </label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate" name="startDate">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="endDate" class="form-label">End Date</label>
+                                    <input type="date" class="form-control" id="endDate" name="endDate">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Motivation/Description -->
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-bold">
+                                <i class="fas fa-heart text-danger me-2"></i>Motivation & Notes
+                            </label>
+                            <textarea class="form-control" id="description" name="description" rows="4"
+                                      placeholder="Why is this goal important to you? Any specific strategies or notes..."></textarea>
+                            <div class="form-text">Optional: Share what motivates you and how you plan to achieve this goal</div>
+                        </div>
+
+                        <!-- Goal Visibility -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-eye text-warning me-2"></i>Goal Visibility
+                            </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="visibility" id="private" value="private" checked>
+                                <label class="form-check-label" for="private">
+                                    <i class="fas fa-lock me-1"></i>Private - Only visible to me
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="visibility" id="public" value="public">
+                                <label class="form-check-label" for="public">
+                                    <i class="fas fa-globe me-1"></i>Public - Share my progress with others
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-rocket me-2"></i>Set My Goal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Progress Tips Card -->
+                <div class="card-footer bg-light">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-success mb-2">
+                                <i class="fas fa-lightbulb me-2"></i>Tips for Success
+                            </h6>
+                            <ul class="list-unstyled small mb-0">
+                                <li><i class="fas fa-check text-success me-2"></i>Start with achievable targets</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Track your progress regularly</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Celebrate small victories</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-info mb-2">
+                                <i class="fas fa-leaf me-2"></i>Impact Examples
+                            </h6>
+                            <ul class="list-unstyled small mb-0">
+                                <li><i class="fas fa-tree text-success me-2"></i>Planting trees</li>
+                                <li><i class="fas fa-bicycle text-success me-2"></i>Using sustainable transport</li>
+                                <li><i class="fas fa-recycle text-success me-2"></i>Reducing waste</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Show/hide custom date range based on timeframe selection
+document.getElementById('timeframe').addEventListener('change', function() {
+    const customDateRange = document.getElementById('customDateRange');
+    if (this.value === 'custom') {
+        customDateRange.style.display = 'block';
+    } else {
+        customDateRange.style.display = 'none';
+    }
+});
+
+// Form validation
+document.getElementById('goalForm').addEventListener('submit', function(e) {
+    const reductionAmount = document.getElementById('reductionAmount').value;
+    const timeframe = document.getElementById('timeframe').value;
+
+    if (!reductionAmount || reductionAmount <= 0) {
+        e.preventDefault();
+        alert('Please enter a valid CO2 reduction target greater than 0.');
+        return;
+    }
+
+    if (!timeframe) {
+        e.preventDefault();
+        alert('Please select a timeframe for your goal.');
+        return;
+    }
+
+    // Additional validation for custom dates
+    if (timeframe === 'custom') {
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        if (!startDate || !endDate) {
+            e.preventDefault();
+            alert('Please select both start and end dates for your custom period.');
+            return;
+        }
+
+        if (new Date(startDate) >= new Date(endDate)) {
+            e.preventDefault();
+            alert('End date must be after the start date.');
+            return;
+        }
+    }
+});
+</script>

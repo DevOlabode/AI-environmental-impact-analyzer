@@ -41,6 +41,7 @@ const userRoutes = require('./routes/user');
 const comparisonRoutes = require('./routes/comparison');
 const dashboardRoutes = require('./routes/dashboard');
 const voiceInputRoutes = require('./routes/voiceInput');
+const goalsRoutes = require('./routes/goals');
 
 const sanitizeV5 = require('./utils/mongoSanitizev5');
 
@@ -122,6 +123,7 @@ app.use('/', userRoutes);
 app.use('/', comparisonRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/voiceInput', voiceInputRoutes);
+app.use('/goals', goalsRoutes);
 
 app.get('/', (req, res)=>{
     res.render('home')
