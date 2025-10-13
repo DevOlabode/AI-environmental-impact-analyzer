@@ -22,7 +22,7 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                     </h4>
-                    <div class="collapse show" id="productDetailsCollapse">
+                    <div class="collapse" id="productDetailsCollapse">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <i class="fas fa-tag text-muted me-2"></i>
@@ -156,39 +156,39 @@
                             <i class="fas fa-chevron-up"></i>
                         </button>
                     </h4>
-                    <div class="collapse show" id="productDetailsCollapseDesktop">
+                    <div class="collapse" id="productDetailsCollapseDesktop">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <i class="fas fa-building text-muted me-2"></i>
+                                <i class="fas fa-building text-success me-2"></i>
                                 <strong>Brand:</strong> <%= product.brand || 'N/A' %>
                             </li>
                             <li class="list-group-item">
-                                <i class="fas fa-folder text-muted me-2"></i>
+                                <i class="fas fa-folder text-success me-2"></i>
                                 <strong>Category:</strong> <%= product.category %>
                             </li>
                             <li class="list-group-item">
-                                <i class="fas fa-cubes text-muted me-2"></i>
+                                <i class="fas fa-cubes text-success me-2"></i>
                                 <strong>Material:</strong> <%= product.material %>
                             </li>
 
                             <% if(product.price){ %>
                             <li class="list-group-item">
-                                <i class="fas fa-dollar-sign text-muted me-2"></i>
+                                <i class="fas fa-dollar-sign text-success me-2"></i>
                                 <strong>Price:</strong> $<%= product.price %>
                             </li>
                                 <% } %>
 
                             <li class="list-group-item">
-                                <i class="fas fa-weight text-muted me-2"></i>
+                                <i class="fas fa-weight text-success me-2"></i>
                                 <strong>Weight:</strong> <%= product.weight ? product.weight + ' kg' : 'N/A' %>
                             </li>
                             <li class="list-group-item">
-                                <i class="fas fa-globe text-muted me-2"></i>
+                                <i class="fas fa-globe text-success me-2"></i>
                                 <strong>Origin Country:</strong> <%= product.originCountry || 'Unknown' %>
                             </li>
                             <% if(product.notes){ %>
                                 <li class="list-group-item">
-                                    <i class="fas fa-sticky-note text-muted me-2"></i>
+                                    <i class="fas fa-sticky-note text-success me-2"></i>
                                     <strong>Note :</strong> <%= product.notes %>
                                 </li>
                             <% } %>
