@@ -12,6 +12,7 @@ A web application that leverages AI to analyze the environmental footprint of co
   - Receipt upload with OCR processing using Tesseract.js
   - Voice input for hands-free data entry
 - **Product Management**: View, edit, and delete saved products with impact analysis.
+- **Bulk Delete**: Select multiple products from the product list and delete them all at once for efficient management.
 - **Favorites/Bookmarks**: Star important products for quick access and view them in a dedicated 'Favourites' page with search and filter options.
 - **Comparison Tool**: Compare environmental impacts between different products.
 - **Dashboard**: Comprehensive analytics including total CO2 footprint over time, category breakdown, monthly comparisons, and identification of top environmental impact products.

@@ -240,9 +240,15 @@ module.exports.getFavorites = async (req, res) => {
 
 module.exports.bulkDeleteProducts = async (req, res) => {
     try {
-        const { productIds } = req.body;
 
-        if (!productIds || !Array.isArray(productIds) || productIds.length === 0) {
+        let productIds = req.body.productIds;
+
+        // Handle case where productIds might be a single value or array
+        if (!Array.isArray(productIds)) {
+            productIds = [productIds];
+        }
+
+        if (!productIds || productIds.length === 0) {
             req.flash('error', 'No products selected for deletion');
             return res.redirect('/form/all-products');
         }
@@ -259,7 +265,7 @@ module.exports.bulkDeleteProducts = async (req, res) => {
         }
 
         // Delete the products
-        await Products.deleteMany({
+        const deleteResult = await Products.deleteMany({
             _id: { $in: productIds },
             owner: req.user._id
         });
@@ -267,7 +273,6 @@ module.exports.bulkDeleteProducts = async (req, res) => {
         req.flash('success', `Successfully deleted ${products.length} product(s)`);
         res.redirect('/form/all-products');
     } catch (error) {
-        console.error('Bulk delete error:', error);
         req.flash('error', 'Error deleting products: ' + error.message);
         res.redirect('/form/all-products');
     }
