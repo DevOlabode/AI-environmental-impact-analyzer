@@ -25,6 +25,7 @@ module.exports.input = async (req, res) => {
     const impact = new Impact(impactAnalysis);
     await impact.save();
 
+    // Generate recommendations
     const recommendations = await recommendProducts(
         formData.category,
         formData.material,
@@ -36,7 +37,8 @@ module.exports.input = async (req, res) => {
         const product = new Products({
             ...req.body,
             owner: req.user._id,
-            impactAnalysis: impact._id
+            impactAnalysis: impact._id,
+            recommendedProducts: recommendations
         });
 
         await product.save();
@@ -44,7 +46,7 @@ module.exports.input = async (req, res) => {
         // Manually set impactAnalysis for rendering since not populated
         product.impactAnalysis = impactAnalysis;
 
-        return res.render('form/show', { product, recommendations })
+        return res.render('form/show', { product })
     } else {
         const product = {
             ...req.body,
