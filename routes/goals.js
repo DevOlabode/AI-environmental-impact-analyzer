@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const goalsController = require('../controllers/goals');
+const { isLoggedIn } = require('../middleware');
+
+router.get('/', isLoggedIn, goalsController.allGoals);
 
 router.get('/set-goals', goalsController.setGoal);
+
+router.post('/save-goal', goalsController.saveGoal);
 
 module.exports = router;

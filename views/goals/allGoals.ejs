@@ -1,0 +1,73 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h2 class="mb-0">
+                        <i class="fas fa-bullseye me-3"></i>Your CO2 Reduction Goals
+                    </h2>
+                    <p class="mb-0 mt-2 opacity-75">Track your progress towards a sustainable future</p>
+                </div>
+
+                <div class="card-body p-4">
+                    <% if (goals && goals.length > 0) { %>
+                        <div class="row">
+                            <% goals.forEach(goal => { %>
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="card h-100 border-success">
+                                        <div class="card-header bg-success text-white">
+                                            <h5 class="card-title mb-0">
+                                                <i class="fas fa-target me-2"></i><%= goal.title %>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <strong>Reduction Target:</strong> <%= goal.reductionTarget %> kg CO₂
+                                            </p>
+                                            <p class="card-text">
+                                                <strong>Timeframe:</strong> <%= goal.timeframe %>
+                                            </p>
+                                            <p class="card-text">
+                                                <strong>Start Date:</strong> <%= new Date(goal.startDate).toLocaleDateString() %>
+                                            </p>
+                                            <p class="card-text">
+                                                <strong>End Date:</strong> <%= new Date(goal.endDate).toLocaleDateString() %>
+                                            </p>
+                                            <% if (goal.notes) { %>
+                                                <p class="card-text">
+                                                    <strong>Notes:</strong> <%= goal.notes %>
+                                                </p>
+                                            <% } %>
+                                        </div>
+                                        <div class="card-footer bg-light">
+                                            <small class="text-muted">
+                                                <i class="fas fa-clock me-1"></i>Goal set on <%= new Date(goal.startDate).toLocaleDateString() %>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% } else { %>
+                        <div class="text-center py-5">
+                            <i class="fas fa-leaf fa-3x text-muted mb-3"></i>
+                            <h4 class="text-muted">No Goals Set Yet</h4>
+                            <p class="text-muted">Start by setting your first CO2 reduction goal to make a positive impact!</p>
+                            <a href="/goals/set-goals" class="btn btn-success btn-lg">
+                                <i class="fas fa-plus me-2"></i>Set Your First Goal
+                            </a>
+                        </div>
+                    <% } %>
+                </div>
+
+                <div class="card-footer bg-light text-center">
+                    <a href="/goals/set-goals" class="btn btn-outline-success">
+                        <i class="fas fa-plus me-2"></i>Add New Goal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
