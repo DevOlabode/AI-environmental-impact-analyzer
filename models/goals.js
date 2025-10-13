@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { schema } = mongoose;
+const { Schema } = mongoose;
 
-const goalSchema = new schema({
+const goalSchema = new Schema({
     title : {
         type : String,
         required : true
@@ -15,20 +15,29 @@ const goalSchema = new schema({
         type : Number,  //in KG
         required : true
     },
-    timeFrame : {
+    timeframe : {
         type : String,
         enum : ['Weekly', 'Monthly', 'Yearly', "Quarterly"],
         required : true,
         default : 'Monthly'
+    },
+    startDate : {
+        type : Date,
+        required : true,
+        default : Date.now
+    },
+    endDate : {
+        type : Date,
+        required : true
     }
 });
+
+module.exports = mongoose.model('Goal', goalSchema);
 
 
 /* 
 Hello the web app is well done and could be improved. At some point when I tried analyzing a second product 
-1) It was showing "Something went wrong 😕..",  and it was giving me raw unformatted string of answers to analyzed product in red color. 
 2) The product analysis section should save users past entry for logging users 
-3) The web app prompt users immediately for users to switch on camera on landing page and after logging in and I wasn't sure what it was doing. 
 4) capture receipt shows a 'Upload failed: Failed to process receipt. Please try again.' on snapped image 
 5) Logging users on clicking 'about us' below the application gets navigated to the current user page which is the current analysis form page, I was thinking it would be a dedicated about us page. 
 So here are some feedbacks I got from using the web app but well done

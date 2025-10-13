@@ -29,13 +29,17 @@
                                 <label for="reductionAmount" class="form-label fw-bold">
                                     <i class="fas fa-cloud text-muted me-2"></i>CO2 Reduction Target
                                 </label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control form-control-lg" id="reductionAmount"
-                                           name="reductionAmount" placeholder="100" min="1" step="0.1" required>
-                                    <select class="form-select" id="reductionUnit" name="reductionUnit" required>
-                                        <option value="kg">kg CO₂</option>
-                                        <option value="tons">tons CO₂</option>
-                                    </select>
+                                <div class="input-group input-group-lg">
+                                    <input type="number" class="form-control form-control-lg border-success" id="reductionAmount"
+                                           name="reductionTarget" placeholder="100" min="1" step="0.1" required
+                                           style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                                    <span class="input-group-text bg-success text-white border-success"
+                                          style="border-top-left-radius: 0; border-bottom-left-radius: 0; min-width: 80px;">
+                                        <i class="fas fa-cloud me-1"></i>kg CO₂
+                                    </span>
+                                </div>
+                                <div class="form-text text-muted">
+                                    <small>Enter the amount of CO2 you want to reduce (in kilograms)</small>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -52,17 +56,17 @@
                             </div>
                         </div>
 
-                        <!-- Custom Date Range (hidden by default) -->
-                        <div class="mb-4" id="customDateRange" style="display: none;">
+                        <!-- Date Range -->
+                        <div class="mb-4" id="dateRangeSection">
                             <label class="form-label fw-bold">
-                                <i class="fas fa-calendar text-info me-2"></i>Custom Period
+                                <i class="fas fa-calendar text-info me-2"></i>Period Details
                             </label>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="startDateContainer">
                                     <label for="startDate" class="form-label">Start Date</label>
                                     <input type="date" class="form-control" id="startDate" name="startDate">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" id="endDateContainer" style="display: none;">
                                     <label for="endDate" class="form-label">End Date</label>
                                     <input type="date" class="form-control" id="endDate" name="endDate">
                                 </div>
@@ -74,13 +78,13 @@
                             <label for="description" class="form-label fw-bold">
                                 <i class="fas fa-heart text-danger me-2"></i>Motivation & Notes
                             </label>
-                            <textarea class="form-control" id="description" name="description" rows="4"
+                            <textarea class="form-control" id="description" name="notes" rows="4"
                                       placeholder="Why is this goal important to you? Any specific strategies or notes..."></textarea>
                             <div class="form-text">Optional: Share what motivates you and how you plan to achieve this goal</div>
                         </div>
 
                         <!-- Goal Visibility -->
-                        <div class="mb-4">
+                        <!-- <div class="mb-4">
                             <label class="form-label fw-bold">
                                 <i class="fas fa-eye text-warning me-2"></i>Goal Visibility
                             </label>
@@ -96,7 +100,7 @@
                                     <i class="fas fa-globe me-1"></i>Public - Share my progress with others
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Submit Button -->
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -141,13 +145,23 @@
 </div>
 
 <script>
-// Show/hide custom date range based on timeframe selection
+// Show/hide date fields based on timeframe selection
 document.getElementById('timeframe').addEventListener('change', function() {
-    const customDateRange = document.getElementById('customDateRange');
+    const startDateContainer = document.getElementById('startDateContainer');
+    const endDateContainer = document.getElementById('endDateContainer');
+
     if (this.value === 'custom') {
-        customDateRange.style.display = 'block';
+        // Show both start and end date for custom period
+        startDateContainer.style.display = 'block';
+        endDateContainer.style.display = 'block';
+    } else if (this.value === 'monthly' || this.value === 'quarterly' || this.value === 'yearly') {
+        // Show only start date for predefined periods
+        startDateContainer.style.display = 'block';
+        endDateContainer.style.display = 'none';
     } else {
-        customDateRange.style.display = 'none';
+        // Hide both if no timeframe selected
+        startDateContainer.style.display = 'none';
+        endDateContainer.style.display = 'none';
     }
 });
 
