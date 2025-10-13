@@ -38,6 +38,22 @@ const userSchema = new Schema({
     resetCodeExpires: {
         type: Date,
         default: null
+    },
+
+    //CO2 Reduction Goal Setting Schema 
+    
+    goal : {
+        type : String,
+        required : false,
+        default : null,
+        completed : {
+            type : Boolean,
+            default : false
+        }
+    },
+    completedGoals : {
+        type : [String],
+        default : []
     }
 });
 
