@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card-body p-4">
-                    <form action="/goals/set" method="POST" id="goalForm">
+                    <form action="/goals/save-goal" method="POST" id="goalForm">
                         <!-- Goal Title -->
                         <div class="mb-4">
                             <label for="goalTitle" class="form-label fw-bold">
@@ -48,10 +48,10 @@
                                 </label>
                                 <select class="form-select form-select-lg" id="timeframe" name="timeframe" required>
                                     <option value="">Select timeframe</option>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="quarterly">Quarterly</option>
-                                    <option value="yearly">Yearly</option>
-                                    <option value="custom">Custom Period</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Yearly">Yearly</option>
+                                    <option value="Custom">Custom Period</option>
                                 </select>
                             </div>
                         </div>

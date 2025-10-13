@@ -2,7 +2,7 @@ const Product = require('../models/product');
 const Goal = require('../models/goals');
 
 module.exports.allGoals = async(req, res)=>{
-    const goals = await Goal.find(user=req.user._id);
+    const goals = await Goal.find({user : req.user._id});
     res.render('goals/allGoals', {goals});
 }
 
@@ -46,5 +46,7 @@ module.exports.saveGoal = async (req, res) => {
         })
 
         await goal.save();
+
+        req.flash('success', 'Goal set successfully!');
         res.redirect('/goals');
 }
