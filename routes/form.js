@@ -27,4 +27,6 @@ router.post('/toggle-favorite/:id', isLoggedIn, catchAsync(formController.toggle
 
 router.get('/favorites', isLoggedIn, catchAsync(formController.getFavorites))
 
+router.delete('/bulk-delete', isLoggedIn, catchAsync(formController.bulkDeleteProducts))
+
 module.exports = router;

@@ -210,9 +210,9 @@ module.exports.toggleFavorite = async (req, res) => {
 
 module.exports.getFavorites = async (req, res) => {
     const { search, category, brand } = req.query;
-    const filter = { 
+    const filter = {
         owner: req.user._id,
-        favourite: true 
+        favourite: true
     };
 
     // Search by name, brand, or category (case-insensitive)
@@ -236,4 +236,39 @@ module.exports.getFavorites = async (req, res) => {
 
     const products = await Products.find(filter).populate('impactAnalysis');
     res.render('form/favorites', { products, search, category, brand });
+};
+
+module.exports.bulkDeleteProducts = async (req, res) => {
+    try {
+        const { productIds } = req.body;
+
+        if (!productIds || !Array.isArray(productIds) || productIds.length === 0) {
+            req.flash('error', 'No products selected for deletion');
+            return res.redirect('/form/all-products');
+        }
+
+        // Verify ownership of all products
+        const products = await Products.find({
+            _id: { $in: productIds },
+            owner: req.user._id
+        });
+
+        if (products.length !== productIds.length) {
+            req.flash('error', 'Some products could not be found or you do not have permission to delete them');
+            return res.redirect('/form/all-products');
+        }
+
+        // Delete the products
+        await Products.deleteMany({
+            _id: { $in: productIds },
+            owner: req.user._id
+        });
+
+        req.flash('success', `Successfully deleted ${products.length} product(s)`);
+        res.redirect('/form/all-products');
+    } catch (error) {
+        console.error('Bulk delete error:', error);
+        req.flash('error', 'Error deleting products: ' + error.message);
+        res.redirect('/form/all-products');
+    }
 };
