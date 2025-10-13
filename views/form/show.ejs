@@ -14,16 +14,64 @@
         <div class="show-body">
             <!-- Mobile-first layout: Product name/date, then impact, then alternatives -->
             <div class="show-row-mobile d-block d-md-none">
-                <!-- Product Details Section (for mobile: name and date only) -->
-                <div class="show-section product-summary-mobile">
-                    <h4><i class="fas fa-tag me-2"></i><%= product.name %></h4>
-                    <p class="text-muted">
-                        <i class="fas fa-calendar me-1"></i>Analyzed on <%= product.createdAt ? product.createdAt.toDateString() : 'Unknown date' %>
-                    </p>
+                <!-- Product Details Section -->
+                <div class="show-section">
+                    <h4 class="d-flex align-items-center justify-content-between">
+                        <span><i class="fas fa-info-circle me-2"></i>Product Details</span>
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#productDetailsCollapse" aria-expanded="false" aria-controls="productDetailsCollapse">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </h4>
+                    <div class="collapse show" id="productDetailsCollapse">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fas fa-tag text-muted me-2"></i>
+                                <strong>Name:</strong> <%= product.name %>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-building text-muted me-2"></i>
+                                <strong>Brand:</strong> <%= product.brand || 'N/A' %>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-folder text-muted me-2"></i>
+                                <strong>Category:</strong> <%= product.category %>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-cubes text-muted me-2"></i>
+                                <strong>Material:</strong> <%= product.material %>
+                            </li>
+
+                            <% if(product.price){ %>
+                            <li class="list-group-item">
+                                <i class="fas fa-dollar-sign text-muted me-2"></i>
+                                <strong>Price:</strong> $<%= product.price %>
+                            </li>
+                                <% } %>
+
+                            <li class="list-group-item">
+                                <i class="fas fa-weight text-muted me-2"></i>
+                                <strong>Weight:</strong> <%= product.weight ? product.weight + ' kg' : 'N/A' %>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-globe text-muted me-2"></i>
+                                <strong>Origin Country:</strong> <%= product.originCountry || 'Unknown' %>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-calendar text-muted me-2"></i>
+                                <strong>Analyzed on:</strong> <%= product.createdAt ? product.createdAt.toDateString() : 'Unknown date' %>
+                            </li>
+                            <% if(product.notes){ %>
+                                <li class="list-group-item">
+                                    <i class="fas fa-sticky-note text-muted me-2"></i>
+                                    <strong>Note :</strong> <%= product.notes %>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Environmental Impact Analysis Section -->
-                <div class="show-section impact-analysis-mobile">
+                <div class="show-section">
                     <h4><i class="fas fa-seedling me-2"></i>Environmental Impact Analysis</h4>
                     <% if (product.impactAnalysis && typeof product.impactAnalysis === 'object') { %>
                         <div class="mb-3">
@@ -102,43 +150,50 @@
             <!-- Desktop layout: Original two-column -->
             <div class="show-row-desktop d-none d-md-block">
                 <div class="show-section">
-                    <h4><i class="fas fa-info-circle me-2"></i>Product Details</h4>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <i class="fas fa-building text-muted me-2"></i>
-                            <strong>Brand:</strong> <%= product.brand || 'N/A' %>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fas fa-folder text-muted me-2"></i>
-                            <strong>Category:</strong> <%= product.category %>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fas fa-cubes text-muted me-2"></i>
-                            <strong>Material:</strong> <%= product.material %>
-                        </li>
-
-                        <% if(product.price){ %>
-                        <li class="list-group-item">
-                            <i class="fas fa-dollar-sign text-muted me-2"></i>
-                            <strong>Price:</strong> $<%= product.price %>
-                        </li>
-                            <% } %>
-
-                        <li class="list-group-item">
-                            <i class="fas fa-weight text-muted me-2"></i>
-                            <strong>Weight:</strong> <%= product.weight ? product.weight + ' kg' : 'N/A' %>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fas fa-globe text-muted me-2"></i>
-                            <strong>Origin Country:</strong> <%= product.originCountry || 'Unknown' %>
-                        </li>
-                        <% if(product.notes){ %>
+                    <h4 class="d-flex align-items-center justify-content-between">
+                        <span><i class="fas fa-info-circle me-2"></i>Product Details</span>
+                        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#productDetailsCollapseDesktop" aria-expanded="true" aria-controls="productDetailsCollapseDesktop">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </h4>
+                    <div class="collapse show" id="productDetailsCollapseDesktop">
+                        <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <i class="fas fa-sticky-note text-muted me-2"></i>
-                                <strong>Note :</strong> <%= product.notes %>
+                                <i class="fas fa-building text-muted me-2"></i>
+                                <strong>Brand:</strong> <%= product.brand || 'N/A' %>
                             </li>
-                        <% } %>
-                    </ul>
+                            <li class="list-group-item">
+                                <i class="fas fa-folder text-muted me-2"></i>
+                                <strong>Category:</strong> <%= product.category %>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-cubes text-muted me-2"></i>
+                                <strong>Material:</strong> <%= product.material %>
+                            </li>
+
+                            <% if(product.price){ %>
+                            <li class="list-group-item">
+                                <i class="fas fa-dollar-sign text-muted me-2"></i>
+                                <strong>Price:</strong> $<%= product.price %>
+                            </li>
+                                <% } %>
+
+                            <li class="list-group-item">
+                                <i class="fas fa-weight text-muted me-2"></i>
+                                <strong>Weight:</strong> <%= product.weight ? product.weight + ' kg' : 'N/A' %>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-globe text-muted me-2"></i>
+                                <strong>Origin Country:</strong> <%= product.originCountry || 'Unknown' %>
+                            </li>
+                            <% if(product.notes){ %>
+                                <li class="list-group-item">
+                                    <i class="fas fa-sticky-note text-muted me-2"></i>
+                                    <strong>Note :</strong> <%= product.notes %>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="show-section">
@@ -158,15 +213,15 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <i class="fas fa-cloud text-muted me-2"></i>
+                                <i class="fas fa-cloud text-success me-2"></i>
                                 <strong>Carbon Footprint:</strong> <%= product.impactAnalysis.carbonFootprint %> kg CO₂
                             </li>
                             <li class="list-group-item">
-                                <i class="fas fa-tint text-muted me-2"></i>
+                                <i class="fas fa-tint text-success me-2"></i>
                                 <strong>Water Usage:</strong> <%= product.impactAnalysis.waterUsage %> liters
                             </li>
                         <li class="list-group-item">
-                            <i class="fas fa-recycle text-muted me-2"></i>
+                            <i class="fas fa-recycle text-success me-2"></i>
                             <strong>Recyclability:</strong>
                             <% if (product.impactAnalysis && product.impactAnalysis.recyclability) { %>
                                 <span class="badge bg-<%= product.impactAnalysis.recyclability.toLowerCase().includes('high') ? 'success' : product.impactAnalysis.recyclability.toLowerCase().includes('medium') ? 'warning' : 'secondary' %>">
@@ -197,7 +252,7 @@
                 <!-- Alternative Products Section for Desktop -->
                 <div class="show-section">
                     <% if ((recommendations && recommendations.length > 0) || (product.recommendedProducts && product.recommendedProducts.length > 0)) { %>
-                        <h4><i class="fas fa-leaf text-success me-2"></i>Alternative Eco-Friendly Products</h4>
+                        <h4><i class="fas fa-leaf text-success me-2"></i>Other Eco-Friendly Products</h4>
                         <div class="row g-2">
                             <% (recommendations || product.recommendedProducts).slice(0, 3).forEach(rec => { %>
                                 <div class="col-12">

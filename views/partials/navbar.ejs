@@ -13,7 +13,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-home me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-home me-1 icon-green">
                             <path fill-rule="evenodd" d="M8 3.293l6 6V13a1 1 0 01-1 1h-3v-3H6v3H3a1 1 0 01-1-1v-3.707l6-6z"></path>
                         </svg>
                         Home
@@ -21,7 +21,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/form">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-search me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-search me-1 icon-green">
                             <path fill-rule="evenodd" d="M11.742 10.344a6.5 6.5 0 111.397-1.398l3.85 3.85a1 1 0 01-1.414 1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"></path>
                         </svg>
                         Analyze Product
@@ -29,7 +29,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/form/all-products">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-list-unordered me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-list-unordered me-1 icon-green">
                             <path fill-rule="evenodd" d="M2 3.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0 4a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z"></path>
                         </svg>
                         All Products
@@ -39,7 +39,7 @@
                 <% if(currentUser){ %>
                 <li class="nav-item">
                     <a class="nav-link" href="/dashboard/impact">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-graph me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-graph me-1 icon-green">
                             <path fill-rule="evenodd" d="M0 0h1v15H0V0zm2 10h1v5H2v-5zm2-4h1v9H4V6zm2-2h1v11H6V4zm2-2h1v13H8V2zm2-2h1v15h-1V0z"></path>
                         </svg>
                         Impact Dashboard
@@ -47,7 +47,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/compare">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-balance-scale me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-balance-scale me-1 icon-green">
                             <path fill-rule="evenodd" d="M8 1a1 1 0 00-1 1v1H4a1 1 0 00-1 1v1h10V4a1 1 0 00-1-1H9V2a1 1 0 00-1-1zM3 7v1h10V7H3zm1 2v5h1v-5H4zm6 0v5h1v-5h-1z"></path>
                         </svg>
                         Compare Products
@@ -55,7 +55,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/voiceInput/ai">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-unmute me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-unmute me-1 icon-green">
                             <path fill-rule="evenodd" d="M8 2.75a.75.75 0 00-1.5 0v10.5a.75.75 0 001.5 0V2.75zM4.5 4.5a.75.75 0 00-1.5 0v7a.75.75 0 001.5 0v-7zm7 0a.75.75 0 00-1.5 0v7a.75.75 0 001.5 0v-7z"></path>
                         </svg>
                         Voice Input
@@ -63,7 +63,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/get-reciept">
-                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-camera me-1">
+                        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" class="octicon octicon-camera me-1 icon-green">
                             <path fill-rule="evenodd" d="M15 3H1a1 1 0 00-1 1v10a1 1 0 001 1h14a1 1 0 001-1V4a1 1 0 00-1-1zM2 5a1 1 0 011-1h10a1 1 0 011 1v6a1 1 0 01-1 1H3a1 1 0 01-1-1V5zM8 7a2 2 0 100-4 2 2 0 000 4z"></path>
                         </svg>
                         Capture Receipt
@@ -81,7 +81,7 @@
                 <% if(currentUser){ %>
                 <li class="nav-item d-lg-none">
                     <button class="btn btn-outline-secondary" id="sidebarToggle" aria-label="Toggle sidebar">
-                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" width="20" class="octicon octicon-three-bars">
+                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" width="20" class="octicon octicon-three-bars icon-green">
                             <path fill-rule="evenodd" d="M1 3h14v2H1V3zm0 4h14v2H1V7zm0 4h14v2H1v-2z"></path>
                         </svg>
                     </button>
@@ -89,7 +89,7 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" width="20" class="octicon octicon-person me-1">
+                        <svg aria-hidden="true" height="20" viewBox="0 0 16 16" width="20" class="octicon octicon-person me-1 icon-green">
                             <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zM8 8a3 3 0 100-6 3 3 0 000 6z"></path>
                         </svg>
                         <span><%= currentUser.username %></span>
@@ -113,3 +113,9 @@
         </div>
     </div>
 </nav>
+
+<style>
+  .icon-green path {
+    fill: green;
+  }
+</style>
