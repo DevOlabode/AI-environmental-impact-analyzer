@@ -48,7 +48,7 @@ module.exports.input = async (req, res) => {
         // Manually set impactAnalysis for rendering since not populated
         product.impactAnalysis = impactAnalysis;
 
-        return res.render('form/show', { product })
+        return res.render('form/show', { product, recommendations })
     } else {
         const product = {
             ...req.body,
