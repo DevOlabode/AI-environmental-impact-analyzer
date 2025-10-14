@@ -124,3 +124,17 @@ module.exports.updateGoal = async (req, res) => {
     req.flash('success', 'Goal updated successfully!');
     res.redirect('/goals');
 };
+
+
+module.exports.deleteGoal = async (req, res) => {
+    const goal = await Goal.findById(req.params.id);
+
+    if(!goal || goal.user.toString() !== req.user._id.toString()){
+        req.flash('error', "Unauthorised Action");
+        return res.redirect('/goals'); 
+    }
+
+    const deleted = await Goal.findByIdAndDelete(req.params.id);
+    req.flash('success', `The ${deleted.title} goal has deleted successfully`);
+    res.redirect('/goals');
+};
