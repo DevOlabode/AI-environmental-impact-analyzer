@@ -19,7 +19,7 @@
                                     <div class="card h-100 border-success">
                                         <div class="card-header bg-success text-white">
                                             <h5 class="card-title mb-0">
-                                                <i class="fas fa-target me-2"></i><a href="/goals/edit-goal/<%= goal._id %>" class="text-decoration-none opacity-50 text-white"><%= goal.title %></a>
+                                                <i class="fas fa-target me-2"></i><%= goal.title %>
                                             </h5>
                                         </div>
                                         <div class="card-body">
@@ -41,10 +41,13 @@
                                                 </p>
                                             <% } %>
                                         </div>
-                                        <div class="card-footer bg-light">
+                                        <div class="card-footer bg-light d-flex justify-content-between align-items-center">
                                             <small class="text-muted">
                                                 <i class="fas fa-clock me-1"></i>Goal set on <%= new Date(goal.startDate).toLocaleDateString() %>
                                             </small>
+                                            <a href="/goals/edit-goal/<%= goal._id %>" class="btn btn-outline-success btn-sm">
+                                                <i class="fas fa-edit me-1"></i>Edit
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

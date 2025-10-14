@@ -59,5 +59,57 @@ module.exports.saveGoal = async (req, res) => {
 
 module.exports.editGoalForm = async(req, res) =>{
     const goal = await Goal.findById(req.params.id);
+
+    if(!goal || goal.user.toString() !== req.user._id.toString()){
+        req.flash('error', "Unauthorised Action");
+        return res.redirect('/goals'); 
+    }
     res.render('goals/editGoal', {goal});
+};
+
+module.exports.updateGoal = async (req, res) => {
+    const { id } = req.params;
+    const { title, notes, reductionTarget, timeframe, startDate, endDate: userEndDate } = req.body;
+
+    // Use provided startDate or today
+    const start = startDate ? new Date(startDate) : new Date();
+
+    let endDate;
+
+    if (userEndDate) {
+        // ✅ If the user provides an endDate, use it
+        endDate = new Date(userEndDate);
+    } else {
+        // ✅ Otherwise, calculate it based on timeframe
+        endDate = new Date(start);
+        switch (timeframe) {
+            case 'Weekly':
+                endDate.setDate(start.getDate() + 7);
+                break;
+            case 'Monthly':
+                endDate.setMonth(start.getMonth() + 1);
+                break;
+            case 'Quarterly':
+                endDate.setMonth(start.getMonth() + 3);
+                break;
+            case 'Yearly':
+                endDate.setFullYear(start.getFullYear() + 1);
+                break;
+            default:
+                endDate.setMonth(start.getMonth() + 1);
+        }
+    }
+
+    // ✅ Update goal data
+    await Goal.findByIdAndUpdate(id, {
+        title,
+        notes,
+        reductionTarget,
+        timeframe,
+        startDate: start,
+        endDate
+    });
+
+    req.flash('success', 'Goal updated successfully!');
+    res.redirect('/goals');
 };
