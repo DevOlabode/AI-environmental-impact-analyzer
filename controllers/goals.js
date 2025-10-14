@@ -57,3 +57,7 @@ module.exports.saveGoal = async (req, res) => {
     res.redirect('/goals');
 };
 
+module.exports.editGoalForm = async(req, res) =>{
+    const goal = await Goal.find({user : req.user._id});
+    res.render('goals/editGoal', {goal});
+}

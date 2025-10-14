@@ -10,4 +10,6 @@ router.get('/set-goals', isLoggedIn, goalsController.setGoal);
 
 router.post('/save-goal', isLoggedIn, goalsController.saveGoal);
 
+router.get('/edit-goal', isLoggedIn, goalsController.editGoalForm);
+
 module.exports = router;

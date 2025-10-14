@@ -4,22 +4,22 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
             <div class="card shadow-lg border-0">
-                <div class="card-header bg-success text-white text-center py-4">
+                <div class="card-header bg-warning text-white text-center py-4">
                     <h2 class="mb-0">
-                        <i class="fas fa-bullseye me-3"></i>Set Your CO2 Reduction Goal
+                        <i class="fas fa-edit me-3"></i>Edit Your CO2 Reduction Goal
                     </h2>
-                    <p class="mb-0 mt-2 opacity-75">Commit to making a positive environmental impact</p>
+                    <p class="mb-0 mt-2 opacity-75">Update your environmental impact goal</p>
                 </div>
 
                 <div class="card-body p-4">
-                    <form action="/goals/save-goal" method="POST" id="goalForm" class="needs-validation" novalidate>
+                    <form action="/goals/update-goal" method="POST" id="editGoalForm">
                         <!-- Goal Title -->
                         <div class="mb-4">
                             <label for="goalTitle" class="form-label fw-bold">
                                 <i class="fas fa-tag text-success me-2"></i>Goal Title
                             </label>
                             <input type="text" class="form-control form-control-lg" id="goalTitle" name="title"
-                                   placeholder="e.g., Reduce my carbon footprint by 20%" required>
+                                   value="<%= goal.title %>" required>
                             <div class="form-text">Give your goal a clear, motivating name</div>
                         </div>
 
@@ -31,7 +31,7 @@
                                 </label>
                                 <div class="input-group input-group-lg">
                                     <input type="number" class="form-control form-control-lg border-success" id="reductionAmount"
-                                           name="reductionTarget" placeholder="100" min="1" step="0.1" required
+                                           name="reductionTarget" value="<%= goal.reductionTarget %>" placeholder="100" min="1" step="0.1" required
                                            style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
                                     <span class="input-group-text bg-success text-white border-success"
                                           style="border-top-left-radius: 0; border-bottom-left-radius: 0; min-width: 80px;">
@@ -48,10 +48,10 @@
                                 </label>
                                 <select class="form-select form-select-lg" id="timeframe" name="timeframe" required>
                                     <option value="">Select timeframe</option>
-                                    <option value="Monthly">Monthly</option>
-                                    <option value="Quarterly">Quarterly</option>
-                                    <option value="Yearly">Yearly</option>
-                                    <option value="Custom">Custom Period</option>
+                                    <option value="Monthly" <%= goal.timeframe === 'Monthly' ? 'selected' : '' %>>Monthly</option>
+                                    <option value="Quarterly" <%= goal.timeframe === 'Quarterly' ? 'selected' : '' %>>Quarterly</option>
+                                    <option value="Yearly" <%= goal.timeframe === 'Yearly' ? 'selected' : '' %>>Yearly</option>
+                                    <option value="Custom" <%= goal.timeframe === 'Custom' ? 'selected' : '' %>>Custom Period</option>
                                 </select>
                             </div>
                         </div>
@@ -64,11 +64,13 @@
                             <div class="row">
                                 <div class="col-md-6" id="startDateContainer">
                                     <label for="startDate" class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" name="startDate">
+                                    <input type="date" class="form-control" id="startDate" name="startDate"
+                                           value="<%= goal && goal.startDate ? goal.startDate.toISOString().split('T')[0] : '' %>">
                                 </div>
                                 <div class="col-md-6" id="endDateContainer" style="display: none;">
                                     <label for="endDate" class="form-label">End Date</label>
-                                    <input type="date" class="form-control" id="endDate" name="endDate">
+                                    <input type="date" class="form-control" id="endDate" name="endDate"
+                                           value="<%= goal && goal.endDate ? goal.endDate.toISOString().split('T')[0] : '' %>">
                                 </div>
                             </div>
                         </div>
@@ -79,36 +81,17 @@
                                 <i class="fas fa-heart text-danger me-2"></i>Motivation & Notes
                             </label>
                             <textarea class="form-control" id="description" name="notes" rows="4"
-                                      placeholder="Why is this goal important to you? Any specific strategies or notes..."></textarea>
+                                      placeholder="Why is this goal important to you? Any specific strategies or notes..."><%= goal.notes %></textarea>
                             <div class="form-text">Optional: Share what motivates you and how you plan to achieve this goal</div>
                         </div>
 
-                        <!-- Goal Visibility -->
-                        <!-- <div class="mb-4">
-                            <label class="form-label fw-bold">
-                                <i class="fas fa-eye text-warning me-2"></i>Goal Visibility
-                            </label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="visibility" id="private" value="private" checked>
-                                <label class="form-check-label" for="private">
-                                    <i class="fas fa-lock me-1"></i>Private - Only visible to me
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="visibility" id="public" value="public">
-                                <label class="form-check-label" for="public">
-                                    <i class="fas fa-globe me-1"></i>Public - Share my progress with others
-                                </label>
-                            </div>
-                        </div> -->
-
                         <!-- Submit Button -->
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="/" class="btn btn-outline-secondary me-md-2">
+                            <a href="/goals" class="btn btn-outline-secondary me-md-2">
                                 <i class="fas fa-arrow-left me-2"></i>Cancel
                             </a>
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <i class="fas fa-rocket me-2"></i>Set My Goal
+                            <button type="submit" class="btn btn-warning btn-lg">
+                                <i class="fas fa-save me-2"></i>Update Goal
                             </button>
                         </div>
                     </form>
