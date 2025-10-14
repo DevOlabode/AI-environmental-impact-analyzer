@@ -58,6 +58,6 @@ module.exports.saveGoal = async (req, res) => {
 };
 
 module.exports.editGoalForm = async(req, res) =>{
-    const goal = await Goal.find({user : req.user._id});
+    const goal = await Goal.findById(req.params.id);
     res.render('goals/editGoal', {goal});
-}
+};
