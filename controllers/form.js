@@ -33,6 +33,8 @@ module.exports.input = async (req, res) => {
         impact.sustainabilityScore
     );
 
+    console.log('Generated Recommendations:', recommendations);
+
     if (req.user) {
         const product = new Products({
             ...req.body,

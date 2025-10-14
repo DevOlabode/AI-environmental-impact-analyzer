@@ -81,7 +81,7 @@ Baseline estimates (calculated already):
 - Carbon Footprint: ${carbonFootprint} kg CO₂
 - Water Usage: ${waterUsage} liters
 
-Return your analysis strictly in valid JSON format:
+Return your analysis strictly in valid JSON format. Do not include any extra text. or explanations outside the JSON.:
 
 {
   "carbonFootprint": <number in kg CO2>,

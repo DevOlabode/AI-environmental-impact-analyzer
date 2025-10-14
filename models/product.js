@@ -44,7 +44,11 @@ favourite : {
   type : Boolean,
   default : false
 },
-recommendedProducts : [String],
+recommendedProducts: [{
+  name: { type: String, required: true },
+  material: { type: String, required: true },
+  why_better: { type: String, required: true }
+}],
 impactAnalysis: {
     type: Schema.Types.ObjectId,
     ref: 'Impact',

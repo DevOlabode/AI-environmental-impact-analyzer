@@ -47,7 +47,7 @@ ${JSON.stringify(productB, null, 2)}
 `;
 
   const response = await groq.chat.completions.create({
-    model: "meta-llama/llama-4-scout-17b-16e-instruct",
+    model: "qwen/qwen3-32b",
     messages: [{ role: "user", content: prompt }],
     temperature: 0.4,
   });

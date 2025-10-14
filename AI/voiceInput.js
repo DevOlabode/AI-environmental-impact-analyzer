@@ -29,7 +29,7 @@ Rules:
 Voice input: "${transcript}"`;
 
   const response = await groq.chat.completions.create({
-    model: "meta-llama/llama-4-scout-17b-16e-instruct",
+    model: "whisper-large-v3-turbo",
     messages: [{ role: "user", content: prompt }],
     temperature: 0.4,
   });

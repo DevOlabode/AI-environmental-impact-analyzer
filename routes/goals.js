@@ -15,4 +15,6 @@ router.post('/save-goal', isLoggedIn, goalsController.saveGoal);
 
 router.get('/edit-goal/:id', isLoggedIn, goalsController.editGoalForm);
 
+router.delete('/:id', isLoggedIn, goalsController.deleteGoal);
+
 module.exports = router;
