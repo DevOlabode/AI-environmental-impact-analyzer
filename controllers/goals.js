@@ -57,6 +57,17 @@ module.exports.saveGoal = async (req, res) => {
     res.redirect('/goals');
 };
 
+module.exports.show = async (req, res) => {
+    const goal = await Goal.findById(req.params.id);
+
+    if(!goal || goal.user.toString() !== req.user._id.toString()){
+        req.flash('error', "Unauthorised Action");
+        return res.redirect('/goals'); 
+    };
+
+    res.render('goals/show', { goal});
+};
+
 module.exports.editGoalForm = async(req, res) =>{
     const goal = await Goal.findById(req.params.id);
 
