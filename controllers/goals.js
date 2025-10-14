@@ -11,13 +11,19 @@ module.exports.setGoal =  (req, res) => {
 };
 
 module.exports.saveGoal = async (req, res) => {
-    const { title, notes, reductionTarget, timeframe, startDate } = req.body;
+    const { title, notes, reductionTarget, timeframe, startDate, endDate: userEndDate } = req.body;
 
-    // Calculate end date based on timeframe
-        const start = startDate ? new Date(startDate) : new Date();
+    // Use provided startDate or today
+    const start = startDate ? new Date(startDate) : new Date();
 
-        // Calculate end date based on timeframe
-        let endDate = new Date(start);
+    let endDate;
+
+    if (userEndDate) {
+        // ✅ If user provides an end date, use it
+        endDate = new Date(userEndDate);
+    } else {
+        // ✅ Otherwise, calculate it based on timeframe
+        endDate = new Date(start);
         switch (timeframe) {
             case 'Weekly':
                 endDate.setDate(start.getDate() + 7);
@@ -34,19 +40,20 @@ module.exports.saveGoal = async (req, res) => {
             default:
                 endDate.setMonth(start.getMonth() + 1);
         }
+    }
 
-        const goal = new Goal({
-            user: req.user._id,
-            title,
-            notes,
-            reductionTarget,
-            timeframe,
-            startDate: start,
-            endDate
-        })
+    const goal = new Goal({
+        user: req.user._id,
+        title,
+        notes,
+        reductionTarget,
+        timeframe,
+        startDate: start,
+        endDate
+    });
 
-        await goal.save();
+    await goal.save();
+    req.flash('success', 'Goal set successfully!');
+    res.redirect('/goals');
+};
 
-        req.flash('success', 'Goal set successfully!');
-        res.redirect('/goals');
-}

@@ -3,11 +3,11 @@ document.getElementById('timeframe').addEventListener('change', function() {
     const startDateContainer = document.getElementById('startDateContainer');
     const endDateContainer = document.getElementById('endDateContainer');
 
-    if (this.value === 'custom') {
+    if (this.value === 'Custom') {
         // Show both start and end date for custom period
         startDateContainer.style.display = 'block';
         endDateContainer.style.display = 'block';
-    } else if (this.value === 'monthly' || this.value === 'quarterly' || this.value === 'yearly') {
+    } else if (this.value === 'Monthly' || this.value === 'Quarterly' || this.value === 'Yearly') {
         // Show only start date for predefined periods
         startDateContainer.style.display = 'block';
         endDateContainer.style.display = 'none';
@@ -36,7 +36,7 @@ document.getElementById('goalForm').addEventListener('submit', function(e) {
     }
 
     // Additional validation for custom dates
-    if (timeframe === 'custom') {
+    if (timeframe === 'Custom') {
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
 

@@ -17,7 +17,7 @@ const goalSchema = new Schema({
     },
     timeframe : {
         type : String,
-        enum : ['Weekly', 'Monthly', 'Yearly', "Quarterly"],
+        enum : ['Weekly', 'Monthly', 'Yearly', "Quarterly", "Custom"],
         required : true,
         default : 'Monthly'
     },

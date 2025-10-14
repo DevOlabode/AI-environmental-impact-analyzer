@@ -6,8 +6,8 @@ const { isLoggedIn } = require('../middleware');
 
 router.get('/', isLoggedIn, goalsController.allGoals);
 
-router.get('/set-goals', goalsController.setGoal);
+router.get('/set-goals', isLoggedIn, goalsController.setGoal);
 
-router.post('/save-goal', goalsController.saveGoal);
+router.post('/save-goal', isLoggedIn, goalsController.saveGoal);
 
 module.exports = router;
