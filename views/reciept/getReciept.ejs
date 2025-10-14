@@ -4,19 +4,22 @@
     <div class="receipt-card">
         <h1 class="receipt-title">Capture Receipt</h1>
         <p class="receipt-subtitle">Take a photo of your receipt to analyze environmental impact</p>
-        <div class="camera-container">
+        <div class="camera-container" id="camera-container" style="display:none;">
             <video id="video" autoplay playsinline></video>
             <div class="camera-overlay">
                 <div class="viewfinder"></div>
             </div>
         </div>
-        <button id="snap" class="btn btn-primary snap-btn">Take Photo</button>
+        <button id="start-camera" class="btn btn-primary snap-btn">Start Camera</button>
+        <button id="snap" class="btn btn-primary snap-btn" style="display:none;">Take Photo</button>
         <canvas id="canvas" style="display:none;"></canvas>
         <div class="preview-container" id="preview-container" style="display:none;">
             <h3>Preview</h3>
             <img id="preview" alt="Captured Image" class="preview-image"/>
+            <div class="preview-buttons mt-3">
+                <button id="retake" class="btn btn-secondary me-2">Retake</button>
+                <button id="confirm" class="btn btn-success">Confirm & Analyze</button>
+            </div>
         </div>
     </div>
 </div>
-
-
