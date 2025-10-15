@@ -47,4 +47,36 @@ AI Environmental Analysis Team
   }
 };
 
-module.exports = { sendPasswordResetCode };
+const sendFeedback = async (email, username, feedback) => {
+const mailOptions = {
+  from: process.env.EMAIL_USER,
+  to: process.env.EMAIL,
+  subject: 'AI Environmental Analysis - User Feedback',
+  text: `
+==============================
+📝 New User Feedback Received
+==============================
+
+👤 Username: ${username}
+📧 Email: ${email}
+
+💬 Feedback:
+${feedback}
+
+------------------------------
+Sent from AI Environmental Impact Analyzer
+  `
+};
+
+
+    try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Password reset email sent:', info.messageId);
+    return { success: true, messageId: info.messageId };
+  } catch (error) {
+    console.error('Email sending error:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+module.exports = { sendPasswordResetCode, sendFeedback };

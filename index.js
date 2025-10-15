@@ -42,11 +42,13 @@ const comparisonRoutes = require('./routes/comparison');
 const dashboardRoutes = require('./routes/dashboard');
 const voiceInputRoutes = require('./routes/voiceInput');
 const goalsRoutes = require('./routes/goals');
+const feedbackRoutes = require('./routes/feedback');
 
 const sanitizeV5 = require('./utils/mongoSanitizev5');
 
 const ExpressError = require('./utils/expressError');
-const User = require('./models/user');
+
+const User = require('./models/User');
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -124,6 +126,7 @@ app.use('/', comparisonRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/voiceInput', voiceInputRoutes);
 app.use('/goals', goalsRoutes);
+app.use('/feedback', feedbackRoutes);
 
 app.get('/', (req, res)=>{
     res.render('home')

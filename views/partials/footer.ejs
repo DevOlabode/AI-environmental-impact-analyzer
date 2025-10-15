@@ -47,9 +47,9 @@
                 <h6 class="footer-heading">Share Your Feedback</h6>
                 <p class="footer-text mb-3">Help us improve EcoAnalyzer by sharing your thoughts and suggestions.</p>
 
-                <form action="" method="post">
-                    <textarea class="form-control mb-2" placeholder="Your feedback here..." rows="5" aria-label="Feedback" style="border-radius: 5px;"></textarea>
-                    <button class="btn btn-primary btn-sm" type="button">Send Feedback</button>
+                <form action="/feedback" method="post" class="needs-validation" novalidate>
+                    <textarea class="form-control mb-2" name = 'feedback' placeholder="Your feedback here..." rows="5" aria-label="Feedback" style="border-radius: 5px;"></textarea>
+                    <button class="btn btn-primary btn-sm" type="submit">Send Feedback</button>
                 </form>
             </div>
         </div>
