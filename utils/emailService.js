@@ -69,6 +69,8 @@ Sent from AI Environmental Impact Analyzer
 };
 
 
+
+
     try {
     const info = await transporter.sendMail(mailOptions);
     console.log('Password reset email sent:', info.messageId);
