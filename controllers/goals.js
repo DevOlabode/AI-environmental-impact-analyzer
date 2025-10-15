@@ -3,7 +3,38 @@ const Goal = require('../models/goals');
 
 module.exports.allGoals = async(req, res)=>{
     const goals = await Goal.find({user : req.user._id});
-    res.render('goals/allGoals', {goals});
+
+    // Calculate progress for each goal
+    const goalsWithProgress = await Promise.all(goals.map(async (goal) => {
+        const products = await Product.find({
+            owner: req.user._id,
+            createdAt: {
+                $gte: goal.startDate,
+                $lte: goal.endDate
+            }
+        }).populate('impactAnalysis');
+
+        const totalCO2 = products.reduce((sum, product) => {
+            return sum + (product.impactAnalysis?.carbonFootprint || 0);
+        }, 0);
+
+        let progress = Math.max(0, Math.min(((goal.reductionTarget - totalCO2) / goal.reductionTarget) * 100, 100));
+        progress = Math.round(progress);
+
+        const now = new Date();
+        const timeframeEnded = now > goal.endDate;
+        const goalReached = progress >= 100;
+
+        return {
+            ...goal.toObject(),
+            totalCO2,
+            progress,
+            timeframeEnded,
+            goalReached
+        };
+    }));
+
+    res.render('goals/allGoals', {goals: goalsWithProgress});
 }
 
 module.exports.setGoal =  (req, res) => {
@@ -77,14 +108,14 @@ module.exports.show = async (req, res) => {
     return sum + (product.impactAnalysis?.carbonFootprint || 0);
   }, 0);
 
-  let progress = Math.min((totalCO2 / goal.reductionTarget) * 100, 100); // cap at 100%
+  let progress = Math.max(0, Math.min(((goal.reductionTarget - totalCO2) / goal.reductionTarget) * 100, 100));
   progress = Math.round(progress);
 
   const now = new Date();
   const timeframeEnded = now > goal.endDate;
-  const goalReached = totalCO2 <= goal.reductionTarget;
+  const goalReached = progress >= 100;
 
-  res.render('goals/showGoal', {
+  res.render('goals/show', {
     goal,
     totalCO2,
     progress,
