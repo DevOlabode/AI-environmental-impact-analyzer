@@ -65,8 +65,34 @@ module.exports.show = async (req, res) => {
         return res.redirect('/goals'); 
     };
 
-    res.render('goals/show', { goal});
+    const products = await Product.find({
+        owner : req.user._id,
+        createdAt: {
+            $gte: goal.startDate,
+            $lte: goal.endDate
+        }
+    }).populate('impactAnalysis');
+
+  const totalCO2 = products.reduce((sum, product) => {
+    return sum + (product.impactAnalysis?.carbonFootprint || 0);
+  }, 0);
+
+  let progress = Math.min((totalCO2 / goal.reductionTarget) * 100, 100); // cap at 100%
+  progress = Math.round(progress);
+
+  const now = new Date();
+  const timeframeEnded = now > goal.endDate;
+  const goalReached = totalCO2 <= goal.reductionTarget;
+
+  res.render('goals/showGoal', {
+    goal,
+    totalCO2,
+    progress,
+    timeframeEnded,
+    goalReached
+  });
 };
+
 
 module.exports.editGoalForm = async(req, res) =>{
     const goal = await Goal.findById(req.params.id);

@@ -1,10 +1,11 @@
-# TODO
+# TODO: Redesign Goals Show Page with Progress Bar
 
-## Steps to Complete
-- [] Impact goals tracking (Work according to the plan in STICKY NOTES)
-- [] Make the feedback placeholder (in the footer.ejs) send the feedback the user entered go to my email through nodemailer with olabodeoluwapelumi838@gmail.com
+## Tasks
+- [ ] Redesign views/goals/show.ejs with new layout including hero section, progress bar, and details sections
+- [ ] Ensure progress bar is dynamic using controller data (progress, totalCO2, etc.)
+- [ ] Add conditional styling for goal status (reached, expired)
+- [ ] Test the page by running the app and checking the show page
 
-## Tommorow Todo
-- [] Make Users be able to Edit/Delete goals.
-- [] Complete Steps to Complete. 
-- [] Make the links in the footer work (the hyper links in the quick links column and the support colummn )
+## Completed
+- [x] Analyze controller and current view
+- [x] Get user approval for plan
