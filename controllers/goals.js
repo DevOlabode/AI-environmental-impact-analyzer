@@ -42,7 +42,6 @@ module.exports.allGoals = async (req, res) => {
   res.render('goals/allGoals', { goals: goalsWithProgress });
 };
 
-
 module.exports.setGoal =  (req, res) => {
     res.render('goals/setGoals');
 };
