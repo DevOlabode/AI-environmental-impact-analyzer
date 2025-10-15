@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const User = require('../models/User');
+const User = require('../models/user');
 const { voiceInput } = require('../AI/voiceInput');
 const catchAsync = require('../utils/catchAsync');
 

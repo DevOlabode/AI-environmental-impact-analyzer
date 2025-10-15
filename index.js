@@ -48,7 +48,7 @@ const sanitizeV5 = require('./utils/mongoSanitizev5');
 
 const ExpressError = require('./utils/expressError');
 
-const User = require('./models/User');
+const User = require('./models/user');
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
