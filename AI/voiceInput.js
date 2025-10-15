@@ -29,18 +29,25 @@ Rules:
 Voice input: "${transcript}"`;
 
   const response = await groq.chat.completions.create({
-    model: "whisper-large-v3-turbo",
+    model: "qwen/qwen3-32b",
     messages: [{ role: "user", content: prompt }],
     temperature: 0.4,
   });
 
   const rawText = response.choices[0].message.content;
 
-  try {
-    return JSON.parse(rawText);
-  } catch (err) {
+  // Extract JSON block using regex
+  const match = rawText.match(/\{[\s\S]*?\}/);
+  if (!match) {
     console.error("Invalid AI JSON:", rawText);
     throw new Error("AI returned invalid JSON");
+  }
+
+  try {
+    return JSON.parse(match[0]);
+  } catch (err) {
+    console.error("JSON parsing failed:", match[0]);
+    throw new Error("AI returned malformed JSON");
   }
 };
 

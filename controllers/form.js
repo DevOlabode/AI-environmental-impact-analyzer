@@ -33,8 +33,6 @@ module.exports.input = async (req, res) => {
         impact.sustainabilityScore
     );
 
-    console.log('Generated Recommendations:', recommendations);
-
     if (req.user) {
         const product = new Products({
             ...req.body,
@@ -45,8 +43,8 @@ module.exports.input = async (req, res) => {
 
         await product.save();
 
-        // Manually set impactAnalysis for rendering since not populated
-        product.impactAnalysis = impactAnalysis;
+        // Populate impactAnalysis for rendering
+        await product.populate('impactAnalysis');
 
         return res.render('form/show', { product, recommendations })
     } else {
@@ -179,9 +177,10 @@ module.exports.deleteProduct = async(req, res)=>{
         return res.redirect('/form/all-products');
     }
 
-    await Products.findByIdAndDelete(id);
+    const deleted = await Products.findByIdAndDelete(id);
+    req.flash('success', `Successfully deleted ${deleted.name.toUpperCase()}`);
     res.redirect('/form/all-products');
-}
+};
 
 module.exports.toggleFavorite = async (req, res) => {
     try {

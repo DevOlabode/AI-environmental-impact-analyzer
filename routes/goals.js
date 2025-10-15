@@ -7,9 +7,9 @@ const { isLoggedIn } = require('../middleware');
 
 router.get('/', isLoggedIn, goalsController.allGoals);
 
-router.get('/:id', isLoggedIn, goalsController.show);
-
 router.get('/set-goals', isLoggedIn, goalsController.setGoal);
+
+router.get('/:id', isLoggedIn, goalsController.show);
 
 router.post('/save-goal', isLoggedIn, goalsController.saveGoal);
 
