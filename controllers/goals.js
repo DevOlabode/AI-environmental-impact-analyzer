@@ -36,6 +36,7 @@ module.exports.allGoals = async (req, res) => {
         timeframeEnded,
         goalReached,
       };
+
     })
   );
 
