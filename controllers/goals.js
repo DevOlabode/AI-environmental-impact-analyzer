@@ -1,41 +1,47 @@
 const Product = require('../models/product');
 const Goal = require('../models/goals');
 
-module.exports.allGoals = async(req, res)=>{
-    const goals = await Goal.find({user : req.user._id});
+module.exports.allGoals = async (req, res) => {
+  const goals = await Goal.find({ user: req.user._id });
 
-    // Calculate progress for each goal
-    const goalsWithProgress = await Promise.all(goals.map(async (goal) => {
-        const products = await Product.find({
-            owner: req.user._id,
-            createdAt: {
-                $gte: goal.startDate,
-                $lte: goal.endDate
-            }
-        }).populate('impactAnalysis');
+  const goalsWithProgress = await Promise.all(
+    goals.map(async (goal) => {
+      const products = await Product.find({
+        owner: req.user._id,
+        createdAt: {
+          $gte: goal.startDate,
+          $lte: goal.endDate,
+        },
+      }).populate('impactAnalysis');
 
-        const totalCO2 = products.reduce((sum, product) => {
-            return sum + (product.impactAnalysis?.carbonFootprint || 0);
-        }, 0);
+      const totalCO2 = products.reduce(
+        (sum, product) => sum + (product.impactAnalysis?.carbonFootprint || 0),
+        0
+      );
 
-        let progress = Math.max(0, Math.min(((goal.reductionTarget - totalCO2) / goal.reductionTarget) * 100, 100));
-        progress = Math.round(progress);
+      let progress = Math.max(
+        0,
+        Math.min((totalCO2 / goal.reductionTarget) * 100, 100)
+      );
+      progress = Math.round(progress);
 
-        const now = new Date();
-        const timeframeEnded = now > goal.endDate;
-        const goalReached = totalCO2 <= goal.reductionTarget;
+      const now = new Date();
+      const timeframeEnded = now > goal.endDate;
+      const goalReached = totalCO2 <= goal.reductionTarget && timeframeEnded;
 
-        return {
-            ...goal.toObject(),
-            totalCO2,
-            progress,
-            timeframeEnded,
-            goalReached
-        };
-    }));
+      return {
+        ...goal.toObject(),
+        totalCO2,
+        progress,
+        timeframeEnded,
+        goalReached,
+      };
+    })
+  );
 
-    res.render('goals/allGoals', {goals: goalsWithProgress});
-}
+  res.render('goals/allGoals', { goals: goalsWithProgress });
+};
+
 
 module.exports.setGoal =  (req, res) => {
     res.render('goals/setGoals');
@@ -89,41 +95,44 @@ module.exports.saveGoal = async (req, res) => {
 };
 
 module.exports.show = async (req, res) => {
-    const goal = await Goal.findById(req.params.id);
+  const goal = await Goal.findById(req.params.id);
 
-    if(!goal || goal.user.toString() !== req.user._id.toString()){
-        req.flash('error', "Unauthorised Action");
-        return res.redirect('/goals'); 
-    };
+  if (!goal || goal.user.toString() !== req.user._id.toString()) {
+    req.flash('error', 'Unauthorised Action');
+    return res.redirect('/goals');
+  }
 
-    const products = await Product.find({
-        owner : req.user._id,
-        createdAt: {
-            $gte: goal.startDate,
-            $lte: goal.endDate
-        }
-    }).populate('impactAnalysis');
+  const products = await Product.find({
+    owner: req.user._id,
+    createdAt: {
+      $gte: goal.startDate,
+      $lte: goal.endDate,
+    },
+  }).populate('impactAnalysis');
 
-  const totalCO2 = products.reduce((sum, product) => {
-    return sum + (product.impactAnalysis?.carbonFootprint || 0);
-  }, 0);
+  const totalCO2 = products.reduce(
+    (sum, product) => sum + (product.impactAnalysis?.carbonFootprint || 0),
+    0
+  );
 
-  let progress = Math.max(0, Math.min(((goal.reductionTarget - totalCO2) / goal.reductionTarget) * 100, 100));
+  let progress = Math.max(
+    0,
+    Math.min((totalCO2 / goal.reductionTarget) * 100, 100)
+  );
   progress = Math.round(progress);
 
   const now = new Date();
   const timeframeEnded = now > goal.endDate;
-  const goalReached = totalCO2 <= goal.reductionTarget;
+  const goalReached = totalCO2 <= goal.reductionTarget && timeframeEnded;
 
   res.render('goals/show', {
     goal,
     totalCO2,
     progress,
     timeframeEnded,
-    goalReached
+    goalReached,
   });
 };
-
 
 module.exports.editGoalForm = async(req, res) =>{
     const goal = await Goal.findById(req.params.id);

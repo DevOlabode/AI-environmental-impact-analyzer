@@ -1,137 +1,91 @@
+
+
+
+
 <% layout('layout/boilerplate.ejs') %>
 
-<!-- Hero Section -->
-<div class="hero-section">
-    <div class="container-fluid">
-        <div class="row align-items-center min-vh-50">
-            <div class="col-lg-8 text-center text-lg-start">
-                <h1 class="display-4 fw-bold text-white mb-3">
-                    <i class="fas fa-bullseye me-3"></i>Your CO2 Reduction Goals
-                </h1>
-                <p class="lead text-white-50 mb-4">Track your progress towards a sustainable future</p>
-                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
-                    <div class="stat-card">
-                        <div class="stat-value"><%= goals.length %></div>
-                        <div class="stat-label">Active Goals</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value"><%= goals.filter(g => g.goalReached).length %></div>
-                        <div class="stat-label">Goals Achieved</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value"><%= Math.round(goals.reduce((sum, g) => sum + g.progress, 0) / Math.max(goals.length, 1)) %>%</div>
-                        <div class="stat-label">Avg Progress</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 text-center">
-                <a href="/goals/set-goals" class="btn btn-light btn-lg shadow-lg">
-                    <i class="fas fa-plus me-2"></i>Create New Goal
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Goals Grid -->
 <div class="container my-5">
-    <% if (goals && goals.length > 0) { %>
-        <div class="row g-4">
-            <% goals.forEach(goal => { %>
-                <div class="col-lg-4 col-md-6">
-                    <div class="goal-card">
-                        <div class="goal-header">
-                            <div class="goal-title-section">
-                                <h4 class="goal-title">
-                                    <a href="/goals/<%= goal._id %>" class="text-decoration-none text-white"><%= goal.title %></a>
-                                </h4>
-                                <div class="goal-status">
-                                    <% if (goal.goalReached) { %>
-                                        <span class="status-badge achieved">
-                                            <i class="fas fa-trophy"></i> Achieved
-                                        </span>
-                                    <% } else if (goal.timeframeEnded) { %>
-                                        <span class="status-badge expired">
-                                            <i class="fas fa-times-circle"></i> Expired
-                                        </span>
-                                    <% } else { %>
-                                        <span class="status-badge active">
-                                            <i class="fas fa-clock"></i> Active
-                                        </span>
-                                    <% } %>
-                                </div>
-                            </div>
-                        </div>
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="display-5 fw-bold">
+        <i class="fas fa-bullseye me-2 mt-5"></i>My Goals
+      </h1>
+      <p class="lead text-muted">Track progress across all your environmental goals</p>
+      <a href="/goals/set-goal" class="btn btn-primary mt-3">
+        <i class="fas fa-plus me-2"></i>Set New Goal
+      </a>
+    </div>
+  </div>
 
-                        <div class="goal-body">
-                            <!-- Progress Section -->
-                            <div class="progress-section">
-                                <div class="progress-ring-small" style="--progress: <%= goal.progress %>%">
-                                    <div class="progress-ring-circle-small">
-                                        <div class="progress-ring-inner-small">
-                                            <span class="progress-percentage-small"><%= goal.progress %>%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress-info">
-                                    <div class="progress-label">Progress</div>
-                                    <div class="progress-stats">
-                                        <span class="current-co2"><%= goal.totalCO2.toFixed(1) %> kg</span>
-                                        <span class="separator">/</span>
-                                        <span class="target-co2"><%= goal.reductionTarget %> kg</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Goal Details -->
-                            <div class="goal-details">
-                                <div class="detail-row">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    <span><%= goal.timeframe %></span>
-                                </div>
-                                <div class="detail-row">
-                                    <i class="fas fa-clock"></i>
-                                    <span>Ends <%= new Date(goal.endDate).toLocaleDateString() %></span>
-                                </div>
-                                <% if (goal.notes) { %>
-                                    <div class="detail-row notes">
-                                        <i class="fas fa-sticky-note"></i>
-                                        <span><%= goal.notes %></span>
-                                    </div>
-                                <% } %>
-                            </div>
-                        </div>
-
-                        <div class="goal-footer">
-                            <div class="goal-actions">
-                                <a href="/goals/<%= goal._id %>" class="btn btn-outline-light btn-sm">
-                                    <i class="fas fa-eye me-1"></i>View
-                                </a>
-                                <a href="/goals/edit-goal/<%= goal._id %>" class="btn btn-outline-light btn-sm">
-                                    <i class="fas fa-edit me-1"></i>Edit
-                                </a>
-                                <form action="/goals/<%= goal._id %>?_method=delete" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this goal?')">
-                                    <button type="submit" class="btn btn-outline-danger btn-sm">
-                                        <i class="fas fa-trash me-1"></i>Delete
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <% }); %>
+  <div class="row g-4">
+    <% if (goals.length === 0) { %>
+      <div class="col-12">
+        <div class="alert alert-info">
+          You have no goals yet. Click "Set New Goal" to start tracking your progress.
         </div>
-    <% } else { %>
-        <!-- Empty State -->
-        <div class="empty-state">
-            <div class="empty-state-icon">
-                <i class="fas fa-leaf"></i>
-            </div>
-            <h3 class="empty-state-title">No Goals Set Yet</h3>
-            <p class="empty-state-description">Start your journey towards sustainability by setting your first CO2 reduction goal.</p>
-            <a href="/goals/set-goals" class="btn btn-success btn-lg">
-                <i class="fas fa-plus me-2"></i>Create Your First Goal
-            </a>
-        </div>
+      </div>
     <% } %>
+
+    <% goals.forEach(goal => { %>
+      <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0"><i class="fas fa-bullseye me-2"></i><%= goal.title %></h5>
+              <% if (goal.goalReached) { %>
+                <span class="badge bg-success">Achieved</span>
+              <% } else if (goal.timeframeEnded) { %>
+                <span class="badge bg-danger">Expired</span>
+              <% } else { %>
+                <span class="badge bg-info">Ongoing</span>
+              <% } %>
+            </div>
+
+            <p class="mb-2">
+              <strong>Reduction Target:</strong> <%= goal.reductionTarget %> kg CO₂<br>
+              <strong>Timeframe:</strong> <%= goal.timeframe %>
+            </p>
+
+            <!-- Progress Bar -->
+            <div class="progress mb-2" style="height: 25px;">
+              <div 
+                class="progress-bar <%= goal.goalReached ? 'bg-success' : 'bg-warning' %>" 
+                role="progressbar" 
+                style="width: <%= goal.progress %>%" 
+                aria-valuenow="<%= goal.progress %>" 
+                aria-valuemin="0" 
+                aria-valuemax="100">
+                <%= goal.progress %>% 
+              </div>
+            </div>
+
+            <p class="mb-2">
+              <strong>Total CO₂:</strong> <%= goal.totalCO2.toFixed(2) %> kg<br>
+              <strong>Start:</strong> <%= new Date(goal.startDate).toLocaleDateString() %><br>
+              <strong>End:</strong> <%= new Date(goal.endDate).toLocaleDateString() %>
+            </p>
+
+            <% const daysRemaining = Math.ceil((new Date(goal.endDate) - new Date()) / (1000*60*60*24)); %>
+            <% if (!goal.timeframeEnded) { %>
+              <p><strong>Days Remaining:</strong> <%= daysRemaining %> days</p>
+            <% } %>
+
+            <div class="d-flex gap-2 mt-2">
+              <a href="/goals/<%= goal._id %>" class="btn btn-outline-primary btn-sm">
+                <i class="fas fa-eye me-1"></i>View
+              </a>
+              <a href="/goals/edit-goal/<%= goal._id %>" class="btn btn-outline-success btn-sm">
+                <i class="fas fa-edit me-1"></i>Edit
+              </a>
+              <form action="/goals/<%= goal._id %>?_method=delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this goal?')" class="d-inline">
+                <button type="submit" class="btn btn-outline-danger btn-sm">
+                  <i class="fas fa-trash me-1"></i>Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
 </div>

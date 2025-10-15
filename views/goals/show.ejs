@@ -1,9 +1,118 @@
 <% layout('layout/boilerplate.ejs') %>
 
+<style>
+/* Dark Mode Styles for Show Page */
+/* .dark-mode .hero-section {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+} */
+
+.dark-mode .stat-card {
+    background: rgba(30, 58, 138, 0.1);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    color: #e0e7ff;
+}
+
+/* Progress ring looks the same in both light and dark modes */
+/* .dark-mode .progress-container {
+    background: #374151;
+}
+
+.dark-mode .progress-ring-circle::before {
+    background: #1f2937;
+}
+
+.dark-mode .progress-percentage,
+.dark-mode .progress-label {
+    color: #f9fafb;
+} */
+
+.dark-mode .achievement-badge {
+    background: rgba(251, 191, 36, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.dark-mode .achievement-badge.expired {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.dark-mode .content-card {
+    background: #1f2937;
+    border-color: #374151;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .card-header-custom {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+    border-bottom-color: #374151;
+}
+
+.dark-mode .detail-item {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+.dark-mode .detail-item:hover {
+    background: #4b5563;
+}
+
+.dark-mode .detail-label {
+    color: #9ca3af;
+}
+
+.dark-mode .detail-value {
+    color: #f9fafb;
+}
+
+.dark-mode .time-status.active .time-value {
+    color: #10b981;
+}
+
+.dark-mode .time-status.warning .time-value {
+    color: #f59e0b;
+}
+
+.dark-mode .time-status.expired .time-value {
+    color: #ef4444;
+}
+
+.dark-mode .btn-outline-secondary {
+    border-color: #6b7280;
+    color: #d1d5db;
+}
+
+.dark-mode .btn-outline-secondary:hover {
+    background: #6b7280;
+    color: #f9fafb;
+}
+
+.dark-mode .btn-outline-success {
+    border-color: #10b981;
+    color: #34d399;
+}
+
+.dark-mode .btn-outline-success:hover {
+    background: #10b981;
+    color: #f9fafb;
+}
+
+.dark-mode .btn-outline-danger {
+    border-color: #ef4444;
+    color: #f87171;
+}
+
+.dark-mode .btn-outline-danger:hover {
+    background: #ef4444;
+    color: #f9fafb;
+}
+</style>
+
 <!-- Hero Section -->
 <div class="hero-section">
     <div class="container-fluid">
-        <div class="row align-items-center min-vh-50">
+        <div class="row align-items-center min-vh-50 m-5">
             <div class="col-lg-6 text-center text-lg-start">
                 <h1 class="display-4 fw-bold text-white mb-3">
                     <i class="fas fa-bullseye me-3"></i><%= goal.title %>
@@ -58,7 +167,7 @@
         <div class="col-lg-8">
             <div class="content-card">
                 <div class="card-header-custom">
-                    <h3 class="mb-0">
+                    <h3 class="mb-0 text-success">
                         <i class="fas fa-info-circle me-2"></i>Goal Details
                     </h3>
                 </div>
@@ -142,7 +251,7 @@
             <!-- Time Remaining -->
             <div class="content-card mb-4">
                 <div class="card-header-custom">
-                    <h4 class="mb-0">
+                    <h4 class="mb-0 text-success">
                         <i class="fas fa-clock me-2"></i>Time Status
                     </h4>
                 </div>
@@ -173,7 +282,7 @@
             <!-- Actions -->
             <div class="content-card">
                 <div class="card-header-custom">
-                    <h4 class="mb-0">
+                    <h4 class="mb-0 text-success">
                         <i class="fas fa-cogs me-2"></i>Actions
                     </h4>
                 </div>
@@ -196,3 +305,39 @@
         </div>
     </div>
 </div>
+
+<script>
+// Dark Mode Toggle Functionality for Show Page
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+        if (themeToggle) {
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    } else {
+        if (themeToggle) {
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+    }
+
+    // Toggle dark mode
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+    }
+});
+</script>
