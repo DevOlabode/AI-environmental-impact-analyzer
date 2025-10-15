@@ -23,7 +23,7 @@ module.exports.allGoals = async(req, res)=>{
 
         const now = new Date();
         const timeframeEnded = now > goal.endDate;
-        const goalReached = progress >= 100;
+        const goalReached = totalCO2 <= goal.reductionTarget;
 
         return {
             ...goal.toObject(),
@@ -113,7 +113,7 @@ module.exports.show = async (req, res) => {
 
   const now = new Date();
   const timeframeEnded = now > goal.endDate;
-  const goalReached = progress >= 100;
+  const goalReached = totalCO2 <= goal.reductionTarget;
 
   res.render('goals/show', {
     goal,

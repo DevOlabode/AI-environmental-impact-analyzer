@@ -7,7 +7,7 @@
 - [x] Redesign views/goals/allGoals.ejs with similar modern layout and progress indicators
 - [x] Update controllers/goals.js to calculate progress for all goals in allGoals view
 - [x] Change main color theme to green for both pages
-- [ ] Test the page by running the app and checking the show page
+- [x] Test the page by running the app and checking the show page
 
 ## Completed
 - [x] Analyze controller and current view
