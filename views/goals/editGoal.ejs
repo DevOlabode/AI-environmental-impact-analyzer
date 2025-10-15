@@ -11,8 +11,9 @@
                     <p class="mb-0 mt-2 opacity-75">Update your environmental impact goal</p>
                 </div>
 
+            
                 <div class="card-body p-4">
-                    <form action="/goals/update-goal" method="POST" id="editGoalForm">
+                    <form action="/goals/update-goal/<%= goal._id %>?_method=put" method="POST" id="editGoalForm">
                         <!-- Goal Title -->
                         <div class="mb-4">
                             <label for="goalTitle" class="form-label fw-bold">
