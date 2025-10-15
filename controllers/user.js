@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 
 module.exports.profile = async(req, res)=>{
     const user = await User.findById(req.user._id);
