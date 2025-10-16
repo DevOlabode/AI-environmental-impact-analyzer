@@ -158,16 +158,12 @@
                     </h4>
                 </div>
                 <div class="card-body text-center" data-end-date="<%= goal.endDate %>">
-                    <% const today = new Date(); %>
-                    <% const endDate = new Date(goal.endDate); %>
-                    <% const timeDiff = endDate - today; %>
-                    <% const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); %>
-                    <% if (daysRemaining > 0) { %>
+                    <% if (goal.isActive) { %>
                         <div class="time-status active">
-                            <div class="time-value"><%= daysRemaining %></div>
+                            <div class="time-value days-remaining-value"><%= goal.daysRemaining %></div>
                             <div class="time-label">Days Remaining</div>
                         </div>
-                    <% } else if (daysRemaining === 0) { %>
+                    <% } else if (goal.isEndingToday) { %>
                         <div class="time-status warning">
                             <div class="time-value">0</div>
                             <div class="time-label">Ends Today</div>
@@ -242,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Dynamic Days Remaining Update
+    // Enhanced Dynamic Days Remaining Update
     const timeStatusCard = document.querySelector('.card-body[data-end-date]');
     if (timeStatusCard) {
         const endDateStr = timeStatusCard.getAttribute('data-end-date');
@@ -251,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function updateDaysRemaining() {
             const now = new Date();
             const timeDiff = endDate - now;
-            const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            const daysRemaining = Math.max(0, Math.ceil(timeDiff / (1000 * 60 * 60 * 24)));
 
             const timeValue = timeStatusCard.querySelector('.time-value');
             const timeLabel = timeStatusCard.querySelector('.time-label');
@@ -262,14 +258,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     timeValue.textContent = daysRemaining;
                     timeLabel.textContent = 'Days Remaining';
                     timeStatus.className = 'time-status active';
+                    
+                    // Add visual feedback for urgent goals
+                    if (daysRemaining <= 3) {
+                        timeValue.classList.add('text-warning', 'fw-bold');
+                    }
+                    if (daysRemaining <= 1) {
+                        timeValue.classList.remove('text-warning');
+                        timeValue.classList.add('text-danger', 'fw-bold');
+                    }
                 } else if (daysRemaining === 0) {
                     timeValue.textContent = '0';
                     timeLabel.textContent = 'Ends Today';
                     timeStatus.className = 'time-status warning';
+                    timeValue.classList.add('text-warning', 'fw-bold');
                 } else {
                     timeValue.textContent = '0';
                     timeLabel.textContent = 'Goal Expired';
                     timeStatus.className = 'time-status expired';
+                    timeValue.classList.add('text-danger', 'fw-bold');
                 }
             }
         }

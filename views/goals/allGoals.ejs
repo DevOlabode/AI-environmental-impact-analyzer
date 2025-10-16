@@ -14,7 +14,7 @@
 </div>
 
 <script>
-// Dynamic Days Remaining Update for All Goals
+// Enhanced Dynamic Days Remaining Update for All Goals
 document.addEventListener('DOMContentLoaded', function() {
     const goalCards = document.querySelectorAll('.col-lg-6[data-end-date]');
 
@@ -23,36 +23,56 @@ document.addEventListener('DOMContentLoaded', function() {
         const timeframeEnded = card.getAttribute('data-timeframe-ended') === 'true';
         const endDate = new Date(endDateStr);
 
-        // Find the existing days remaining text
-        const daysRemainingText = card.querySelector('p strong');
-        let daysSpan = null;
-
-        if (daysRemainingText && daysRemainingText.textContent.includes('Days Remaining:')) {
-            // Extract the number part and wrap it in a span for easy updating
-            const para = daysRemainingText.parentElement;
-            const text = para.textContent;
-            const numberMatch = text.match(/(\d+)/);
-            if (numberMatch) {
-                para.innerHTML = text.replace(numberMatch[0], '<span class="days-remaining">' + numberMatch[0] + '</span>');
-                daysSpan = para.querySelector('.days-remaining');
-            }
-        }
+        // Find the days remaining value span
+        const daysSpan = card.querySelector('.days-remaining-value');
+        const statusElement = card.querySelector('p strong');
+        const badgeElement = card.querySelector('.badge');
 
         function updateDaysRemaining() {
-            if (timeframeEnded) return; // Don't update if timeframe has ended
-
             const now = new Date();
             const timeDiff = endDate - now;
             const daysRemaining = Math.max(0, Math.ceil(timeDiff / (1000 * 60 * 60 * 24)));
 
+            // Update days remaining value if the span exists
             if (daysSpan) {
                 daysSpan.textContent = daysRemaining;
+            }
+
+            // Update status text and badge if timeframe has changed
+            if (statusElement && badgeElement) {
+                if (daysRemaining === 0 && !timeframeEnded) {
+                    // Goal ends today
+                    statusElement.innerHTML = '<strong>Status:</strong> <span class="text-warning">Ends Today</span>';
+                    badgeElement.textContent = 'Ends Today';
+                    badgeElement.className = 'badge bg-warning';
+                } else if (daysRemaining < 0 && !timeframeEnded) {
+                    // Goal has expired
+                    statusElement.innerHTML = '<strong>Status:</strong> <span class="text-danger">Expired</span>';
+                    badgeElement.textContent = 'Expired';
+                    badgeElement.className = 'badge bg-danger';
+                }
             }
         }
 
         // Update immediately and then every minute
         updateDaysRemaining();
         setInterval(updateDaysRemaining, 60000); // Update every 60 seconds
+    });
+
+    // Add visual feedback for time-sensitive goals
+    const activeGoals = document.querySelectorAll('.col-lg-6[data-timeframe-ended="false"]');
+    activeGoals.forEach(card => {
+        const daysSpan = card.querySelector('.days-remaining-value');
+        if (daysSpan) {
+            const days = parseInt(daysSpan.textContent);
+            if (days <= 3) {
+                daysSpan.classList.add('text-warning', 'fw-bold');
+            }
+            if (days <= 1) {
+                daysSpan.classList.remove('text-warning');
+                daysSpan.classList.add('text-danger', 'fw-bold');
+            }
+        }
     });
 });
 </script>
@@ -72,13 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <h5 class="card-title mb-0 text-success"><i class="fas fa-bullseye me-2"></i><%= goal.title %></h5>
-              <% if (goal.goalReached) { %>
-                <span class="badge bg-success">Achieved</span>
-              <% } else if (goal.timeframeEnded) { %>
-                <span class="badge bg-danger">Expired</span>
-              <% } else { %>
-                <span class="badge bg-info">Ongoing</span>
-              <% } %>
+              <span class="badge <%= goal.statusBadgeClass %>"><%= goal.statusText %></span>
             </div>
 
             <p class="mb-2">
@@ -106,9 +120,12 @@ document.addEventListener('DOMContentLoaded', function() {
               <strong>End:</strong> <%= new Date(goal.endDate).toLocaleDateString() %>
             </p>
 
-            <% const daysRemaining = Math.max(0, Math.ceil((new Date(goal.endDate) - new Date()) / (1000*60*60*24))); %>
-            <% if (!goal.timeframeEnded) { %>
-              <p><strong>Days Remaining:</strong> <%= daysRemaining %> days</p>
+            <% if (goal.isActive) { %>
+              <p><strong>Days Remaining:</strong> <span class="days-remaining-value"><%= goal.daysRemaining %></span> days</p>
+            <% } else if (goal.isEndingToday) { %>
+              <p><strong>Status:</strong> <span class="text-warning">Ends Today</span></p>
+            <% } else if (goal.isExpired) { %>
+              <p><strong>Status:</strong> <span class="text-danger">Expired</span></p>
             <% } %>
 
             <div class="d-flex gap-2 mt-2">

@@ -45,6 +45,7 @@ const goalsRoutes = require('./routes/goals');
 const feedbackRoutes = require('./routes/feedback');
 
 const sanitizeV5 = require('./utils/mongoSanitizev5');
+const { startDailyScheduler, triggerGoalStatusUpdate } = require('./utils/scheduler');
 
 const ExpressError = require('./utils/expressError');
 
@@ -132,6 +133,24 @@ app.get('/', (req, res)=>{
     res.render('home')
 });
 
+// Manual trigger endpoint for goal status update (for testing)
+app.get('/admin/update-goals', async (req, res) => {
+    try {
+        const result = await triggerGoalStatusUpdate();
+        res.json({ 
+            success: true, 
+            message: 'Goal status update triggered', 
+            result 
+        });
+    } catch (error) {
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error triggering goal status update', 
+            error: error.message 
+        });
+    }
+});
+
 
 app.all(/(.*)/, (req, res, next) => {
     next(new ExpressError('Page not found', 404))
@@ -149,4 +168,7 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
+    
+    // Start the daily scheduler for goal status updates
+    startDailyScheduler();
 });

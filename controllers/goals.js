@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Goal = require('../models/goals');
+const { calculateDaysRemaining, calculateProgress, getStatusBadgeClass, getStatusText } = require('../utils/goalUtils');
 
 module.exports.allGoals = async (req, res) => {
   const goals = await Goal.find({ user: req.user._id });
@@ -27,12 +28,21 @@ module.exports.allGoals = async (req, res) => {
       const timeframeEnded = now > goal.endDate;
       const goalReached = totalCO2 <= goal.reductionTarget && timeframeEnded;
 
+      // Calculate days remaining using utility function
+      const daysInfo = calculateDaysRemaining(goal.endDate);
+
       return {
         ...goal.toObject(),
         totalCO2,
         progress,
         timeframeEnded,
         goalReached,
+        daysRemaining: daysInfo.daysRemaining,
+        isExpired: daysInfo.isExpired,
+        isEndingToday: daysInfo.isEndingToday,
+        isActive: daysInfo.isActive,
+        statusBadgeClass: getStatusBadgeClass(daysInfo.isExpired, daysInfo.isEndingToday, goalReached),
+        statusText: getStatusText(daysInfo.isExpired, daysInfo.isEndingToday, goalReached)
       };
 
     })
@@ -121,12 +131,21 @@ module.exports.show = async (req, res) => {
   const timeframeEnded = now > goal.endDate;
   const goalReached = totalCO2 <= goal.reductionTarget && timeframeEnded;
 
+  // Calculate days remaining using utility function
+  const daysInfo = calculateDaysRemaining(goal.endDate);
+
   res.render('goals/show', {
     goal,
     totalCO2,
     progress,
     timeframeEnded,
     goalReached,
+    daysRemaining: daysInfo.daysRemaining,
+    isExpired: daysInfo.isExpired,
+    isEndingToday: daysInfo.isEndingToday,
+    isActive: daysInfo.isActive,
+    statusBadgeClass: getStatusBadgeClass(daysInfo.isExpired, daysInfo.isEndingToday, goalReached),
+    statusText: getStatusText(daysInfo.isExpired, daysInfo.isEndingToday, goalReached)
   });
 };
 
