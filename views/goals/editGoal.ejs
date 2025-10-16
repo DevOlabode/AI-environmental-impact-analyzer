@@ -1,114 +1,164 @@
 <% layout('layout/boilerplate.ejs') %>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-warning text-white text-center py-4">
-                    <h2 class="mb-0">
-                        <i class="fas fa-edit me-3"></i>Edit Your CO2 Reduction Goal
-                    </h2>
-                    <p class="mb-0 mt-2 opacity-75">Update your environmental impact goal</p>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container-fluid">
+        <div class="row align-items-center min-vh-50 m-5">
+            <div class="col-lg-6 text-center text-lg-start">
+                <h1 class="display-4 fw-bold text-white mb-3">
+                    <i class="fas fa-edit me-3"></i>Edit Your Goal
+                </h1>
+                <p class="lead text-white-50 mb-4">Update your environmental impact target</p>
+                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                    <div class="stat-card">
+                        <div class="stat-value">✏️</div>
+                        <div class="stat-label">Modify Goal</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">📊</div>
+                        <div class="stat-label">Track Progress</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">🎯</div>
+                        <div class="stat-label">Stay On Track</div>
+                    </div>
                 </div>
-
-            
-                <div class="card-body p-4">
-                    <form action="/goals/update-goal/<%= goal._id %>?_method=put" method="POST" id="editGoalForm">
-                        <!-- Goal Title -->
-                        <div class="mb-4">
-                            <label for="goalTitle" class="form-label fw-bold">
-                                <i class="fas fa-tag text-success me-2"></i>Goal Title
-                            </label>
-                            <input type="text" class="form-control form-control-lg" id="goalTitle" name="title"
-                                   value="<%= goal.title %>" required>
-                            <div class="form-text">Give your goal a clear, motivating name</div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="progress-container">
+                    <div class="progress-ring" style="--progress: 50%">
+                        <div class="progress-ring-circle">
+                            <div class="progress-ring-inner">
+                                <span class="progress-percentage">Edit</span>
+                                <span class="progress-label">Mode</span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="achievement-badge">
+                        <i class="fas fa-pencil-alt"></i>
+                        <span>Update Goal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        <!-- CO2 Reduction Target -->
-                        <div class="row mb-4">
+<!-- Main Content -->
+<div class="container my-5">
+    <div class="row g-4">
+        <!-- Goal Form -->
+        <div class="col-lg-8">
+            <div class="content-card">
+                <div class="card-header-custom">
+                    <h3 class="mb-0 text-warning">
+                        <i class="fas fa-pencil-alt me-2"></i>Update Goal Details
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form action="/goals/update-goal/<%= goal._id %>?_method=put" method="POST" id="editGoalForm" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <!-- Goal Title -->
+                            <div class="col-12">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-tag"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">Goal Title</div>
+                                        <input type="text" class="form-control" name="title"
+                                               value="<%= goal.title %>" required>
+                                        <div class="form-text">Give your goal a clear, motivating name</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CO2 Emissions Limit -->
                             <div class="col-md-6">
-                                <label for="reductionAmount" class="form-label fw-bold">
-                                    <i class="fas fa-cloud text-success me-2"></i>CO2 Reduction Target
-                                </label>
-                                <div class="input-group input-group-lg">
-                                    <input type="number" class="form-control form-control-lg border-success" id="reductionAmount"
-                                           name="reductionTarget" value="<%= goal.reductionTarget %>" placeholder="100" min="1" step="0.1" required
-                                           style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
-                                    <span class="input-group-text bg-success text-white border-success"
-                                          style="border-top-left-radius: 0; border-bottom-left-radius: 0; min-width: 80px;">
-                                        <i class="fas fa-cloud me-1"></i>kg CO₂
-                                    </span>
-                                </div>
-                                <div class="form-text opacity-75">
-                                    <small>Enter the amount of CO2 you want to reduce (in kilograms)</small>
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-cloud"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">CO2 Emissions Limit</div>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="reductionTarget"
+                                                   value="<%= goal.reductionTarget %>" placeholder="50" min="1" step="0.1" required>
+                                            <span class="input-group-text">kg CO₂</span>
+                                        </div>
+                                        <div class="form-text">Maximum CO2 emissions allowed during this period</div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Timeframe -->
                             <div class="col-md-6">
-                                <label for="timeframe" class="form-label fw-bold">
-                                    <i class="fas fa-calendar-alt text-primary me-2"></i>Timeframe
-                                </label>
-                                <select class="form-select form-select-lg" id="timeframe" name="timeframe" required>
-                                    <option value="">Select timeframe</option>
-                                    <option value="Monthly" <%= goal.timeframe === 'Monthly' ? 'selected' : '' %>>Monthly</option>
-                                    <option value="Quarterly" <%= goal.timeframe === 'Quarterly' ? 'selected' : '' %>>Quarterly</option>
-                                    <option value="Yearly" <%= goal.timeframe === 'Yearly' ? 'selected' : '' %>>Yearly</option>
-                                    <option value="Custom" <%= goal.timeframe === 'Custom' ? 'selected' : '' %>>Custom Period</option>
-                                </select>
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">Timeframe</div>
+                                        <select class="form-select" name="timeframe" id="timeframe" required>
+                                            <option value="">Select timeframe</option>
+                                            <option value="Monthly" <%= goal.timeframe === 'Monthly' ? 'selected' : '' %>>Monthly</option>
+                                            <option value="Quarterly" <%= goal.timeframe === 'Quarterly' ? 'selected' : '' %>>Quarterly</option>
+                                            <option value="Yearly" <%= goal.timeframe === 'Yearly' ? 'selected' : '' %>>Yearly</option>
+                                            <option value="Custom" <%= goal.timeframe === 'Custom' ? 'selected' : '' %>>Custom Period</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Start Date -->
+                            <div class="col-md-6" id="startDateContainer">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">Start Date</div>
+                                        <input type="date" class="form-control" name="startDate" id="startDate"
+                                               value="<%= goal && goal.startDate ? goal.startDate.toISOString().split('T')[0] : '' %>">
+                                        <div class="form-text">Goal start date</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- End Date -->
+                            <div class="col-md-6" id="endDateContainer">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">End Date</div>
+                                        <input type="date" class="form-control" name="endDate" id="endDate"
+                                               value="<%= goal && goal.endDate ? goal.endDate.toISOString().split('T')[0] : '' %>">
+                                        <div class="form-text">Goal end date</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notes -->
+                            <div class="col-12">
+                                <div class="detail-item">
+                                    <div class="detail-icon">
+                                        <i class="fas fa-sticky-note"></i>
+                                    </div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">Motivation & Notes</div>
+                                        <textarea class="form-control" name="notes" rows="3"
+                                                  placeholder="Why is this goal important to you? Any specific strategies or notes..."><%= goal.notes %></textarea>
+                                        <div class="form-text">Optional: Share what motivates you</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Date Range -->
-                        <div class="mb-4" id="dateRangeSection">
-                            <label class="form-label fw-bold">
-                                <i class="fas fa-calendar text-info me-2"></i>Period Details
-                            </label>
-                            <div class="row">
-                                <div class="col-md-6" id="startDateContainer">
-                                    <label for="startDate" class="form-label">Start Date</label>
-                                    <input type="date" class="form-control" id="startDate" name="startDate"
-                                           value="<%= goal && goal.startDate ? goal.startDate.toISOString().split('T')[0] : '' %>">
-                                </div>
-                                <div class="col-md-6" id="endDateContainer">
-                                    <label for="endDate" class="form-label">End Date</label>
-                                    <input type="date" class="form-control" id="endDate" name="endDate"
-                                           value="<%= goal && goal.endDate ? goal.endDate.toISOString().split('T')[0] : '' %>">
-                                </div>
-                            </div>
-                        </div>
-
-                        <script>
-                        // Date validation for edit form
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const startDateInput = document.getElementById('startDate');
-                            const endDateInput = document.getElementById('endDate');
-                            const form = document.getElementById('editGoalForm');
-
-                            form.addEventListener('submit', function(e) {
-                                const startDate = new Date(startDateInput.value);
-                                const endDate = new Date(endDateInput.value);
-
-                                if (startDate && endDate && startDate >= endDate) {
-                                    e.preventDefault();
-                                    alert('End date must be after the start date.');
-                                    return false;
-                                }
-                            });
-                        });
-                        </script>
-
-                        <!-- Motivation/Description -->
-                        <div class="mb-4">
-                            <label for="description" class="form-label fw-bold">
-                                <i class="fas fa-heart text-danger me-2"></i>Motivation & Notes
-                            </label>
-                            <textarea class="form-control" id="description" name="notes" rows="4"
-                                      placeholder="Why is this goal important to you? Any specific strategies or notes..."><%= goal.notes %></textarea>
-                            <div class="form-text">Optional: Share what motivates you and how you plan to achieve this goal</div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="/goals" class="btn btn-outline-secondary me-md-2">
+                        <!-- Submit Buttons -->
+                        <div class="d-flex gap-2 mt-4">
+                            <a href="/goals" class="btn btn-outline-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Cancel
                             </a>
                             <button type="submit" class="btn btn-warning btn-lg">
@@ -117,33 +167,232 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
 
-                <!-- Progress Tips Card -->
-                <div class="card-footer bg-light">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6 class="text-success mb-2">
-                                <i class="fas fa-lightbulb me-2"></i>Tips for Success
-                            </h6>
-                            <ul class="list-unstyled small mb-0">
-                                <li><i class="fas fa-check text-success me-2"></i>Start with achievable targets</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Track your progress regularly</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Celebrate small victories</li>
-                            </ul>
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Current Progress -->
+            <div class="content-card mb-4">
+                <div class="card-header-custom">
+                    <h4 class="mb-0 text-warning">
+                        <i class="fas fa-chart-line me-2"></i>Current Status
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <div class="display-6 text-warning">
+                            <i class="fas fa-pencil-ruler"></i>
                         </div>
-                        <div class="col-md-6">
-                            <h6 class="text-info mb-2">
-                                <i class="fas fa-leaf me-2"></i>Impact Examples
-                            </h6>
-                            <ul class="list-unstyled small mb-0">
-                                <li><i class="fas fa-tree text-success me-2"></i>Planting trees</li>
-                                <li><i class="fas fa-bicycle text-success me-2"></i>Using sustainable transport</li>
-                                <li><i class="fas fa-recycle text-success me-2"></i>Reducing waste</li>
-                            </ul>
-                        </div>
+                        <p class="text-muted mt-2">Editing existing goal</p>
                     </div>
+                    <div class="small">
+                        <p class="mb-2">
+                            <i class="fas fa-info-circle text-info me-2"></i>
+                            <strong>Note:</strong> Changes will apply immediately
+                        </p>
+                        <p class="mb-0">
+                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                            <strong>Tip:</strong> Adjust your target if needed based on progress
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips for Success -->
+            <div class="content-card mb-4">
+                <div class="card-header-custom">
+                    <h4 class="mb-0 text-success">
+                        <i class="fas fa-lightbulb me-2"></i>Tips for Success
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            <strong>Start Small:</strong> Begin with achievable targets
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            <strong>Track Progress:</strong> Monitor your impact regularly
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check text-success me-2"></i>
+                            <strong>Celebrate Wins:</strong> Acknowledge your achievements
+                        </li>
+                        <li class="mb-0">
+                            <i class="fas fa-check text-success me-2"></i>
+                            <strong>Stay Consistent:</strong> Make sustainable changes
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Impact Examples -->
+            <div class="content-card">
+                <div class="card-header-custom">
+                    <h4 class="mb-0 text-success">
+                        <i class="fas fa-leaf me-2"></i>Impact Examples
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-tree text-success me-2"></i>
+                            <strong>Planting Trees:</strong> Natural carbon sequestration
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-bicycle text-success me-2"></i>
+                            <strong>Sustainable Transport:</strong> Reduce vehicle emissions
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-recycle text-success me-2"></i>
+                            <strong>Reduce Waste:</strong> Minimize landfill contributions
+                        </li>
+                        <li class="mb-0">
+                            <i class="fas fa-home text-success me-2"></i>
+                            <strong>Energy Efficiency:</strong> Lower household consumption
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+/* Edit Goals Page Styles */
+.hero-section {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+/* Dark Mode Styles for Edit Goals Page */
+.dark-mode .hero-section {
+    background: linear-gradient(135deg, #16a34a 0%, #16a34a 100%);
+}
+
+.dark-mode .stat-card {
+    background: rgba(30, 58, 138, 0.1);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    color: #e0e7ff;
+}
+
+.dark-mode .achievement-badge {
+    background: rgba(251, 191, 36, 0.1);
+    color: white;
+    background-color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+} 
+
+.dark-mode .content-card {
+    background: #1f2937;
+    border-color: #374151;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .card-header-custom {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+    border-bottom-color: #374151;
+}
+
+.dark-mode .detail-item {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+.dark-mode .detail-item:hover {
+    background: #4b5563;
+}
+
+.dark-mode .detail-label {
+    color: #9ca3af;
+}
+
+.dark-mode .detail-value {
+    color: #f9fafb;
+}
+
+.dark-mode .btn-outline-secondary {
+    border-color: #6b7280;
+    color: #d1d5db;
+}
+
+.dark-mode .btn-outline-secondary:hover {
+    background: #6b7280;
+    color: #f9fafb;
+}
+
+.dark-mode .btn-warning {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    color: #111827;
+}
+
+.dark-mode .btn-warning:hover {
+    background: #10b981;
+    border-color: #059669;
+}
+
+.dark-mode .text-warning {
+    color: #fbbf24 !important;
+}
+</style>
+
+<script>
+// Dark Mode Toggle Functionality for Edit Goals Page
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+        if (themeToggle) {
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    } else {
+        if (themeToggle) {
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+    }
+
+    // Toggle dark mode
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+    }
+
+    // Date validation for edit form
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+    const form = document.getElementById('editGoalForm');
+
+    form.addEventListener('submit', function(e) {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
+
+        if (startDate && endDate && startDate >= endDate) {
+            e.preventDefault();
+            alert('End date must be after the start date.');
+            return false;
+        }
+    });
+
+    // Timeframe change handler (show/hide end date if needed)
+    const timeframeSelect = document.getElementById('timeframe');
+    timeframeSelect.addEventListener('change', function() {
+        // All timeframes show end date in edit mode
+        // This ensures users can see and modify dates
+    });
+});
+</script>
