@@ -1,0 +1,180 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<style>
+/* Light mode styles for Terms of Service */
+[data-bs-theme="light"] .terms-content p,
+[data-bs-theme="light"] .terms-content ul li,
+[data-bs-theme="light"] .terms-content .text-white {
+    color: #333 !important;
+}
+
+[data-bs-theme="light"] .terms-content .text-white.opacity-50 {
+    color: #666 !important;
+}
+
+[data-bs-theme="light"] .terms-content h2,
+[data-bs-theme="light"] .terms-content h5 {
+    color: var(--primary-color) !important;
+}
+
+/* Dark mode styles for Terms of Service */
+[data-bs-theme="dark"] .terms-content p,
+[data-bs-theme="dark"] .terms-content ul li,
+[data-bs-theme="dark"] .terms-content .text-white {
+    color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .terms-content .text-white.opacity-50 {
+    color: var(--bs-secondary-color) !important;
+}
+
+[data-bs-theme="dark"] .terms-content h2,
+[data-bs-theme="dark"] .terms-content h5 {
+    color: var(--primary-color) !important;
+}
+</style>
+
+<!-- Terms of Service Hero Section -->
+<section class="hero-section" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 80px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Terms of Service</h1>
+        <p class="text-white opacity-50">Please read these terms carefully before using EcoAnalyzer</p>
+    </div>
+</section>
+
+<!-- Terms of Service Content -->
+<section class="py-5 terms-content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-5">
+
+                        <!-- Introduction -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Introduction</h2>
+                            <p class="text-white">Welcome to EcoAnalyzer. These Terms of Service ("Terms") govern your use of our website and services. By accessing or using EcoAnalyzer, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our services.</p>
+                            <p class="text-white">EcoAnalyzer is provided by EcoAnalyzer, Inc. ("we," "us," or "our"). These Terms constitute a legally binding agreement between you and EcoAnalyzer.</p>
+                        </section>
+
+                        <!-- Accounts -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Accounts</h2>
+
+                            <h5 class="mb-3">Account Creation</h5>
+                            <p class="text-white">To access certain features of our service, you must create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+
+                            <h5 class="mb-3">Account Responsibilities</h5>
+                            <p class="text-white">You agree to:</p>
+                            <ul class="text-white">
+                                <li>Provide accurate and complete information when creating your account</li>
+                                <li>Keep your account information updated</li>
+                                <li>Notify us immediately of any unauthorized use of your account</li>
+                                <li>Use your account only for lawful purposes</li>
+                            </ul>
+
+                            <h5 class="mb-3">Account Termination</h5>
+                            <p class="text-white">We reserve the right to suspend or terminate your account at any time for violations of these Terms or for other reasons we deem necessary. You may also request account termination at any time by contacting us.</p>
+                        </section>
+
+                        <!-- User Generated Content -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">User Generated Content</h2>
+                            <p class="text-white">Our service allows you to submit product information, feedback, and other content. You retain ownership of your content, but you grant us a worldwide, non-exclusive, royalty-free license to use, display, and distribute your content in connection with our services.</p>
+                            <p class="text-white">You are solely responsible for the content you submit and agree that it will not:</p>
+                            <ul class="text-white">
+                                <li>Violate any laws or regulations</li>
+                                <li>Infringe on intellectual property rights</li>
+                                <li>Contain harmful, offensive, or inappropriate material</li>
+                                <li>Mislead or deceive other users</li>
+                            </ul>
+                        </section>
+
+                        <!-- Acceptable Use -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Acceptable Use</h2>
+                            <p class="text-white">You agree to use EcoAnalyzer only for lawful purposes and in accordance with these Terms. You will not:</p>
+                            <ul class="text-white">
+                                <li>Use the service to violate any laws or regulations</li>
+                                <li>Attempt to gain unauthorized access to our systems</li>
+                                <li>Interfere with or disrupt our services</li>
+                                <li>Use automated tools to access our services without permission</li>
+                                <li>Transmit viruses, malware, or harmful code</li>
+                                <li>Harass, abuse, or harm other users</li>
+                                <li>Use the service for commercial purposes without our written consent</li>
+                            </ul>
+                        </section>
+
+                        <!-- Termination of Account -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Termination of Account</h2>
+                            <p class="text-white">We may terminate or suspend your account and access to our services immediately, without prior notice or liability, for any reason, including but not limited to breach of these Terms.</p>
+                            <p class="text-white">Upon termination:</p>
+                            <ul class="text-white">
+                                <li>Your right to use our services will cease immediately</li>
+                                <li>We may delete your account and all associated data</li>
+                                <li>Any provisions that should survive termination will remain in effect</li>
+                            </ul>
+                            <p class="text-white">You may request account deletion at any time. Upon receiving your request, we will delete your personal information in accordance with our Privacy Policy, though some data may be retained for legal or legitimate business purposes.</p>
+                        </section>
+
+                        <!-- Intellectual Property -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Intellectual Property</h2>
+                            <p class="text-white opacity-75">EcoAnalyzer and its original content, features, and functionality are owned by EcoAnalyzer, Inc. and are protected by copyright, trademark, and other intellectual property laws.</p>
+                            <p class="text-white opacity-75">You may not reproduce, distribute, modify, or create derivative works of our intellectual property without our written consent.</p>
+                        </section>
+
+                        <!-- Disclaimers -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Disclaimers</h2>
+                            <p class="text-white opacity-75">Our services are provided "as is" and "as available" without warranties of any kind. We do not guarantee that our services will be uninterrupted, error-free, or meet your specific requirements.</p>
+                            <p class="text-white opacity-75">The environmental impact analyses provided by our AI are estimates based on available data and should not be considered as professional environmental assessments. We recommend consulting with qualified environmental experts for critical decisions.</p>
+                        </section>
+
+                        <!-- Limitation of Liability -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Limitation of Liability</h2>
+                            <p class="text-white opacity-75">In no event shall EcoAnalyzer, Inc. be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or relating to your use of our services.</p>
+                            <p class="text-white opacity-75">Our total liability for any claim arising out of or relating to these Terms or our services shall not exceed the amount paid by you for our services in the 12 months preceding the claim.</p>
+                        </section>
+
+                        <!-- Indemnification -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Indemnification</h2>
+                            <p class="text-white opacity-75">You agree to indemnify and hold harmless EcoAnalyzer, Inc. from any claims, damages, losses, or expenses arising from your use of our services or violation of these Terms.</p>
+                        </section>
+
+                        <!-- Governing Law -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Governing Law</h2>
+                            <p class="text-white opacity-75">These Terms shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to its conflict of law provisions.</p>
+                        </section>
+
+                        <!-- Changes to Terms -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Changes to Terms</h2>
+                            <p class="text-white opacity-75">We reserve the right to modify these Terms at any time. We will notify users of material changes by posting the updated Terms on our website and updating the "Last Updated" date.</p>
+                            <p class="text-white opacity-75">Your continued use of our services after such modifications constitutes acceptance of the updated Terms.</p>
+                        </section>
+
+                        <!-- Contact Us -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Contact Us</h2>
+                            <p class="text-white opacity-75">If you have any questions about these Terms of Service, please contact us:</p>
+                            <ul class="text-white opacity-75">
+                                <li>Email: legal@ecoanalyzer.com</li>
+                                <li>Through our <a href="/contact-us" class="text-decoration-none" style="color: var(--primary-color);">Contact Us</a> page</li>
+                            </ul>
+                        </section>
+
+                        <div class="text-center mt-5">
+                            <p class="text-white opacity-50 small">Last Updated: January 2025</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

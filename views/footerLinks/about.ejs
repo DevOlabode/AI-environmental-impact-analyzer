@@ -1,5 +1,47 @@
 <% layout('layout/boilerplate.ejs') %>
 
+<style>
+/* Light mode styles for About Us */
+[data-bs-theme="light"] .about-content p,
+[data-bs-theme="light"] .about-content h2,
+[data-bs-theme="light"] .about-content .text-dark,
+[data-bs-theme="light"] .about-content .text-white {
+    color: #333 !important;
+}
+
+[data-bs-theme="light"] .about-content .text-white.opacity-75 {
+    color: #666 !important;
+}
+
+[data-bs-theme="light"] .about-content h2 {
+    color: var(--primary-color) !important;
+}
+
+[data-bs-theme="light"] .about-content .card-title {
+    color: #333 !important;
+}
+
+/* Dark mode styles for About Us */
+[data-bs-theme="dark"] .about-content p,
+[data-bs-theme="dark"] .about-content h2,
+[data-bs-theme="dark"] .about-content .text-dark,
+[data-bs-theme="dark"] .about-content .text-white {
+    color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .about-content .text-white.opacity-75 {
+    color: var(--bs-secondary-color) !important;
+}
+
+[data-bs-theme="dark"] .about-content h2 {
+    color: var(--primary-color) !important;
+}
+
+[data-bs-theme="dark"] .about-content .card-title {
+    color: var(--bs-body-color) !important;
+}
+</style>
+
 <!-- About Us Hero Section -->
 <section class="hero-section" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 80px 0;">
     <div class="container text-center">
@@ -13,13 +55,13 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">My Mission</h2>
+                <h2 class="mb-4 text-dark" style=" font-weight: bold;">My Mission</h2>
                 <p class="fs-5 mb-4 text-white">As the creator of EcoAnalyzer, I believe that every product has an environmental story. My mission is to make that story transparent and actionable, helping individuals and businesses make informed decisions that contribute to a healthier planet.</p>
                 <p class="text-white opacity-75">By leveraging cutting-edge AI technology, I provide comprehensive environmental impact assessments that cover carbon footprint, water usage, energy consumption, and recyclability – all in real-time and with unprecedented accuracy.</p>
             </div>
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <img src="https://trityenviro.com/assets/setting/environmental-impact-assessment-eia-online1.png" alt="EcoAnalyzer Mission" class="img-fluid rounded shadow" style="max-width: 100%; height: auto;">
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

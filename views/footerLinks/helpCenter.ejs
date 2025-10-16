@@ -1,0 +1,160 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<style>
+/* Light mode styles for Help Center */
+[data-bs-theme="light"] .help-content p,
+[data-bs-theme="light"] .help-content h2,
+[data-bs-theme="light"] .help-content .text-dark,
+[data-bs-theme="light"] .help-content .text-white {
+    color: #333 !important;
+}
+
+[data-bs-theme="light"] .help-content .text-dark.opacity-75 {
+    color: #666 !important;
+}
+
+[data-bs-theme="light"] .help-content h2 {
+    color: var(--primary-color) !important;
+}
+
+/* Dark mode styles for Help Center */
+[data-bs-theme="dark"] .help-content p,
+[data-bs-theme="dark"] .help-content h2,
+[data-bs-theme="dark"] .help-content .text-dark,
+[data-bs-theme="dark"] .help-content .text-white {
+    color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .help-content .text-dark.opacity-75 {
+    color: var(--bs-secondary-color) !important;
+}
+
+[data-bs-theme="dark"] .help-content h2 {
+    color: var(--primary-color) !important;
+}
+</style>
+
+<!-- Help Center Hero Section -->
+<section class="hero-section" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 80px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Help Center</h1>
+        <p class="text-white opacity-50">Find answers to common questions and get the support you need</p>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5" style="color: var(--primary-color); font-weight: bold;">Frequently Asked Questions</h2>
+
+        <div class="accordion" id="faqAccordion">
+            <!-- Getting Started -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#gettingStarted" aria-expanded="true" aria-controls="gettingStarted">
+                        <i class="fas fa-rocket me-2"></i>Getting Started
+                    </button>
+                </h2>
+                <div id="gettingStarted" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h5>How do I analyze a product?</h5>
+                        <p>To analyze a product's environmental impact, navigate to the "Analyze Product" page and fill in the required details about the product. Our AI will process the information and provide a comprehensive environmental impact report.</p>
+
+                        <h5>What information do I need to provide?</h5>
+                        <p>You'll need to provide details such as product name, category, materials used, manufacturing process, and any available sustainability certifications. The more information you provide, the more accurate the analysis will be.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Management -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accountManagement" aria-expanded="false" aria-controls="accountManagement">
+                        <i class="fas fa-user me-2"></i>Account Management
+                    </button>
+                </h2>
+                <div id="accountManagement" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h5>How do I create an account?</h5>
+                        <p>Click on the "Register" button in the navigation bar and fill in your details. You'll receive a confirmation email to activate your account.</p>
+
+                        <h5>How do I reset my password?</h5>
+                        <p>On the login page, click "Forgot Password" and enter your email address. We'll send you instructions to reset your password.</p>
+
+                        <h5>Can I delete my account?</h5>
+                        <p>Yes, you can request account deletion by contacting us through the Contact Us page. Please note that this action is irreversible and will permanently remove all your data.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Analysis -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#productAnalysis" aria-expanded="false" aria-controls="productAnalysis">
+                        <i class="fas fa-chart-bar me-2"></i>Product Analysis
+                    </button>
+                </h2>
+                <div id="productAnalysis" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h5>What does the environmental impact score mean?</h5>
+                        <p>The score ranges from 0-100, where higher scores indicate better environmental performance. It considers factors like carbon footprint, water usage, energy consumption, and recyclability.</p>
+
+                        <h5>How accurate are the analyses?</h5>
+                        <p>Our AI model is trained on extensive environmental data and provides reliable estimates. However, for the most accurate assessment, we recommend consulting with environmental experts.</p>
+
+                        <h5>Can I compare multiple products?</h5>
+                        <p>Yes! Use our comparison tool to analyze and compare the environmental impact of multiple products side by side.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard and Goals -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardGoals" aria-expanded="false" aria-controls="dashboardGoals">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard and Goals
+                    </button>
+                </h2>
+                <div id="dashboardGoals" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h5>What is the Impact Dashboard?</h5>
+                        <p>The dashboard provides a visual overview of your environmental impact analysis history, trends, and insights to help you make more sustainable choices.</p>
+
+                        <h5>How do I set sustainability goals?</h5>
+                        <p>Navigate to the Goals section in your profile. You can set personal targets for reducing environmental impact and track your progress over time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Support -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#technicalSupport" aria-expanded="false" aria-controls="technicalSupport">
+                        <i class="fas fa-cogs me-2"></i>Technical Support
+                    </button>
+                </h2>
+                <div id="technicalSupport" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <h5>The app isn't working properly. What should I do?</h5>
+                        <p>Try refreshing the page or clearing your browser cache. If the issue persists, contact us through the Contact Us page with details about the problem.</p>
+
+                        <h5>How do I use voice input?</h5>
+                        <p>Navigate to the Voice Input page and click the microphone icon. Speak clearly about the product you want to analyze, and our AI will process your input.</p>
+
+                        <h5>Can I upload receipts for analysis?</h5>
+                        <p>Yes! Use the "Capture Receipt" feature to scan or upload receipt images. Our system will extract product information and analyze environmental impact.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Support Section -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Still Need Help?</h2>
+        <p class="lead mb-4 text-dark opacity-75">Can't find what you're looking for? Our support team is here to help.</p>
+        <a href="/contact-us" class="btn btn-primary btn-lg px-4 py-2" style="border-radius: 50px; font-weight: 600;">Contact Support</a>
+    </div>
+</section>

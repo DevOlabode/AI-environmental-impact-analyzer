@@ -1,0 +1,251 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<style>
+/* Light mode styles for Contact Us */
+[data-bs-theme="light"] .contact-content p,
+[data-bs-theme="light"] .contact-content h2,
+[data-bs-theme="light"] .contact-content h3,
+[data-bs-theme="light"] .contact-content h5,
+[data-bs-theme="light"] .contact-content .text-dark,
+[data-bs-theme="light"] .contact-content .text-white {
+    color: #333 !important;
+}
+
+[data-bs-theme="light"] .contact-content .text-white.opacity-75 {
+    color: #666 !important;
+}
+
+[data-bs-theme="light"] .contact-content h2,
+[data-bs-theme="light"] .contact-content h3 {
+    color: var(--primary-color) !important;
+}
+
+/* Dark mode styles for Contact Us */
+[data-bs-theme="dark"] .contact-content p,
+[data-bs-theme="dark"] .contact-content h2,
+[data-bs-theme="dark"] .contact-content h3,
+[data-bs-theme="dark"] .contact-content h5,
+[data-bs-theme="dark"] .contact-content .text-dark,
+[data-bs-theme="dark"] .contact-content .text-white {
+    color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .contact-content .text-white.opacity-75 {
+    color: var(--bs-secondary-color) !important;
+}
+
+[data-bs-theme="dark"] .contact-content h2,
+[data-bs-theme="dark"] .contact-content h3 {
+    color: var(--primary-color) !important;
+}
+</style>
+
+<!-- Contact Us Hero Section -->
+<section class="hero-section" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 80px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Contact Us</h1>
+        <p class="text-white opacity-50">Get in touch with us or chat with our AI assistant</p>
+    </div>
+</section>
+
+<!-- Contact Form and Chatbot Section -->
+<section class="py-5 contact-content">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Form -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4" style="color: var(--primary-color); font-weight: bold;">
+                            <i class="fas fa-envelope me-2"></i>Send us a Message
+                        </h3>
+                        <form id="contactForm" novalidate>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">Please provide your name.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">Please provide a valid email.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                                <div class="invalid-feedback">Please provide a subject.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                                <div class="invalid-feedback">Please provide a message.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100" style="border-radius: 50px; font-weight: 600;">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Chatbot -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title mb-4" style="color: var(--primary-color); font-weight: bold;">
+                            <i class="fas fa-robot me-2"></i>AI Assistant
+                        </h3>
+                        <div id="chatContainer" class="flex-grow-1 mb-3" style="height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 10px; padding: 15px; background-color: #f8f9fa;">
+                            <div class="chat-message bot-message mb-3">
+                                <div class="d-flex align-items-start">
+                                    <div class="avatar me-2" style="width: 30px; height: 30px; background-color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="message-content flex-grow-1">
+                                        <p class="mb-1 fw-bold">EcoBot</p>
+                                        <p class="mb-0">Hello! I'm EcoBot, your AI assistant for EcoAnalyzer. How can I help you today? You can ask me about our features, environmental impact analysis, or anything related to sustainable products!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="chatInput" class="form-control" placeholder="Ask me anything about EcoAnalyzer..." style="border-radius: 50px 0 0 50px;">
+                            <button id="sendButton" class="btn btn-primary" style="border-radius: 0 50px 50px 0;">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information Section -->
+<section class="py-5 bg-success">
+    <div class="container">
+        <h2 class="text-center text dark mb-5" style="font-weight: bold;">Other Ways to Reach Us</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center text-dark">
+                    <div class="contact-icon mb-3" style="font-size: 3rem; color: var(--primary-color);">
+                        <a href=""><i class="fas fa-envelope"></i></a>
+                    </div>
+                    <h5>Email</h5>
+                    <p class="text-white opacity-75">support@ecoanalyzer.com</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="contact-icon mb-3" style="font-size: 3rem; color: var(--primary-color);">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <h5>Social Media</h5>
+                    <p class="text-white opacity-75">Follow us for updates</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="contact-icon mb-3" style="font-size: 3rem; color: var(--primary-color);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h5>Response Time</h5>
+                    <p class="text-white opacity-75">We typically respond within 24 hours</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Contact Form Validation
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+
+    if (!form.checkValidity()) {
+        e.stopPropagation();
+        form.classList.add('was-validated');
+        return;
+    }
+
+    // Simulate form submission (frontend only)
+    alert('Thank you for your message! This is a demo - in a real application, this would be sent to our servers.');
+    form.reset();
+    form.classList.remove('was-validated');
+});
+
+// AI Chatbot Functionality
+const chatContainer = document.getElementById('chatContainer');
+const chatInput = document.getElementById('chatInput');
+const sendButton = document.getElementById('sendButton');
+
+const responses = {
+    'hello': 'Hello! How can I help you with EcoAnalyzer today?',
+    'hi': 'Hi there! What would you like to know about our environmental impact analysis?',
+    'help': 'I can help you with information about product analysis, account management, features, and more. What specific question do you have?',
+    'features': 'EcoAnalyzer offers AI-powered environmental impact analysis, product comparison, receipt scanning, voice input, and sustainability goal tracking. Which feature interests you most?',
+    'analysis': 'Our AI analyzes carbon footprint, water usage, energy consumption, and recyclability to give you a comprehensive environmental impact score. You can analyze products by filling out our form or using voice input.',
+    'account': 'You can create a free account to save your analyses, set sustainability goals, and track your environmental impact over time.',
+    'compare': 'Use our comparison tool to analyze multiple products side by side and see which ones have the best environmental performance.',
+    'receipt': 'You can scan or upload receipts to automatically extract product information for analysis. This makes it easy to analyze items you\'ve already purchased.',
+    'goals': 'Set personal sustainability goals and track your progress. Our system helps you stay motivated to make more eco-friendly choices.',
+    'default': 'That\'s an interesting question! For detailed assistance, please check our Help Center or contact our support team directly.'
+};
+
+function addMessage(message, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'} mb-3`;
+
+    const avatar = isUser ?
+        '<div class="avatar me-2" style="width: 30px; height: 30px; background-color: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;"><i class="fas fa-user"></i></div>' :
+        '<div class="avatar me-2" style="width: 30px; height: 30px; background-color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;"><i class="fas fa-robot"></i></div>';
+
+    messageDiv.innerHTML = `
+        <div class="d-flex align-items-start ${isUser ? 'justify-content-end' : ''}">
+            ${isUser ? '' : avatar}
+            <div class="message-content flex-grow-1">
+                <p class="mb-1 fw-bold">${isUser ? 'You' : 'EcoBot'}</p>
+                <p class="mb-0">${message}</p>
+            </div>
+            ${isUser ? avatar : ''}
+        </div>
+    `;
+
+    chatContainer.appendChild(messageDiv);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+function getBotResponse(userMessage) {
+    const lowerMessage = userMessage.toLowerCase();
+
+    for (const [key, response] of Object.entries(responses)) {
+        if (lowerMessage.includes(key)) {
+            return response;
+        }
+    }
+
+    return responses.default;
+}
+
+function sendMessage() {
+    const message = chatInput.value.trim();
+    if (!message) return;
+
+    addMessage(message, true);
+    chatInput.value = '';
+
+    // Simulate typing delay
+    setTimeout(() => {
+        const botResponse = getBotResponse(message);
+        addMessage(botResponse);
+    }, 1000);
+}
+
+sendButton.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+</script>

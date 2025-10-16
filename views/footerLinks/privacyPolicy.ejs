@@ -1,0 +1,189 @@
+<% layout('layout/boilerplate.ejs') %>
+
+<style>
+/* Light mode styles for Privacy Policy */
+[data-bs-theme="light"] .privacy-content p,
+[data-bs-theme="light"] .privacy-content ul li,
+[data-bs-theme="light"] .privacy-content .text-success {
+    color: #333 !important;
+}
+
+[data-bs-theme="light"] .privacy-content .text-muted {
+    color: #666 !important;
+}
+
+[data-bs-theme="light"] .privacy-content h2,
+[data-bs-theme="light"] .privacy-content h5 {
+    color: var(--primary-color) !important;
+}
+
+/* Dark mode styles for Privacy Policy */
+[data-bs-theme="dark"] .privacy-content p,
+[data-bs-theme="dark"] .privacy-content ul li,
+[data-bs-theme="dark"] .privacy-content .text-success {
+    color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .privacy-content .text-muted {
+    color: var(--bs-secondary-color) !important;
+}
+
+[data-bs-theme="dark"] .privacy-content h2,
+[data-bs-theme="dark"] .privacy-content h5 {
+    color: var(--primary-color) !important;
+}
+</style>
+
+<!-- Privacy Policy Hero Section -->
+<section class="hero-section" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 80px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Privacy Policy</h1>
+        <p class="text-white opacity-50">How we collect, use, and protect your information</p>
+    </div>
+</section>
+
+<!-- Privacy Policy Content -->
+<section class="py-5 privacy-content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-5">
+
+                        <!-- Introduction -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Introduction</h2>
+                            <p class="text-success">At EcoAnalyzer, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website and services.</p>
+                            <p class="text-success">By using EcoAnalyzer, you agree to the collection and use of information in accordance with this policy. We will not use or share your information with anyone except as described in this Privacy Policy.</p>
+                        </section>
+
+                        <!-- Information We Collect -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Information We Collect</h2>
+
+                            <h5 class="mb-3">Personal Information</h5>
+                            <p class="text-success">We may collect personally identifiable information that you provide directly to us, including:</p>
+                            <ul class="text-success">
+                                <li>Name and email address when you create an account</li>
+                                <li>Profile information you choose to provide</li>
+                                <li>Feedback and support messages you send to us</li>
+                                <li>Communication preferences</li>
+                            </ul>
+
+                            <h5 class="mb-3">Usage Information</h5>
+                            <p class="text-success">We automatically collect certain information about your use of our services:</p>
+                            <ul class="text-success">
+                                <li>IP address and location information</li>
+                                <li>Browser type and version</li>
+                                <li>Pages visited and time spent on our site</li>
+                                <li>Device information</li>
+                                <li>Referral sources</li>
+                            </ul>
+
+                            <h5 class="mb-3">Product Data</h5>
+                            <p class="text-success">When you analyze products using our service, we collect:</p>
+                            <ul class="text-success">
+                                <li>Product information you input for analysis</li>
+                                <li>Analysis results and environmental impact scores</li>
+                                <li>Usage patterns and preferences</li>
+                            </ul>
+                        </section>
+
+                        <!-- How We Use Your Information -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">How We Use Your Information</h2>
+                            <p class="text-success">We use the information we collect for the following purposes:</p>
+                            <ul class="text-success">
+                                <li><strong>Provide Services:</strong> To deliver our environmental impact analysis services and maintain your account</li>
+                                <li><strong>Improve Our Services:</strong> To understand how users interact with our platform and make improvements</li>
+                                <li><strong>Communication:</strong> To send you important updates, respond to your inquiries, and provide customer support</li>
+                                <li><strong>Analytics:</strong> To analyze usage patterns and improve user experience</li>
+                                <li><strong>Legal Compliance:</strong> To comply with legal obligations and protect our rights</li>
+                                <li><strong>Research:</strong> To conduct research on environmental impact and sustainability trends (using anonymized data)</li>
+                            </ul>
+                        </section>
+
+                        <!-- Information Sharing and Disclosure -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Information Sharing and Disclosure</h2>
+                            <p class="text-success">We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except in the following circumstances:</p>
+                            <ul class="text-success">
+                                <li><strong>Service Providers:</strong> We may share information with trusted third-party service providers who assist us in operating our website and conducting our business</li>
+                                <li><strong>Legal Requirements:</strong> We may disclose information if required by law or to protect our rights and safety</li>
+                                <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of assets, your information may be transferred</li>
+                                <li><strong>Aggregated Data:</strong> We may share anonymized, aggregated data for research and analytical purposes</li>
+                            </ul>
+                        </section>
+
+                        <!-- Data Security -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Data Security</h2>
+                            <p class="text-success">We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:</p>
+                            <ul class="text-success">
+                                <li>Encryption of data in transit and at rest</li>
+                                <li>Regular security assessments and updates</li>
+                                <li>Access controls and authentication procedures</li>
+                                <li>Secure data storage and backup systems</li>
+                            </ul>
+                            <p class="text-success">However, no method of transmission over the internet or electronic storage is 100% secure. While we strive to protect your information, we cannot guarantee absolute security.</p>
+                        </section>
+
+                        <!-- Your Rights -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Your Rights</h2>
+                            <p class="text-success">You have the following rights regarding your personal information:</p>
+                            <ul class="text-success">
+                                <li><strong>Access:</strong> Request a copy of the personal information we hold about you</li>
+                                <li><strong>Correction:</strong> Request correction of inaccurate or incomplete information</li>
+                                <li><strong>Deletion:</strong> Request deletion of your personal information (subject to legal requirements)</li>
+                                <li><strong>Portability:</strong> Request transfer of your data in a structured format</li>
+                                <li><strong>Opt-out:</strong> Unsubscribe from marketing communications</li>
+                                <li><strong>Restriction:</strong> Request limitation of how we process your information</li>
+                            </ul>
+                            <p class="text-success">To exercise these rights, please contact us using the information provided in the Contact Us section.</p>
+                        </section>
+
+                        <!-- Cookies and Tracking -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Cookies and Tracking Technologies</h2>
+                            <p class="text-success">We use cookies and similar technologies to enhance your experience on our website:</p>
+                            <ul class="text-success">
+                                <li><strong>Essential Cookies:</strong> Required for basic website functionality</li>
+                                <li><strong>Analytics Cookies:</strong> Help us understand how users interact with our site</li>
+                                <li><strong>Preference Cookies:</strong> Remember your settings and preferences</li>
+                            </ul>
+                            <p class="text-success">You can control cookie settings through your browser preferences. However, disabling certain cookies may affect website functionality.</p>
+                        </section>
+
+                        <!-- Children's Privacy -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Children's Privacy</h2>
+                            <p class="text-success">Our services are not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal information from a child under 13, we will take steps to delete such information.</p>
+                        </section>
+
+                        <!-- Changes to This Policy -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Changes to This Privacy Policy</h2>
+                            <p class="text-muted">We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. We encourage you to review this Privacy Policy periodically.</p>
+                        </section>
+
+                        <!-- Contact Us -->
+                        <section class="mb-5">
+                            <h2 class="mb-4" style="color: var(--primary-color); font-weight: bold;">Contact Us</h2>
+                            <p class="text-success">If you have any questions about this Privacy Policy or our privacy practices, please contact us:</p>
+                            <ul class="text-success">
+                                <li>Email: privacy@ecoanalyzer.com</li>
+                                <li>Through our <a href="/contact-us" class="text-decoration-none" style="color: var(--primary-color);">Contact Us</a> page</li>
+                            </ul>
+                        </section>
+
+                        <div class="text-center mt-5">
+                            <p class="text-success small">Last Updated: January 2025</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
