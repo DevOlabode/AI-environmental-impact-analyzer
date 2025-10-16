@@ -10,8 +10,52 @@
       <a href="/goals/set-goals" class="btn btn-primary mt-3">
         <i class="fas fa-plus me-2"></i>Set New Goal
       </a>
-    </div>
   </div>
+</div>
+
+<script>
+// Dynamic Days Remaining Update for All Goals
+document.addEventListener('DOMContentLoaded', function() {
+    const goalCards = document.querySelectorAll('.col-lg-6[data-end-date]');
+
+    goalCards.forEach(card => {
+        const endDateStr = card.getAttribute('data-end-date');
+        const timeframeEnded = card.getAttribute('data-timeframe-ended') === 'true';
+        const endDate = new Date(endDateStr);
+
+        // Find the existing days remaining text
+        const daysRemainingText = card.querySelector('p strong');
+        let daysSpan = null;
+
+        if (daysRemainingText && daysRemainingText.textContent.includes('Days Remaining:')) {
+            // Extract the number part and wrap it in a span for easy updating
+            const para = daysRemainingText.parentElement;
+            const text = para.textContent;
+            const numberMatch = text.match(/(\d+)/);
+            if (numberMatch) {
+                para.innerHTML = text.replace(numberMatch[0], '<span class="days-remaining">' + numberMatch[0] + '</span>');
+                daysSpan = para.querySelector('.days-remaining');
+            }
+        }
+
+        function updateDaysRemaining() {
+            if (timeframeEnded) return; // Don't update if timeframe has ended
+
+            const now = new Date();
+            const timeDiff = endDate - now;
+            const daysRemaining = Math.max(0, Math.ceil(timeDiff / (1000 * 60 * 60 * 24)));
+
+            if (daysSpan) {
+                daysSpan.textContent = daysRemaining;
+            }
+        }
+
+        // Update immediately and then every minute
+        updateDaysRemaining();
+        setInterval(updateDaysRemaining, 60000); // Update every 60 seconds
+    });
+});
+</script>
 
   <div class="row g-4">
     <% if (goals.length === 0) { %>
@@ -23,7 +67,7 @@
     <% } %>
 
     <% goals.forEach(goal => { %>
-      <div class="col-lg-6">
+      <div class="col-lg-6" data-end-date="<%= goal.endDate %>" data-timeframe-ended="<%= goal.timeframeEnded %>">
         <div class="card shadow-sm h-100">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-2">

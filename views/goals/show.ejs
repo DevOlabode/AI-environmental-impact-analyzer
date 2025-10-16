@@ -157,7 +157,7 @@
                         <i class="fas fa-clock me-2"></i>Time Status
                     </h4>
                 </div>
-                <div class="card-body text-center">
+                <div class="card-body text-center" data-end-date="<%= goal.endDate %>">
                     <% const today = new Date(); %>
                     <% const endDate = new Date(goal.endDate); %>
                     <% const timeDiff = endDate - today; %>
@@ -240,6 +240,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             }
         });
+    }
+
+    // Dynamic Days Remaining Update
+    const timeStatusCard = document.querySelector('.card-body[data-end-date]');
+    if (timeStatusCard) {
+        const endDateStr = timeStatusCard.getAttribute('data-end-date');
+        const endDate = new Date(endDateStr);
+
+        function updateDaysRemaining() {
+            const now = new Date();
+            const timeDiff = endDate - now;
+            const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+            const timeValue = timeStatusCard.querySelector('.time-value');
+            const timeLabel = timeStatusCard.querySelector('.time-label');
+            const timeStatus = timeStatusCard.querySelector('.time-status');
+
+            if (timeValue && timeLabel && timeStatus) {
+                if (daysRemaining > 0) {
+                    timeValue.textContent = daysRemaining;
+                    timeLabel.textContent = 'Days Remaining';
+                    timeStatus.className = 'time-status active';
+                } else if (daysRemaining === 0) {
+                    timeValue.textContent = '0';
+                    timeLabel.textContent = 'Ends Today';
+                    timeStatus.className = 'time-status warning';
+                } else {
+                    timeValue.textContent = '0';
+                    timeLabel.textContent = 'Goal Expired';
+                    timeStatus.className = 'time-status expired';
+                }
+            }
+        }
+
+        // Update immediately and then every minute
+        updateDaysRemaining();
+        setInterval(updateDaysRemaining, 60000); // Update every 60 seconds
     }
 });
 </script>
