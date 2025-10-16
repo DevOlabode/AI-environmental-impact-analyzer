@@ -76,6 +76,26 @@
                             </div>
                         </div>
 
+                        <script>
+                        // Date validation for edit form
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const startDateInput = document.getElementById('startDate');
+                            const endDateInput = document.getElementById('endDate');
+                            const form = document.getElementById('editGoalForm');
+
+                            form.addEventListener('submit', function(e) {
+                                const startDate = new Date(startDateInput.value);
+                                const endDate = new Date(endDateInput.value);
+
+                                if (startDate && endDate && startDate >= endDate) {
+                                    e.preventDefault();
+                                    alert('End date must be after the start date.');
+                                    return false;
+                                }
+                            });
+                        });
+                        </script>
+
                         <!-- Motivation/Description -->
                         <div class="mb-4">
                             <label for="description" class="form-label fw-bold">

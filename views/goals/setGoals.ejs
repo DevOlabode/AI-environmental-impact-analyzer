@@ -83,10 +83,14 @@
                                         <div class="detail-label">CO2 Reduction Target</div>
                                         <div class="input-group">
                                             <input type="number" class="form-control" name="reductionTarget"
-                                                   placeholder="100" min="1" step="0.1" required>
+                                                   placeholder="50" min="1" step="0.1" required>
                                             <span class="input-group-text">kg CO₂</span>
                                         </div>
-                                        <div class="form-text">Amount of CO2 you want to reduce</div>
+                                        <div class="form-text">Target reduction in CO2 emissions</div>
+                                        <div class="form-text text-info small">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            Baseline will be calculated from your previous period's emissions
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -355,7 +359,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Set default start date to today
-    const today = new Date().toISOString().split('T')[0];
-    startDateInput.value = today;
+    const today = new Date();
+    const localDate = today.getFullYear() + '-' +
+        String(today.getMonth() + 1).padStart(2, '0') + '-' +
+        String(today.getDate()).padStart(2, '0');
+    startDateInput.value = localDate;
 });
 </script>
