@@ -19,11 +19,9 @@ module.exports.allGoals = async (req, res) => {
         0
       );
 
-      let progress = Math.max(
-        0,
-        Math.min((totalCO2 / goal.reductionTarget) * 100, 100)
-      );
-      progress = Math.round(progress);
+    const remaining = Math.max(0, goal.reductionTarget - totalCO2);
+    let progress = Math.round((remaining / goal.reductionTarget) * 100);
+    progress = Math.max(0, Math.min(progress, 100));
 
       const now = new Date();
       const timeframeEnded = now > goal.endDate;
@@ -115,11 +113,9 @@ module.exports.show = async (req, res) => {
     0
   );
 
-  let progress = Math.max(
-    0,
-    Math.min((totalCO2 / goal.reductionTarget) * 100, 100)
-  );
-  progress = Math.round(progress);
+    const remaining = Math.max(0, goal.reductionTarget - totalCO2);
+    let progress = Math.round((remaining / goal.reductionTarget) * 100);
+    progress = Math.max(0, Math.min(progress, 100));
 
   const now = new Date();
   const timeframeEnded = now > goal.endDate;

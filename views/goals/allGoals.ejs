@@ -38,7 +38,7 @@
             </div>
 
             <p class="mb-2">
-              <strong>Reduction Target:</strong> <%= goal.reductionTarget %> kg CO₂<br>
+              <strong>Emissions Limit:</strong> <%= goal.reductionTarget %> kg CO₂<br>
               <strong>Timeframe:</strong> <%= goal.timeframe %>
             </p>
 
@@ -56,12 +56,13 @@
             </div>
 
             <p class="mb-2">
-              <strong>Total CO₂:</strong> <%= goal.totalCO2.toFixed(2) %> kg<br>
+              <strong>Current CO₂:</strong> <%= goal.totalCO2.toFixed(2) %> kg<br>
+              <strong>Budget Remaining:</strong> <%= Math.max(0, goal.reductionTarget - goal.totalCO2).toFixed(2) %> kg<br>
               <strong>Start:</strong> <%= new Date(goal.startDate).toLocaleDateString() %><br>
               <strong>End:</strong> <%= new Date(goal.endDate).toLocaleDateString() %>
             </p>
 
-            <% const daysRemaining = Math.ceil((new Date(goal.endDate) - new Date()) / (1000*60*60*24)); %>
+            <% const daysRemaining = Math.max(0, Math.ceil((new Date(goal.endDate) - new Date()) / (1000*60*60*24))); %>
             <% if (!goal.timeframeEnded) { %>
               <p><strong>Days Remaining:</strong> <%= daysRemaining %> days</p>
             <% } %>
