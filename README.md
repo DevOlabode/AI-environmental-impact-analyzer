@@ -28,6 +28,13 @@ A comprehensive web application that leverages AI to analyze the environmental f
 - **Responsive Design**: Mobile-friendly interface with modern CSS and animations.
 - **Security**: Rate limiting, input sanitization, and CSRF protection.
 
+## Future Improvements
+
+### Goal Feature
+
+- At the end of the goal's timeframe, an email will be automatically sent to the user indicating whether the goal was achieved. If the goal is met, a congratulatory badge will be included in the email; otherwise, an encouraging message will be sent.
+- The user profile will include a dedicated section to display all earned badges.
+
 ## Technologies Used
 
 ### Backend
