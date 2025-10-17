@@ -97,13 +97,13 @@
                         </h3>
                         <div id="chatContainer" class="flex-grow-1 mb-3" style="height: 400px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 10px; padding: 15px; background-color: #f8f9fa;">
                             <div class="chat-message bot-message mb-3">
-                                <div class="d-flex align-items-start">
+                                <div class="d-flex align-items-start text-dark">
                                     <div class="avatar me-2" style="width: 30px; height: 30px; background-color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;">
                                         <i class="fas fa-robot"></i>
                                     </div>
-                                    <div class="message-content flex-grow-1">
-                                        <p class="mb-1 fw-bold">EcoBot</p>
-                                        <p class="mb-0">Hello! I'm EcoBot, your AI assistant for EcoAnalyzer. How can I help you today? You can ask me about our features, environmental impact analysis, or anything related to sustainable products!</p>
+                                    <div class="message-content flex-grow-1" style="color : black">
+                                        <p class="mb-1 fw-bold text-dark opacity-75">EcoBot</p>
+                                        <p class="mb-0 text-dark opacity-75">Hello! I'm EcoBot, your AI assistant for EcoAnalyzer. How can I help you today? You can ask me about our features, environmental impact analysis, or anything related to sustainable products!</p>
                                     </div>
                                 </div>
                             </div>
@@ -180,19 +180,6 @@ const chatContainer = document.getElementById('chatContainer');
 const chatInput = document.getElementById('chatInput');
 const sendButton = document.getElementById('sendButton');
 
-const responses = {
-    'hello': 'Hello! How can I help you with EcoAnalyzer today?',
-    'hi': 'Hi there! What would you like to know about our environmental impact analysis?',
-    'help': 'I can help you with information about product analysis, account management, features, and more. What specific question do you have?',
-    'features': 'EcoAnalyzer offers AI-powered environmental impact analysis, product comparison, receipt scanning, voice input, and sustainability goal tracking. Which feature interests you most?',
-    'analysis': 'Our AI analyzes carbon footprint, water usage, energy consumption, and recyclability to give you a comprehensive environmental impact score. You can analyze products by filling out our form or using voice input.',
-    'account': 'You can create a free account to save your analyses, set sustainability goals, and track your environmental impact over time.',
-    'compare': 'Use our comparison tool to analyze multiple products side by side and see which ones have the best environmental performance.',
-    'receipt': 'You can scan or upload receipts to automatically extract product information for analysis. This makes it easy to analyze items you\'ve already purchased.',
-    'goals': 'Set personal sustainability goals and track your progress. Our system helps you stay motivated to make more eco-friendly choices.',
-    'default': 'That\'s an interesting question! For detailed assistance, please check our Help Center or contact our support team directly.'
-};
-
 function addMessage(message, isUser = false) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'} mb-3`;
@@ -205,8 +192,8 @@ function addMessage(message, isUser = false) {
         <div class="d-flex align-items-start ${isUser ? 'justify-content-end' : ''}">
             ${isUser ? '' : avatar}
             <div class="message-content flex-grow-1">
-                <p class="mb-1 fw-bold">${isUser ? 'You' : 'EcoBot'}</p>
-                <p class="mb-0">${message}</p>
+                <p class="mb-1 fw-bold text-dark opacity-75">${isUser ? 'You' : 'EcoBot'}</p>
+                <p class="mb-0 text-dark opacity-75">${message}</p>
             </div>
             ${isUser ? avatar : ''}
         </div>
@@ -216,30 +203,67 @@ function addMessage(message, isUser = false) {
     chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-function getBotResponse(userMessage) {
-    const lowerMessage = userMessage.toLowerCase();
+async function getBotResponse(userMessage) {
+    try {
+        const response = await fetch('/chatbot/response', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: userMessage })
+        });
 
-    for (const [key, response] of Object.entries(responses)) {
-        if (lowerMessage.includes(key)) {
-            return response;
+        if (!response.ok) {
+            throw new Error('Failed to get response');
         }
-    }
 
-    return responses.default;
+        const data = await response.json();
+        return data.response;
+    } catch (error) {
+        console.error('Error getting bot response:', error);
+        return 'Sorry, I\'m having trouble connecting right now. Please try again later or check our Help Center for assistance.';
+    }
 }
 
-function sendMessage() {
+async function sendMessage() {
     const message = chatInput.value.trim();
     if (!message) return;
 
     addMessage(message, true);
     chatInput.value = '';
 
-    // Simulate typing delay
-    setTimeout(() => {
-        const botResponse = getBotResponse(message);
+    // Show typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message bot-message mb-3';
+    typingDiv.id = 'typing-indicator';
+    typingDiv.innerHTML = `
+        <div class="d-flex align-items-start">
+            <div class="avatar me-2" style="width: 30px; height: 30px; background-color: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px;"><i class="fas fa-robot"></i></div>
+            <div class="message-content flex-grow-1">
+                <p class="mb-1 fw-bold">EcoBot</p>
+                <p class="mb-0"><em>Typing...</em></p>
+            </div>
+        </div>
+    `;
+    chatContainer.appendChild(typingDiv);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    try {
+        const botResponse = await getBotResponse(message);
+        // Remove typing indicator
+        const typingIndicator = document.getElementById('typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
         addMessage(botResponse);
-    }, 1000);
+    } catch (error) {
+        // Remove typing indicator
+        const typingIndicator = document.getElementById('typing-indicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+        addMessage('Sorry, I\'m having trouble connecting right now. Please try again later.');
+    }
 }
 
 sendButton.addEventListener('click', sendMessage);
