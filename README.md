@@ -61,7 +61,7 @@ A comprehensive web application that leverages AI to analyze the environmental f
 
 ## Live Demo
 
-You can access the live demo [here](https://ai-environmental-impact-analyzer-3.onrender.com/)
+You can access the live link of the app [here](https://ai-environmental-impact-analyzer-3.onrender.com/)
 
 
 ## Installation & Setup
