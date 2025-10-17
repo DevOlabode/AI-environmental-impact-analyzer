@@ -120,6 +120,12 @@ app.use((req, res, next)=>{
     next();
 });
 
+// Make current URL available to all views
+app.use((req, res, next) => {
+    res.locals.currentUrl = req.originalUrl;
+    next();
+});
+
 app.use('/', authRoutes);
 app.use('/form', formRoutes);
 app.use('/', receiptRoutes);
