@@ -13,10 +13,10 @@ module.exports.sendFeedback = async(req, res)=>{
 
     const { feedback } = req.body;
 
-    // if(!feedback || feedback.trim().length === 0){
-    //     req.flash('error', 'Feedback cannot be empty');
-    //     return res.redirect('/');
-    // }
+    if(!feedback || feedback.trim().length === 0){
+        req.flash('error', 'Feedback cannot be empty');
+        return res.redirect('/');
+    }
 
     const { email, username} = user;
 
@@ -30,4 +30,3 @@ module.exports.sendFeedback = async(req, res)=>{
     req.flash('success', 'Feedback sent successfully. Thank you for helping us improve!');
     res.redirect('/');
 }
-
