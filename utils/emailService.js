@@ -81,4 +81,40 @@ Sent from AI Environmental Impact Analyzer
   }
 };
 
-module.exports = { sendPasswordResetCode, sendFeedback };
+
+//Contact Us Form
+
+const contactUs = async (name, email, subject, message) => {
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL,
+    subject: `📬 AI Environmental Analysis - Contact Us: ${subject}`,
+    text: `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📩 New Contact Us Message Received
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 Name:     ${name}
+📧 Email:    ${email}
+💬 Subject:  ${subject}
+
+📝 Message:
+${message}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📅 Received on: ${new Date().toLocaleString()}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    `
+  };
+
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Contact Us email sent:', info.messageId);
+    return { success: true, messageId: info.messageId };
+  } catch (error) {
+    console.error('Email sending error:', error);
+    return { success: false, error: error.message };
+  }
+};
+
+module.exports = { sendPasswordResetCode, sendFeedback, contactUs };

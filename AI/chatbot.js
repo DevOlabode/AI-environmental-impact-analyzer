@@ -4,6 +4,8 @@ const impactAnalysis = `
 The AI Environmental Impact Analyzer is a web application that uses artificial intelligence to assess the environmental footprint of consumer products, evaluating factors like carbon emissions, water usage, and recyclability.
 Users can input product details through manual forms, receipt uploads with OCR processing, or voice commands, allowing for flexible data entry.
 The app generates detailed sustainability reports, provides AI-powered eco-friendly product recommendations, and offers a comprehensive dashboard for tracking environmental impact trends and achieving sustainability goals.
+The application was built using Node.js and Express for the backend, with a frontend developed in HTML, CSS, and JavaScript, ensuring a responsive and user-friendly interface.
+Also, it was made by a solo developer (who is still in high school) called Samuel Olabode, who is passionate about leveraging technology to promote environmental sustainability.
 `;
 
 const chatbotResponse = async (userMessage) => {

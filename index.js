@@ -45,6 +45,7 @@ const goalsRoutes = require('./routes/goals');
 const feedbackRoutes = require('./routes/feedback');
 const footerLinksRoutes = require('./routes/footerLinks');
 const chatbotRoutes = require('./routes/chatbot');
+const contactUsRoutes = require('./routes/contactUs');
 
 const sanitizeV5 = require('./utils/mongoSanitizev5');
 const { startDailyScheduler, triggerGoalStatusUpdate } = require('./utils/scheduler');
@@ -138,6 +139,7 @@ app.use('/goals', goalsRoutes);
 app.use('/feedback', feedbackRoutes);
 app.use('/', footerLinksRoutes);
 app.use('/chatbot', chatbotRoutes);
+app.use('/contact-us', contactUsRoutes);
 
 app.get('/', (req, res)=>{
     res.render('home')

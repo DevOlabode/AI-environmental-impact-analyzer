@@ -59,7 +59,7 @@
                         <h3 class="card-title mb-4" style="color: var(--primary-color); font-weight: bold;">
                             <i class="fas fa-envelope me-2"></i>Send us a Message
                         </h3>
-                        <form id="contactForm" novalidate>
+                        <form action="/contact-us" method="post" id="contactForm" class="needs-validation" novalidate>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
@@ -159,21 +159,18 @@
 
 <script>
 // Contact Form Validation
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const form = this;
+// document.getElementById('contactForm').addEventListener('submit', function(e) {
+//     e.preventDefault();
+//     const form = this;
 
-    if (!form.checkValidity()) {
-        e.stopPropagation();
-        form.classList.add('was-validated');
-        return;
-    }
+//     if (!form.checkValidity()) {
+//         e.stopPropagation();
+//         form.classList.add('was-validated');
+//         return;
+//     }
 
-    // Simulate form submission (frontend only)
-    alert('Thank you for your message! This is a demo - in a real application, this would be sent to our servers.');
-    form.reset();
-    form.classList.remove('was-validated');
-});
+//     form.classList.remove('was-validated');
+// });
 
 // AI Chatbot Functionality
 const chatContainer = document.getElementById('chatContainer');
