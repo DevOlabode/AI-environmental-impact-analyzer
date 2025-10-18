@@ -6,6 +6,8 @@ Users can input product details through manual forms, receipt uploads with OCR p
 The app generates detailed sustainability reports, provides AI-powered eco-friendly product recommendations, and offers a comprehensive dashboard for tracking environmental impact trends and achieving sustainability goals.
 The application was built using Node.js and Express for the backend, with a frontend developed in HTML, CSS, and JavaScript, ensuring a responsive and user-friendly interface.
 Also, it was made by a solo developer (who is still in high school) called Samuel Olabode, who is passionate about leveraging technology to promote environmental sustainability.
+
+Note : The app does not have a forgotten password feature, social media logins, or multi-language support at this time. coming soon!
 `;
 
 const chatbotResponse = async (userMessage) => {
