@@ -1,36 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing user.js');
     const editButton = document.querySelector('.edit-button');
-    const editForm = document.querySelector('#password');
+    const editForm = document.querySelector('#edit-profile');
     const passwordButton = document.querySelector('.password-reset-button');
-    const passwordForm = document.querySelector('#password-reset');
+    const passwordForm = document.querySelector('#password');
 
-    editButton.addEventListener('click', () => {
-        passwordForm.style.display = 'none';
-        editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
-    });
+    console.log('Elements found:', { editButton, editForm, passwordButton, passwordForm });
 
-    passwordButton.addEventListener('click', async () => {
-        editForm.style.display = 'none';
+    if (editButton && editForm && passwordButton && passwordForm) {
+        editButton.addEventListener('click', () => {
+            console.log('Edit button clicked');
+            editForm.style.display = editForm.style.display === 'block' ? 'none' : 'block';
+            passwordForm.style.display = 'none'; // Hide password form when edit is shown
+            console.log('Edit form display:', editForm.style.display);
+        });
 
-        try {
-            const response = await fetch('/send-reset-code', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-                passwordForm.style.display = 'block';
-                alert('A reset code has been sent to your email.');
-            } else {
-                alert('Failed to send reset code. Please try again later.');
-            }
-        } catch (error) {
-            console.error('Error sending reset code:', error);
-            alert('An error occurred. Please try again later.');
-        }
-    });
+        passwordButton.addEventListener('click', () => {
+            console.log('Password button clicked');
+            passwordForm.style.display = passwordForm.style.display === 'block' ? 'none' : 'block';
+            editForm.style.display = 'none'; // Hide edit form when password is shown
+            console.log('Password form display:', passwordForm.style.display);
+        });
+    } else {
+        console.error('Some elements not found');
+    }
 });

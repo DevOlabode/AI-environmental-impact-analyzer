@@ -82,33 +82,8 @@ module.exports.sendResetCode = async (req, res) => {
     }
 };
 
-module.exports.resetPassword = async (req, res) => {
-    try {
-        const { resetCode } = req.body;
-        const user = await User.findById(req.user._id);
-
-        if (!user || !user.resetCode || user.resetCode !== resetCode) {
-            req.flash('error', 'Invalid reset code');
-            return res.redirect('/profile');
-        }
-
-        if (user.resetCodeExpires < new Date()) {
-            req.flash('error', 'Reset code has expired');
-            return res.redirect('/profile');
-        }
-
-        user.resetCode = null;
-        user.resetCodeExpires = null;
-        await user.save();
-
-        req.flash('success', 'Code verified. You can now change your password.');
-        res.render('user/passwordReset'); 
-    } catch (error) {
-        console.error('Error verifying reset code:', error);
-        req.flash('error', 'An error occurred');
-        res.redirect('/profile');
-    }
-};
+// module.exports.resetPassword = async (req, res) => {
+// };
 
 module.exports.updatePassword = async (req, res) => {
     const user = await User.findById(req.user._id);
