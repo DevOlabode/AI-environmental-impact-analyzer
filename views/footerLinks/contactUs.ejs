@@ -62,22 +62,22 @@
                         <form action="/contact-us" method="post" id="contactForm" class="needs-validation" novalidate>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your Full Name" required>
                                 <div class="invalid-feedback">Please provide your name.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email" required>
                                 <div class="invalid-feedback">Please provide a valid email.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control" id="subject" name="subject" required>
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter The Subject" required>
                                 <div class="invalid-feedback">Please provide a subject.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter Your Message" required></textarea>
                                 <div class="invalid-feedback">Please provide a message.</div>
                             </div>
                             <button type="submit" class="btn btn-primary w-100" style="border-radius: 50px; font-weight: 600;">
@@ -158,20 +158,6 @@
 </section>
 
 <script>
-// Contact Form Validation
-// document.getElementById('contactForm').addEventListener('submit', function(e) {
-//     e.preventDefault();
-//     const form = this;
-
-//     if (!form.checkValidity()) {
-//         e.stopPropagation();
-//         form.classList.add('was-validated');
-//         return;
-//     }
-
-//     form.classList.remove('was-validated');
-// });
-
 // AI Chatbot Functionality
 const chatContainer = document.getElementById('chatContainer');
 const chatInput = document.getElementById('chatInput');
