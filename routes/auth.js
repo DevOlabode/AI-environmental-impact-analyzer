@@ -16,6 +16,8 @@ router.post('/login', storeReturnTo, loginAuthenticate, authController.login);
 
 router.get('/logout', catchAsync(authController.logout));
 
+router.delete('/delete-account', isLoggedIn, catchAsync(authController.deleteAccount));
+
 router.post('/send-reset-code', isLoggedIn, catchAsync(authController.sendResetCode));
 
 router.post('/reset-password', isLoggedIn, catchAsync(authController.resetPassword));

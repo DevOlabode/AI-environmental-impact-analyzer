@@ -1,4 +1,8 @@
 const User = require('../models/user');
+const Product = require('../models/product');
+const Goal = require('../models/goals');
+const Impact = require('../models/impact');
+
 
 const { sendPasswordResetCode } = require('../utils/emailService');
 
@@ -35,6 +39,17 @@ module.exports.logout = async(req, res)=>{
         req.flash('success', "Successfully Signed Out");
         res.redirect('/')
     })
+};
+
+module.exports.deleteAccount = async(req, res)=>{
+    const userId = req.user._id;
+
+    await Product.deleteMany({ owner : userId });
+    await Goal.deleteMany({ user: userId });
+    await User.findByIdAndDelete(userId);
+
+    req.flash('success', 'Your account and all associated data have been deleted.');
+    res.redirect('/');
 };
 
 const generateResetCode = () => {

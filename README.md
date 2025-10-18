@@ -14,7 +14,7 @@ A comprehensive web application that leverages AI to analyze the environmental f
 
 - **AI-Powered Analysis**: Utilizes advanced machine learning algorithms to assess environmental impact including carbon footprint, water usage, and recyclability.
 - **Product Recommendations**: AI-generated eco-friendly alternatives based on category, material, price, and sustainability score, displayed compactly in the product details section on the show page.
-- **User Authentication**: Secure user accounts with Passport.js for personalized product tracking, including password reset via email verification.
+- **User Authentication**: Secure user accounts with Passport.js for personalized product tracking, including password reset via email verification and account deletion.
 - **Product Input Methods**:
   - Manual form input for product details
   - Receipt upload with OCR processing using Tesseract.js
@@ -295,6 +295,7 @@ AI-environmental-impact-analyzer/
 - `GET /dashboard` - User dashboard
 - `GET /user/profile` - User profile
 - `PUT /user/profile` - Update profile
+- `DELETE /delete-account` - Delete user account
 - `GET /voice-input` - Voice input page
 
 ## Development & Deployment
