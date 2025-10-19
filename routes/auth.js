@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { loginAuthenticate, storeReturnTo, isLoggedIn } = require('../middleware')
+const { loginAuthenticate, storeReturnTo, isLoggedIn, redirectIfLoggedIn } = require('../middleware')
 
 const catchAsync = require('../utils/catchAsync');
 const authController = require('../controllers/auth');
@@ -10,7 +10,7 @@ router.get('/register', authController.registerForm);
 
 router.post('/register', catchAsync(authController.register));
 
-router.get('/login', authController.loginForm);
+router.get('/login', redirectIfLoggedIn, authController.loginForm);
 
 router.post('/login', storeReturnTo, loginAuthenticate, authController.login);
 
