@@ -6,7 +6,7 @@ const { loginAuthenticate, storeReturnTo, isLoggedIn, redirectIfLoggedIn } = req
 const catchAsync = require('../utils/catchAsync');
 const authController = require('../controllers/auth');
 
-router.get('/register', authController.registerForm);
+router.get('/register', redirectIfLoggedIn, authController.registerForm);
 
 router.post('/register', catchAsync(authController.register));
 
